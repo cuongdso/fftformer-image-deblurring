@@ -6,8 +6,8 @@ Repository này hỗ trợ nghiên cứu, tái hiện có kiểm chứng và ph�
 
 ## Đọc trước khi thay đổi
 
-1. `README.md` và `docs/architecture.md`.
-2. `docs/project-status.md`, `docs/ownership.md`, và `CONTRIBUTING.md`.
+1. `INSTRUCTION.md`, `README.md` và `docs/architecture.md`.
+2. `docs/project-status.md`, `docs/ownership.md`, `docs/backlog.md` và `CONTRIBUTING.md`.
 3. Tài liệu module trong `docs/modules/` và contract tại `docs/contracts.md` tương ứng với task.
 4. Khi làm baseline/reproduction: `docs/upstream-audit.md` và `docs/reproduction/`.
 
@@ -31,7 +31,7 @@ Không ghi mâu thuẫn với trạng thái chuẩn. Thông tin chưa kiểm ch�
 
 ## Ownership và Git workflow
 
-Ownership theo workstream nằm ở `docs/ownership.md`. Tech Lead là authority cuối cùng cho contract chung, dependency liên module và scope task; agent không đợi consensus để phủ định một ADR/contract đã Tech Lead chốt, nhưng phải báo bằng evidence nếu source mới mâu thuẫn. Làm việc trên feature branch ngắn hạn từ `main`: `feat/model-*`, `feat/data-*`, `feat/inference-*`, `feat/evaluation-*`, `fix/*`, `docs/*`, `chore/*`, `experiment/*`. Không force-push `main`, không rewrite/xóa branch của người khác.
+Ownership theo workstream nằm ở `docs/ownership.md`; cách nhận task và handoff chuẩn nằm ở `INSTRUCTION.md`. Tech Lead là authority cuối cùng cho contract chung, dependency liên module và scope task; agent không đợi consensus để phủ định một ADR/contract đã Tech Lead chốt, nhưng phải báo bằng evidence nếu source mới mâu thuẫn. Làm việc trên feature branch ngắn hạn từ `main`: `feat/model-*`, `feat/data-*`, `feat/inference-*`, `feat/evaluation-*`, `fix/*`, `docs/*`, `chore/*`, `experiment/*`. Không force-push `main`, không rewrite/xóa branch của người khác.
 
 ## Kiểm tra
 
