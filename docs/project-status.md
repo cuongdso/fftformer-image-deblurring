@@ -10,12 +10,18 @@
 | Workstream, ownership, contracts | DONE (thiết kế `PROPOSED`) | `docs/ownership.md`, `docs/contracts.md` |
 | Tutorial reproduction | DONE (audit-derived, chưa chạy) | `docs/reproduction/` |
 | Tooling không GPU | DONE | `scripts/check_env.py`, unit test |
-| CI lightweight | CONFIGURED, chưa quan sát run | `.github/workflows/ci.yml` |
+| CI lightweight | CONFIGURED (M0); run success sau transfer | `.github/workflows/ci.yml`; Actions run `43360793495` (commit `fd918794`) |
 | Baseline inference | NOT RUN | không tải/chạy checkpoint ở M0 |
 | Benchmark/reproduction | NOT RUN | không có dataset hoặc metric group |
 | Training/fine-tuning/demo | NOT STARTED | ngoài phạm vi M0 |
 
 `DONE` mô tả artifact M0 đã tồn tại, không đồng nghĩa inference/benchmark đã thành công. Chỉ cập nhật bảng này cùng evidence (command, log, PR/commit) khi trạng thái thay đổi.
+
+## M1.0 — Contract alignment
+
+- **Trạng thái:** `IN REVIEW` (candidate v0.1); chưa có owner/reviewer chính thức, chưa contract nào `APPROVED`.
+- **Evidence thiết kế:** [docs/contracts.md](contracts.md), [M1.0 review](m1-interface-review.md) và [M1 backlog](backlog.md).
+- **Scope:** giải vòng dependency, chuẩn hóa ranh giới model/data/inference/evaluation và chuẩn bị review chéo. Đây không phải inference/training hoặc benchmark đã chạy.
 
 ## Milestone đề xuất
 
