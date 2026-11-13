@@ -4,7 +4,7 @@
 
 Luôn tạo branch ngắn hạn từ `main` mới nhất. Dùng một trong các prefix: `feat/model-*`, `feat/data-*`, `feat/inference-*`, `feat/evaluation-*`, `fix/*`, `docs/*`, `chore/*`, `experiment/*`. Không dùng branch dài hạn theo tên người.
 
-Mỗi Pull Request (PR) cần liên kết issue/task, nêu workstream, phạm vi file, ảnh hưởng API/upstream, lệnh test đã chạy và kết quả thực tế, hạn chế và reviewer. Không tự merge thay reviewer; không force push hoặc rewrite lịch sử `main`.
+Mỗi Pull Request (PR) cần nêu task ID trong `docs/backlog.md`, workstream, phạm vi file, ảnh hưởng API/upstream, lệnh test đã chạy và kết quả thực tế, hạn chế và reviewer. Không tự merge thay reviewer; không force push hoặc rewrite lịch sử `main`.
 
 ## Baseline và bản quyền
 
@@ -16,4 +16,4 @@ M0 không tự cấu hình GitHub branch protection vì không xác minh đượ
 
 ## Review và handoff
 
-Reviewer đối chiếu scope với `docs/ownership.md` và contract. Thay đổi shared interface cần issue/đồng thuận liên workstream trước khi merge. Xem mẫu handoff tại `docs/onboarding.md`.
+Reviewer đối chiếu scope với `docs/ownership.md` và contract. Thay đổi shared interface cần thống nhất liên workstream và quyết định của Tech Lead trước khi merge. Xem mẫu handoff tại `docs/onboarding.md`.

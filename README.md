@@ -2,7 +2,7 @@
 
 Repository học thuật của nhóm cho bài tập lớn môn Xử lý ảnh, tập trung vào việc tìm hiểu và thực nghiệm phương pháp **FFTformer** cho bài toán khử mờ ảnh (*image deblurring*).
 
-> Trạng thái: **M0 — Repository Foundation**. Repository đã có baseline upstream được pin, quy tắc cộng tác và tooling kiểm tra môi trường. Chưa tái hiện benchmark, huấn luyện, hay công bố kết quả thực nghiệm của nhóm.
+> Trạng thái: **M1.0 — Contract baseline approved**. Repository đã có baseline upstream được pin, quy tắc cộng tác, tooling kiểm tra môi trường và contracts v1.0. Chưa triển khai module nhóm, tái hiện benchmark, huấn luyện, hay công bố kết quả thực nghiệm.
 
 ## Bài toán Image Deblurring
 
@@ -35,7 +35,7 @@ Các mô tả trên là ghi chú nhập môn dựa trên công trình gốc, kh�
 Khởi tạo đầy đủ checkout:
 
 ```bash
-git clone --recurse-submodules git@github.com:phanmanhcuongdev/fftformer-image-deblurring.git
+git clone --recurse-submodules https://github.com/cuongdso/fftformer-image-deblurring.git
 # Nếu đã clone mà thiếu submodule:
 git submodule update --init --recursive
 ```
@@ -46,11 +46,12 @@ git submodule update --init --recursive
 .
 ├── README.md
 ├── AGENTS.md
+├── INSTRUCTION.md             # nhận workstream/task và quy tắc coding agent
 ├── CONTRIBUTING.md
 ├── LICENSE
 ├── .gitignore
 ├── .editorconfig
-├── .github/                   # PR, issue templates và CI nhẹ
+├── .github/                   # PR template và CI nhẹ
 ├── third_party/FFTformer/     # official baseline (Git submodule, pinned)
 ├── src/fftformer_lab/         # group implementation (chưa có model ở M0)
 ├── configs/                   # contract/config examples trong tương lai
@@ -78,4 +79,4 @@ FFTformer là công trình gốc của Lingshun Kong, Jiangxin Dong, Jianjun Ge,
 
 ## Bắt đầu
 
-Đọc theo thứ tự [AGENTS.md](AGENTS.md), [onboarding](docs/onboarding.md), [architecture](docs/architecture.md), [project status](docs/project-status.md), và tài liệu của workstream tương ứng trong `docs/modules/`. Trước khi thử baseline, đọc [upstream audit](docs/upstream-audit.md) và tutorial [reproduction](docs/reproduction/). Các hướng dẫn đó phân biệt nội dung đã audit với nội dung chưa chạy thực nghiệm tại M0.
+Đọc theo thứ tự [AGENTS.md](AGENTS.md), [INSTRUCTION.md](INSTRUCTION.md), [onboarding](docs/onboarding.md), [architecture](docs/architecture.md), [project status](docs/project-status.md), và tài liệu của workstream tương ứng trong `docs/modules/`. Trước khi thử baseline, đọc [upstream audit](docs/upstream-audit.md) và tutorial [reproduction](docs/reproduction/). Các hướng dẫn đó phân biệt nội dung đã audit với nội dung chưa chạy thực nghiệm.

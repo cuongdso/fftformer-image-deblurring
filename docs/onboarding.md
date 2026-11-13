@@ -3,14 +3,16 @@
 ## Quy trình bắt đầu task
 
 1. Clone với submodule: `git clone --recurse-submodules …`, hoặc chạy `git submodule update --init --recursive`.
-2. Đọc `AGENTS.md`, `README.md`, `docs/architecture.md`, `docs/project-status.md` và `docs/ownership.md`.
+2. Đọc `AGENTS.md`, `INSTRUCTION.md`, `README.md`, `docs/architecture.md`, `docs/project-status.md`, `docs/ownership.md` và `docs/backlog.md`.
 3. Đọc `docs/modules/<module>.md` và `docs/contracts.md` cho phạm vi task; với upstream đọc thêm audit/reproduction.
-4. Xác nhận issue/task ID, owner, reviewer, dependency và out-of-scope. Không sửa khi scope/interface còn mơ hồ.
+4. Xác nhận task ID, owner, reviewer, dependency và out-of-scope; cập nhật Owner trong `docs/ownership.md` sau khi nhóm đã thống nhất workstream. Không sửa khi scope/interface còn mơ hồ.
 5. Tạo branch từ `main` mới nhất bằng prefix đúng. Kiểm tra code/test hiện có trước khi sửa.
 6. Chạy `python scripts/check_env.py`, sau đó các test liên quan. Không tuyên bố test không chạy là PASS.
 7. Cập nhật docs/contract/experiment metadata bị ảnh hưởng. Mở PR theo template và chờ review.
 
 ## Prompt giao việc ngắn cho agent
+
+Mẫu đầy đủ có thể copy nằm trong [INSTRUCTION.md](../INSTRUCTION.md#quick-start-prompt-for-a-coding-agent); dùng sau khi nhóm đã thống nhất workstream và cập nhật Owner.
 
 ```text
 Task ID: <id>; workstream: <WS1..WS4>; branch: <prefix/name>.

@@ -8,4 +8,4 @@ Phân loại bắt buộc:
 - **Group-measured:** command/evidence và protocol có thể truy vết.
 - **UNVERIFIED:** không dùng để so sánh/kết luận.
 
-Thay đổi architecture, data protocol hoặc evaluation protocol tạo experiment/issue riêng và không ghi đè baseline.
+Thay đổi architecture, data protocol hoặc evaluation protocol phải được ghi thành experiment/task riêng và không ghi đè baseline.

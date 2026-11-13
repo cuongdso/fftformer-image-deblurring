@@ -1,6 +1,8 @@
 # WS1 — Model & Architecture
 
-**Owner/reviewer:** TBD. **M0:** không có code model nhóm.
+**Trạng thái nhận:** `OPEN`; Owner/reviewer: TBD. **Hiện trạng:** chưa có code model nhóm.
+
+Entry task là `M1-WS1-02`; strict checkpoint loader là `M1-WS1-03`. Dependency và acceptance criteria chuẩn ở `docs/backlog.md`; hướng dẫn nhận task/handoff ở `INSTRUCTION.md`.
 
 Nghiên cứu `third_party/FFTformer/basicsr/models/archs/fftformer_arch.py` theo pin, đối chiếu paper trước khi viết adapter. Phạm vi gồm mapping FSAS/DFFN/encoder/decoder, shape checks, parameter inspection và checkpoint compatibility. Không thay default architecture hoặc load non-strict để che mismatch.
 

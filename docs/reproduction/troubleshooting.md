@@ -11,4 +11,4 @@ Các mục dưới đây xuất phát từ static audit upstream; chúng không 
 | Shape/rearrange/padding error | DFFN/FSAS patch 8×8; test pad bội số 32 | lưu input H×W, giữ policy upstream trong baseline; WS3/WS1 thêm test trước wrapper |
 | Out of memory | transformer/FFT và config train 8 GPU | giảm scope chỉ trong experiment riêng có metadata; không đổi baseline architecture im lặng |
 
-Khi mở issue, đính kèm command, commit SHA, traceback đã lọc secrets, Python/PyTorch/CUDA/GPU, input layout/shape và checkpoint/dataset identity.
+Khi báo lỗi trong nhóm hoặc PR, đính kèm command, commit SHA, traceback đã lọc secrets, Python/PyTorch/CUDA/GPU, input layout/shape và checkpoint/dataset identity.
