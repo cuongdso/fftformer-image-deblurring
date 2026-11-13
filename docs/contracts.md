@@ -48,13 +48,13 @@
 
 - **Status:** `APPROVED`.
 - **Provider → consumer:** WS4 → experiment metadata và các workstream cần đối chiếu kết quả; WS2/WS3 cung cấp sample/prediction đầu vào.
-- **Input:** prediction và GT đã được xác nhận alignment, protocol identifier có version/source, metric configuration (bao gồm color space/range/crop/quantization). Mỗi metric được tính theo từng sample; NCHW batch phải được tách thành sample trước khi gọi evaluator upstream.
+- **Input:** prediction và GT đã được xác nhận alignment, protocol identifier có version/source, metric configuration (bao gồm color space/range/crop/quantization). Mỗi metric được tính theo từng sample; NCHW batch phải được tách thành sample trước khi gọi evaluator upstream. Với profile `upstream-basicsr` dùng nhánh `use_image=True`, adapter WS4 phải chuyển từng tensor RGB `CHW`/`NCHW` qua `tensor2img` thành `ndarray` HWC trước khi gọi metric, chọn và ghi rõ `rgb2bgr`, rồi áp dụng cùng representation cho prediction và GT. Không truyền NCHW trực tiếp cho `calculate_psnr`/`calculate_ssim`.
 - **Output:** `EvaluationResult` gồm PSNR/SSIM (nếu tính và theo protocol đã xác minh), số sample hợp lệ/bị loại, crop/color/range/quantization policy, commit/config/checkpoint metadata; phân biệt `paper-reported`, `group-measured` và `UNVERIFIED`.
 - **Preconditions:** GT tồn tại; cùng shape/colorspace/range theo protocol. Không tính metric cho input không GT.
 - **Errors:** missing GT, shape mismatch, unknown protocol, non-finite metric input.
 - **Test chấp nhận:** deterministic fixture + reference calculation; đối chiếu official protocol trước khi gắn nhãn reproduction. `PLANNED`.
 
-**Profile upstream đã audit:** YAML GoPro/RealBlur đặt `crop_border: 0`, `test_y_channel: false`; BasicSR `calculate_psnr`/`calculate_ssim` nhận HWC hoặc CHW và tự xử lý tensor batch size 1. `calculate_ssim` mặc định chọn đường `ssim3d=True` có CUDA call, do đó không được coi là CPU-safe. `realblur-official` là protocol riêng cho claim RealBlur và không được thay thế bằng profile này.
+**Profile upstream đã audit:** YAML GoPro/RealBlur đặt `crop_border: 0`, `test_y_channel: false`. `calculate_psnr`/`calculate_ssim` khai báo `input_order` `HWC` hoặc `CHW`, nhưng nhánh validation `use_image=True` của upstream gọi `tensor2img` trước; hàm đó nhận tensor RGB và, khi `rgb2bgr=True`, trả `ndarray` HWC BGR `uint8`. Vì vậy adapter phải dùng representation/profile được ghi nhận rõ, không suy diễn rằng mọi tensor CHW/NCHW được metric xử lý nguyên trạng. `calculate_ssim` mặc định chọn đường `ssim3d=True` có CUDA call, do đó không được coi là CPU-safe. `realblur-official` là protocol riêng cho claim RealBlur và không được thay thế bằng profile này.
 
 ## C-06 Configuration
 

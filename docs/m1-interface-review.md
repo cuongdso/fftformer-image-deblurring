@@ -10,7 +10,7 @@
 | C-02 Image I/O | WS2 → WS1, WS3, WS4 | RGB `float32` `[0,1]`; single-image CHW `[3,H,W]`; model-facing batch NCHW `[N,3,H,W]`. Conversion explicit; reflection pad right/bottom tới bội 32 theo upstream test, crop về H×W. Trường hợp ảnh quá nhỏ cần policy/error rõ. |
 | C-03 Dataset | WS2 → WS3, WS4 | Manifest ID ổn định, cặp input/GT 1:1 khi paired, có ảnh không GT; deterministic ordering; không resize/crop ngầm. Layout upstream test `test/input` và `test/target` chỉ là adapter option. |
 | C-04 Inference | WS3 → WS4 | Nhận model + sample, trả restored image đúng H×W, checkpoint/device/padding/time metadata khi đo; tách việc chạy inference khỏi phần ghi ảnh; không tự claim CPU support. |
-| C-05 Evaluation | WS4 ← WS2, WS3 | Metric yêu cầu aligned GT; có ID phiên bản protocol/dataset, crop/color/range/quantization. PSNR/SSIM theo từng protocol được audit; RealBlur cần kiểm code đánh giá chính thức. |
+| C-05 Evaluation | WS4 ← WS2, WS3 | Metric yêu cầu aligned GT; có ID phiên bản protocol/dataset, crop/color/range/quantization. Profile `upstream-basicsr` phải chuyển tensor sang HWC qua adapter và ghi `rgb2bgr`; PSNR/SSIM theo từng protocol được audit; RealBlur cần kiểm code đánh giá chính thức. |
 | C-06 Config | WS4 → WS1–WS3 | Schema versioned, path resolve tại runtime (Windows/Linux), checkpoint/dataset reference, metadata đủ để lặp lại thí nghiệm, không secret/path máy cá nhân trong file commit. |
 
 **Các lựa chọn chưa được kiểm chứng:** checkpoint format/strict load thực, CPU inference, tương thích Python/PyTorch, protocol đánh giá RealBlur, policy ảnh nhỏ và thời gian GPU. Không đánh dấu `PASS` trước khi có test.

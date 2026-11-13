@@ -12,12 +12,13 @@ M1.0 đã chuẩn bị candidate v0.1 nhưng chờ cross-workstream review. Tech
 
 | Evidence | Kết luận dùng cho contract |
 | --- | --- |
-| `test.py`: PIL + `torchvision.transforms.functional.to_tensor` | Input test là RGB tensor `float32` range `[0,1]`; DataLoader tạo batch NCHW. |
+| `test.py`: PIL + `torchvision.transforms.functional.to_tensor`; `fftformer()` mặc định 3 input/output channels | `to_tensor` đưa ảnh PIL thông thường vào tensor `float32` `[0,1]`; DataLoader tạo batch NCHW và model mặc định ba kênh. Script không gọi `convert('RGB')`, nên RGB là chuẩn hóa có chủ đích của group contract, không phải conversion upstream đã xác minh. |
 | `test.py`: `pad(input_img, (0,w_n,0,h_n), mode='reflect')`, crop `:h,:w` | Baseline pad cạnh phải/dưới reflection tới bội 32, rồi khôi phục H×W gốc. |
 | `test.py`: `torch.load`, `load_state_dict(..., strict=True)`, `torch.device('cuda')` | Baseline strict-load và CUDA-centric; group adapter phải không che mismatch, CPU support không được suy diễn. |
 | `test.py`: `<data_dir>/test/input` và `target` theo filename | Đây là convention adapter official test, không phải layout bắt buộc của mọi dataset nhóm. |
 | `options/train/{GoPro,Realblur}.yml` | Validation đặt `crop_border: 0`, `test_y_channel: false` cho PSNR/SSIM. |
-| `basicsr/metrics/psnr_ssim.py` | Metric chấp nhận CHW/HWC, tensor batch 1; SSIM mặc định đi qua CUDA (`ssim3d=True`). |
+| `basicsr/models/image_restoration_model.py` + `basicsr/utils/img_util.py` | Nhánh validation `use_image=True` chuyển tensor RGB qua `tensor2img`; `rgb2bgr=True` tạo `ndarray` HWC BGR `uint8` trước khi gọi metric. |
+| `basicsr/metrics/psnr_ssim.py` | Metric khai báo `input_order` CHW/HWC; SSIM mặc định đi qua CUDA (`ssim3d=True`). Tensor không được coi là input interchange nguyên trạng ngoài adapter đã xác định. |
 
 ## Decisions
 
@@ -25,7 +26,7 @@ M1.0 đã chuẩn bị candidate v0.1 nhưng chờ cross-workstream review. Tech
 2. C-02/C-03/C-04 chuẩn hóa RGB `float32` `[0,1]`, sample `CHW [3,H,W]`, model batch `NCHW [N,3,H,W]`; conversion và padding metadata luôn explicit. Không tự convert grayscale/alpha hay BGR ngầm.
 3. Dataset nhóm dùng manifest/sample ID deterministic và có thể không có GT. Official `test/input` + `test/target` chỉ là one adapter profile.
 4. C-04 trả một result mỗi sample; batch orchestration trả sequence theo thứ tự để không che sample metadata/padding.
-5. C-05 tách hai evaluator profile: `upstream-basicsr` cho config/code audit và `realblur-official` cho claim RealBlur. Chúng không thay thế nhau; không khẳng định reproduction khi chưa chạy protocol tương ứng.
+5. C-05 tách hai evaluator profile: `upstream-basicsr` cho config/code audit và `realblur-official` cho claim RealBlur. Với nhánh `use_image=True` của upstream, WS4 chuyển RGB CHW/NCHW qua `tensor2img`, ghi `rgb2bgr` và dùng cùng HWC representation cho prediction/GT. Chúng không thay thế nhau; không khẳng định reproduction khi chưa chạy protocol tương ứng.
 6. C-06 dùng config versioned và runtime path resolution; không commit path máy cá nhân/secret. Đây là quyết định nhóm, không phải claim upstream hỗ trợ cross-platform.
 
 ## Consequences
