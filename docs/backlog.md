@@ -1,6 +1,6 @@
 # Backlog M1 — triển khai theo dependency không vòng lặp
 
-Các task implementation Wave C là `PLANNED` cho đến khi được nhận trên GitHub Issue hoặc Tech Lead xác nhận. Tech Lead đã chốt contract v1.0; trạng thái tự nhận và Owner/Reviewer nằm ở `docs/ownership.md` và phải được lặp lại trong từng implementation PR. Hướng dẫn đầy đủ cho người/agent nằm ở `INSTRUCTION.md`.
+Các task implementation Wave C là `PLANNED` cho đến khi được nhận trên GitHub Issue hoặc Tech Lead xác nhận. Bốn Issue tự nhận không được tạo bởi branch này: nếu chưa có Issue canonical, `OPEN` không cho phép bắt đầu code; thành viên tạo Issue theo template nếu có quyền hoặc chờ xác nhận có thể dẫn chiếu của Tech Lead. Tech Lead đã chốt contract v1.0; trạng thái tự nhận và Owner/Reviewer nằm ở `docs/ownership.md` và phải được lặp lại trong từng implementation PR. Hướng dẫn đầy đủ cho người/agent nằm ở `INSTRUCTION.md`.
 
 ## Wave A — nghiên cứu/thiết kế song song (evidence cho v1.0)
 

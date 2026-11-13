@@ -1,6 +1,6 @@
 # Ownership theo workstream
 
-GitHub usernames và tên thành viên chưa được cung cấp, trừ Tech Lead `cuongdso`. Owner/Reviewer chỉ được cập nhật sau khi thành viên tự nhận task qua GitHub Issue hoặc xác nhận với Tech Lead. Không có `CODEOWNERS` để tránh bịa danh tính hoặc chặn PR sai. Quy trình nhận task nằm ở [INSTRUCTION.md](../INSTRUCTION.md).
+GitHub usernames và tên thành viên chưa được cung cấp, trừ Tech Lead `cuongdso`. Owner/Reviewer chỉ được cập nhật sau khi thành viên tự nhận task qua GitHub Issue hoặc xác nhận với Tech Lead. Bốn Issue tự nhận chưa được tạo bởi branch này; khi Issue còn thiếu, thành viên phải tạo Issue theo template nếu có quyền hoặc chờ xác nhận có thể dẫn chiếu của Tech Lead **trước khi code**. Không có `CODEOWNERS` để tránh bịa danh tính hoặc chặn PR sai. Quy trình nhận task nằm ở [INSTRUCTION.md](../INSTRUCTION.md).
 
 | Workstream | Trạng thái nhận | Phạm vi sở hữu | Boundary/interface chính | Owner | Reviewer | Entry task |
 | --- | --- | --- | --- | --- | --- | --- |

@@ -45,6 +45,15 @@ Không sao chép C-01..C-06 vào task description hay source code như một ngu
 
 `OPEN` không có nghĩa hai người được làm cùng một workstream. Thành viên chưa có phân công chọn **một** workstream OPEN, đọc issue/backlog, rồi comment nhận task trên GitHub Issue hoặc báo Tech Lead. Chỉ sau xác nhận mới cập nhật Owner trong [ownership](docs/ownership.md) và/hoặc issue. WS4 là reservation ưu tiên của Tech Lead, không là tuyên bố rằng thành viên khác đã đồng ý hay đã được gán việc.
 
+### Gate khi GitHub Issues chưa có
+
+Branch tài liệu này **không tạo bốn Issue tự nhận**; nếu repository chưa có Issue canonical cho WS1–WS4 thì `OPEN` chỉ có nghĩa workstream có thể được chọn, **không tự cấp quyền bắt đầu code**. Trước khi tạo feature branch, thành viên bắt buộc làm một trong hai đường có traceability:
+
+1. Nếu Issue của WS/task đã tồn tại: đọc mô tả hiện tại, comment nhận task ID và chờ Tech Lead xác nhận owner/reviewer.
+2. Nếu Issue chưa tồn tại: tạo Issue theo feature template với tiêu đề/task ID trong [backlog](docs/backlog.md) **nếu có quyền**, hoặc gửi task ID + WS cho Tech Lead và chờ xác nhận bằng văn bản. Tech Lead tạo/xác nhận Issue rồi cập nhật owner khi cần.
+
+Không bắt đầu implementation chỉ từ một trao đổi miệng hoặc vì thấy trạng thái `OPEN`; phải có Issue comment hoặc xác nhận Tech Lead có thể dẫn chiếu trong PR. Sau đó mới kiểm tra không có người nhận trùng, tạo branch và bắt đầu task. Điều này là bắt buộc cho WS1–WS3; WS4 vẫn chỉ do Tech Lead mở scope hoặc ủy quyền rõ ràng.
+
 Trước khi code, người nhận phải xác định: task ID; contracts; dependency đã hoàn thành; file/module được phép sửa; reviewer role; acceptance criteria; out-of-scope. Nếu dependency chưa sẵn sàng, dùng fixture/mock chỉ khi contract cho phép và ghi rõ đó không phải FFTformer inference thật; nếu không thể làm an toàn, ghi blocker trong issue/PR cho Tech Lead.
 
 Handoff tối thiểu gồm: task ID, files/module đã đổi, interface thay đổi (`Không` nếu không có), commands và kết quả test thực tế, limitation/`UNVERIFIED`, commit SHA, PR URL và dependency/next step. Không nghiệm thu chỉ bằng mô tả hoặc README.
