@@ -1,0 +1,5 @@
+No project-wide license has been selected for this student-group repository.
+
+This file does not grant permission to copy, modify, or redistribute the group-owned material in this repository. The repository maintainer must choose and document a project license before making such a grant.
+
+The `third_party/FFTformer` submodule is separate third-party material and remains subject to its own MIT License and copyright notice. See `docs/decisions/0001-upstream-baseline.md` and the submodule's `license` file.

@@ -6,7 +6,7 @@
 
 ## Phạm vi nghiên cứu
 
-Trong giai đoạn M0, phạm vi chỉ gồm đọc tài liệu, xây dựng ghi chú và chuẩn bị repository. Chưa có mã mô hình, dataset, weights, huấn luyện, đánh giá benchmark hay ứng dụng minh họa.
+Trong giai đoạn M0, phạm vi gồm đọc/audit tài liệu và official source, pin baseline submodule, xây dựng documentation, contracts và tooling collaboration. Chưa có mã mô hình của nhóm, dataset mới, weights mới, huấn luyện, đánh giá benchmark hay ứng dụng minh họa.
 
 ## Đầu vào và đầu ra dự kiến
 

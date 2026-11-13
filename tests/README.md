@@ -1,3 +1,3 @@
-# Kiểm thử
+# Tests
 
-Thư mục này được dành cho kiểm thử khi có mã nguồn. M0 chưa có implementation để kiểm thử.
+M0 có test cho tooling không cần GPU. Các test model/checkpoint/inference chỉ được thêm khi implementation và fixtures hợp lệ tồn tại; chúng cần marker riêng và không chạy mặc định trên CI.

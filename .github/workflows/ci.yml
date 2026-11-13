@@ -1,0 +1,26 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  lightweight-checks:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11"]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Check repository whitespace
+        run: git diff --check HEAD^ HEAD
+      - name: Compile group tooling and package
+        run: python -m compileall -q scripts src
+      - name: Run non-GPU unit tests
+        run: python -m unittest discover -s tests -p "test_*.py"

@@ -1,3 +1,22 @@
-# Thực nghiệm
+# Quản lý thực nghiệm
 
-Thư mục này sẽ lưu tài liệu và cấu hình thực nghiệm có thể tái lập ở các giai đoạn sau. M0 chưa tải dataset, weights, chưa huấn luyện và chưa có kết quả benchmark.
+Mỗi experiment trong tương lai tạo thư mục `experiments/<experiment-id>/` với `metadata.md` dựa trên schema dưới đây; không commit dataset, checkpoints, ảnh output hoặc log lớn.
+
+```text
+Experiment ID:
+Group commit SHA:
+Upstream baseline SHA: 01306b5d4072146a011c8c6e9d4927cf4607f1d5
+Model/checkpoint (source + checksum if available):
+Dataset (source + version/license):
+Configuration:
+Python / PyTorch / CUDA:
+Hardware:
+Random seed:
+Evaluation protocol:
+Metrics (measured only):
+Runtime/memory (measured only):
+Artifacts stored outside Git:
+Failure cases / limitations:
+```
+
+Không ghi PSNR/SSIM, runtime hay memory khi chưa đo bằng protocol được ghi rõ.

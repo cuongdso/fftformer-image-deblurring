@@ -23,15 +23,16 @@ dist/
 # Jupyter
 .ipynb_checkpoints/
 
-# Datasets and large image assets
-data/
+# Datasets and large image assets (keep directory documentation tracked)
+data/*
+!data/README.md
 datasets/
-**/data/
 **/datasets/
 *.lmdb
 
-# Checkpoints and model weights
-checkpoints/
+# Checkpoints and model weights (keep directory documentation tracked)
+checkpoints/*
+!checkpoints/README.md
 weights/
 pretrained/
 *.ckpt
@@ -39,9 +40,10 @@ pretrained/
 *.pt
 *.onnx
 
-# Experiment outputs, logs, and intermediates
+# Experiment outputs, logs, and intermediates (keep directory documentation tracked)
 logs/
-results/
+results/*
+!results/README.md
 outputs/
 runs/
 tensorboard/

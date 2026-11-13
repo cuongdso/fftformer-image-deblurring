@@ -2,7 +2,7 @@
 
 Repository học thuật của nhóm cho bài tập lớn môn Xử lý ảnh, tập trung vào việc tìm hiểu và thực nghiệm phương pháp **FFTformer** cho bài toán khử mờ ảnh (*image deblurring*).
 
-> Trạng thái: **Initial Setup / M0**. Repository hiện chỉ thiết lập tài liệu và cấu trúc nền tảng; chưa triển khai mô hình, huấn luyện, hay công bố kết quả thực nghiệm.
+> Trạng thái: **M0 — Repository Foundation**. Repository đã có baseline upstream được pin, quy tắc cộng tác và tooling kiểm tra môi trường. Chưa tái hiện benchmark, huấn luyện, hay công bố kết quả thực nghiệm của nhóm.
 
 ## Bài toán Image Deblurring
 
@@ -28,23 +28,43 @@ Các mô tả trên là ghi chú nhập môn dựa trên công trình gốc, kh�
 - Chuẩn bị cấu trúc để tái hiện thực nghiệm một cách có kiểm chứng ở các milestone sau.
 - Xây dựng ứng dụng minh họa chỉ khi phạm vi nghiên cứu đã sẵn sàng.
 
+## Baseline và phạm vi mã nguồn
+
+`third_party/FFTformer/` là Git submodule trỏ đến official implementation tại commit `01306b5d4072146a011c8c6e9d4927cf4607f1d5`. Baseline này chỉ dùng để đối chiếu và tái hiện; không sửa trực tiếp trong các task của nhóm. Mã nhóm sẽ phát triển độc lập trong `src/fftformer_lab/`. Chiến lược và ràng buộc giấy phép được ghi tại [ADR-0001](docs/decisions/0001-upstream-baseline.md).
+
+Khởi tạo đầy đủ checkout:
+
+```bash
+git clone --recurse-submodules git@github.com:phanmanhcuongdev/fftformer-image-deblurring.git
+# Nếu đã clone mà thiếu submodule:
+git submodule update --init --recursive
+```
+
 ## Cấu trúc repository
 
 ```text
 .
 ├── README.md
+├── AGENTS.md
+├── CONTRIBUTING.md
+├── LICENSE
 ├── .gitignore
 ├── .editorconfig
+├── .github/                   # PR, issue templates và CI nhẹ
+├── third_party/FFTformer/     # official baseline (Git submodule, pinned)
+├── src/fftformer_lab/         # group implementation (chưa có model ở M0)
+├── configs/                   # contract/config examples trong tương lai
+├── scripts/                   # bootstrap và kiểm tra môi trường
 ├── docs/
-│   ├── overview.md
-│   ├── paper_notes.md
-│   └── references.md
-├── src/
-│   └── README.md
-├── experiments/
-│   └── README.md
-└── tests/
-    └── README.md
+│   ├── reproduction/          # tutorial official baseline
+│   ├── modules/               # ranh giới của 4 workstream
+│   ├── research/              # ghi chú paper/kiến trúc
+│   └── decisions/             # Architecture Decision Records
+├── data/                      # chỉ README, dữ liệu bị ignore
+├── checkpoints/               # chỉ README, weights bị ignore
+├── results/                   # chỉ README, kết quả bị ignore
+├── experiments/               # metadata thí nghiệm, không lưu output lớn
+└── tests/                     # unit/smoke test không GPU
 ```
 
 ## Nguồn chính
@@ -54,4 +74,8 @@ Các mô tả trên là ghi chú nhập môn dựa trên công trình gốc, kh�
 
 ## Ghi nhận tác giả và nguồn nghiên cứu
 
-FFTformer là công trình gốc của Lingshun Kong, Jiangxin Dong, Jianjun Ge, Mingqiang Li và Jinshan Pan. Repository này là không gian học tập của nhóm sinh viên, độc lập với tác giả; không phải implementation chính thức và hiện không bao gồm mã nguồn của repository gốc. Tham khảo chi tiết và ghi chú về giấy phép có tại [docs/references.md](docs/references.md).
+FFTformer là công trình gốc của Lingshun Kong, Jiangxin Dong, Jianjun Ge, Mingqiang Li và Jinshan Pan. Repository này là không gian học tập của nhóm sinh viên, độc lập với tác giả; không phải implementation chính thức. Official source chỉ hiện diện như Git submodule được pin, không được sao chép vào mã nhóm `src/`. Tham khảo chi tiết và ghi chú về giấy phép có tại [docs/references.md](docs/references.md).
+
+## Bắt đầu
+
+Đọc theo thứ tự [AGENTS.md](AGENTS.md), [onboarding](docs/onboarding.md), [architecture](docs/architecture.md), [project status](docs/project-status.md), và tài liệu của workstream tương ứng trong `docs/modules/`. Trước khi thử baseline, đọc [upstream audit](docs/upstream-audit.md) và tutorial [reproduction](docs/reproduction/). Các hướng dẫn đó phân biệt nội dung đã audit với nội dung chưa chạy thực nghiệm tại M0.

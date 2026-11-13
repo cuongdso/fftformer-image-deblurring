@@ -1,6 +1,6 @@
 # Ghi chú đọc paper FFTformer
 
-Nguồn chính: Kong et al., *Efficient Frequency Domain-Based Transformers for High-Quality Image Deblurring*, CVPR 2023. Các ghi chú này ở mức nhập môn và sẽ được cập nhật khi nhóm kiểm chứng thêm từ paper và implementation chính thức.
+Nguồn chính: Kong et al., *Efficient Frequency Domain-Based Transformers for High-Quality Image Deblurring*, CVPR 2023. Các ghi chú này ở mức nhập môn và sẽ được cập nhật khi nhóm kiểm chứng thêm từ paper và implementation chính thức. Tài liệu chính thức hơn cho mapping source là `docs/research/fftformer-architecture.md`; tránh tạo nguồn sự thật trùng lặp.
 
 ## Đã tìm hiểu ở mức nhập môn
 
