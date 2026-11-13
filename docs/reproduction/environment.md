@@ -33,7 +33,7 @@ Từ root nhóm, chạy `python scripts/check_env.py`; script chỉ report fact,
 
 ## Compatibility và xử lý xung đột
 
-- `UNVERIFIED`: Python version chính xác; hãy tạo issue có traceback và environment facts thay vì đổi version tùy ý.
+- `UNVERIFIED`: Python version chính xác; hãy ghi traceback và environment facts vào PR/handoff hoặc trao đổi nhóm thay vì đổi version tùy ý.
 - Với lỗi build extension, giữ `--no_cuda_ext` như script upstream trước khi thử thay đổi build.
 - Với CUDA unavailable, `test.py` upstream không có CPU fallback; ghi blocker, không patch baseline để gọi đó là reproduction.
 - Không khẳng định Windows, CPU-only hoặc PyTorch hiện đại được hỗ trợ cho đến khi có evidence.

@@ -48,7 +48,7 @@ Chỉ báo cáo lệnh đã thực sự chạy và kết quả thực tế. Test
 
 ## Hoàn thành task
 
-Đọc code và issues liên quan trước khi sửa; giữ phạm vi nhỏ. Cập nhật documentation/contract bị ảnh hưởng, chạy test phù hợp, rồi mở PR bằng template. Handoff phải nêu files, interface thay đổi, commands/results, hạn chế, commit/PR và việc còn lại. Chi tiết tại `docs/onboarding.md`.
+Đọc code, task trong backlog và tài liệu liên quan trước khi sửa; giữ phạm vi nhỏ. Cập nhật documentation/contract bị ảnh hưởng, chạy test phù hợp, rồi mở PR bằng template. Handoff phải nêu files, interface thay đổi, commands/results, hạn chế, commit/PR và việc còn lại. Chi tiết tại `docs/onboarding.md`.
 
 ## Cấm
 

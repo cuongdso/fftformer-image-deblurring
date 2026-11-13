@@ -1,6 +1,6 @@
 # Backlog M1 — triển khai theo dependency không vòng lặp
 
-Các task implementation Wave C là `PLANNED` cho đến khi được nhận trên GitHub Issue hoặc Tech Lead xác nhận. Bốn Issue tự nhận không được tạo bởi branch này: nếu chưa có Issue canonical, `OPEN` không cho phép bắt đầu code; thành viên tạo Issue theo template nếu có quyền hoặc chờ xác nhận có thể dẫn chiếu của Tech Lead. Tech Lead đã chốt contract v1.0; trạng thái tự nhận và Owner/Reviewer nằm ở `docs/ownership.md` và phải được lặp lại trong từng implementation PR. Hướng dẫn đầy đủ cho người/agent nằm ở `INSTRUCTION.md`.
+Các task implementation Wave C là `PLANNED` cho đến khi một thành viên nhận workstream sau khi trao đổi trong nhóm và cập nhật Owner tại `docs/ownership.md`. Task ID trong bảng được giữ để người/agent xác định đúng công việc; Owner/Reviewer phải được lặp lại trong từng implementation PR. Hướng dẫn đầy đủ cho người/agent nằm ở `INSTRUCTION.md`.
 
 ## Wave A — nghiên cứu/thiết kế song song (evidence cho v1.0)
 
@@ -19,7 +19,7 @@ Các task implementation Wave C là `PLANNED` cho đến khi được nhận tr�
 
 ## Wave C — implementation tasks (chỉ sau contract liên quan `APPROVED`)
 
-Các task dưới đây không là bằng chứng implementation đã tồn tại. Mỗi task có một PR nhỏ; Owner là người tự nhận hoặc được Tech Lead xác nhận. Mock/fixture chỉ kiểm chứng contract boundary, không chứng minh FFTformer inference.
+Các task dưới đây không là bằng chứng implementation đã tồn tại. Mỗi task có một PR nhỏ; Owner là thành viên tự nhận sau khi nhóm đã thống nhất và cập nhật `docs/ownership.md`. Mock/fixture chỉ kiểm chứng contract boundary, không chứng minh FFTformer inference.
 
 | ID | Owner role / trạng thái | Reviewer role | Task và file boundary | Dependency không vòng | Acceptance criteria / DoD |
 | --- | --- | --- | --- | --- | --- |

@@ -51,7 +51,7 @@ git submodule update --init --recursive
 ├── LICENSE
 ├── .gitignore
 ├── .editorconfig
-├── .github/                   # PR, issue templates và CI nhẹ
+├── .github/                   # PR template và CI nhẹ
 ├── third_party/FFTformer/     # official baseline (Git submodule, pinned)
 ├── src/fftformer_lab/         # group implementation (chưa có model ở M0)
 ├── configs/                   # contract/config examples trong tương lai
