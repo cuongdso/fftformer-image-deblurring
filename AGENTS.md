@@ -31,7 +31,7 @@ Không ghi mâu thuẫn với trạng thái chuẩn. Thông tin chưa kiểm ch�
 
 ## Ownership và Git workflow
 
-Ownership theo workstream nằm ở `docs/ownership.md`. Làm việc trên feature branch ngắn hạn từ `main`: `feat/model-*`, `feat/data-*`, `feat/inference-*`, `feat/evaluation-*`, `fix/*`, `docs/*`, `chore/*`, `experiment/*`. Không force-push `main`, không rewrite/xóa branch của người khác.
+Ownership theo workstream nằm ở `docs/ownership.md`. Tech Lead là authority cuối cùng cho contract chung, dependency liên module và scope task; agent không đợi consensus để phủ định một ADR/contract đã Tech Lead chốt, nhưng phải báo bằng evidence nếu source mới mâu thuẫn. Làm việc trên feature branch ngắn hạn từ `main`: `feat/model-*`, `feat/data-*`, `feat/inference-*`, `feat/evaluation-*`, `fix/*`, `docs/*`, `chore/*`, `experiment/*`. Không force-push `main`, không rewrite/xóa branch của người khác.
 
 ## Kiểm tra
 
