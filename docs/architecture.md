@@ -25,9 +25,9 @@ external image / paired dataset / checkpoint
 | `src/fftformer_lab/data/` | Dataset, validation và preprocessing | ranh giới tài liệu |
 | `src/fftformer_lab/inference/` + `app/` | CLI/wrapper/demo về sau | ranh giới tài liệu |
 | `src/fftformer_lab/evaluation/` | Metric/protocol/metadata integration | ranh giới tài liệu |
-| `docs/contracts.md` | Hợp đồng giữa module | `PROPOSED` |
+| `docs/contracts.md` | Hợp đồng giữa module | `APPROVED` baseline v1.0; xem ADR-0002 |
 
-Không module nào được sửa hoặc giả định interface của module khác trước khi contract liên quan được duyệt trong issue/PR.
+Không module nào được sửa hoặc giả định interface của module khác trước khi contract liên quan được Tech Lead chốt trong ADR/contract. Mọi thay đổi sau đó cần scope Tech Lead cho phép.
 
 ## Layout và quyền sở hữu
 

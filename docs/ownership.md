@@ -11,6 +11,7 @@ GitHub usernames và tên thành viên chưa được cung cấp; các ô Owner/
 
 ## Quy tắc phối hợp
 
+- Tech Lead là người phê duyệt cuối cùng cho contract chung, dependency liên module và phạm vi task. Mỗi workstream chỉ triển khai task nằm trong scope Tech Lead giao.
 - Chủ module chịu trách nhiệm design, docs và test của code trong phạm vi; reviewer xác minh acceptance criteria.
 - Người tích hợp có thể đề xuất thay đổi interface, không âm thầm sửa nghiệp vụ workstream khác.
 - Task chồng lấn phải có issue nêu owner, dependency và contract trước khi code.

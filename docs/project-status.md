@@ -7,7 +7,7 @@
 | Baseline upstream pin | DONE | submodule `third_party/FFTformer` tại `01306b5…` |
 | Audit code/source | DONE (static audit) | `docs/upstream-audit.md` |
 | Team/agent onboarding | DONE | `AGENTS.md`, `docs/onboarding.md` |
-| Workstream, ownership, contracts | DONE (thiết kế `PROPOSED`) | `docs/ownership.md`, `docs/contracts.md` |
+| Workstream, ownership, contracts | DONE (M0 candidate `PROPOSED`; được M1.0 supersede bởi v1.0 `APPROVED`) | `docs/ownership.md`, `docs/contracts.md`, `docs/decisions/0002-m1-contract-baseline.md` |
 | Tutorial reproduction | DONE (audit-derived, chưa chạy) | `docs/reproduction/` |
 | Tooling không GPU | DONE | `scripts/check_env.py`, unit test |
 | CI lightweight | CONFIGURED (M0); run success sau transfer | `.github/workflows/ci.yml`; Actions run `43360793495` (commit `fd918794`) |
@@ -19,9 +19,9 @@
 
 ## M1.0 — Contract alignment
 
-- **Trạng thái:** `IN REVIEW` (candidate v0.1); chưa có owner/reviewer chính thức, chưa contract nào `APPROVED`.
-- **Evidence thiết kế:** [docs/contracts.md](contracts.md), [M1.0 review](m1-interface-review.md) và [M1 backlog](backlog.md).
-- **Scope:** giải vòng dependency, chuẩn hóa ranh giới model/data/inference/evaluation và chuẩn bị review chéo. Đây không phải inference/training hoặc benchmark đã chạy.
+- **Trạng thái:** `APPROVED` — contract baseline v1.0 do Tech Lead chốt; M1.0 documentation finalization complete.
+- **Evidence:** [contracts](contracts.md), [M1.0 decision](m1-interface-review.md), [ADR-0002](decisions/0002-m1-contract-baseline.md) và [M1 backlog](backlog.md).
+- **Scope:** chốt ranh giới model/data/inference/evaluation và giải vòng dependency. Không có inference/training/benchmark hoặc implementation nào đã chạy.
 
 ## Milestone đề xuất
 
