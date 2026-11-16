@@ -1,6 +1,6 @@
 # WS1 — Model & Architecture
 
-**Hiện trạng:** đã triển khai `M1-WS1-02` và bản tiếp nối `M1-WS1-03` trên các feature branch, chờ review. Owner/reviewer được quản lý tại [ownership](../ownership.md); tài liệu này không thay đổi phân công workstream.
+**Hiện trạng:** WS1 đã hoàn thành `M1-WS1-01/02/03` (`DONE`) và merge vào `main` qua PR #4, #5, #6; Owner `DucHai27`. Evidence tích hợp và CI tại [project status](../project-status.md), phân công tại [ownership](../ownership.md).
 
 Dependency và acceptance criteria chuẩn ở [backlog](../backlog.md). `M1-WS1-02` phụ thuộc C-01/C-02 đã `APPROVED`; strict checkpoint loader `M1-WS1-03` phụ thuộc WS1-02. Hướng dẫn nhận task/handoff ở [INSTRUCTION.md](../../INSTRUCTION.md).
 
@@ -130,4 +130,4 @@ Chỉ kết luận tương thích cho GoPro checkpoint SHA-256 `336717b7c4e97b66
 
 ## Phần còn lại
 
-WS3 tiếp tục sở hữu pad/crop, orchestration, CLI và serialize theo C-02/C-04. **CUDA forward, checkpoint RealBlur, benchmark chất lượng và training vẫn `UNVERIFIED`/chưa chạy.** Các kết quả trên chưa phải baseline reproduction. Hai task WS1-02/03 chờ review qua PR và chưa đánh dấu `DONE`; WS3 và Tech Lead review consumer impact/scope theo backlog.
+WS3 tiếp tục sở hữu pad/crop, orchestration, CLI và serialize theo C-02/C-04. **CUDA forward, checkpoint RealBlur, benchmark chất lượng và training vẫn `UNVERIFIED`/chưa chạy.** Các kết quả trên chưa phải baseline reproduction. Công việc WS1-02/03 đã `DONE` và API đã có trong `main` để WS3/WS4 sử dụng theo dependency của từng task.

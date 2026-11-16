@@ -38,7 +38,7 @@ Không sao chép C-01..C-06 vào task description hay source code như một ngu
 
 | Workstream | Trạng thái nhận | Entry tasks Wave C | Scope chính |
 | --- | --- | --- | --- |
-| WS1 Model & Architecture | `IN_PROGRESS` — `DucHai27` | `M1-WS1-02`, `M1-WS1-03` | `src/fftformer_lab/model/` |
+| WS1 Model & Architecture | `DONE` — 3/3 task đã merge, `DucHai27` | `M1-WS1-02`, `M1-WS1-03` (hoàn thành) | `src/fftformer_lab/model/` |
 | WS2 Dataset & Preprocessing | `OPEN` | `M1-WS2-02`, `M1-WS2-03` | `src/fftformer_lab/data/`, test fixtures liên quan |
 | WS3 Inference & Demo | `OPEN` | `M1-WS3-02`, `M1-WS3-03` | `src/fftformer_lab/inference/`, `src/fftformer_lab/app/` |
 | WS4 Evaluation & Integration | `RESERVED` — ưu tiên Tech Lead `cuongdso` | `M1-WS4-02` đến `M1-WS4-04` | `src/fftformer_lab/evaluation/`, `configs/`, `experiments/`, integration tests |

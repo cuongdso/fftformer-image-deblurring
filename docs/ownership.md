@@ -4,10 +4,12 @@ WS1 do `DucHai27` nhận; Tech Lead là `cuongdso`. WS2–WS3 chưa có username
 
 | Workstream | Trạng thái nhận | Phạm vi sở hữu | Boundary/interface chính | Owner | Reviewer | Entry task |
 | --- | --- | --- | --- | --- | --- | --- |
-| WS1 Model & Architecture | `IN_PROGRESS` — chờ PR/review | `src/fftformer_lab/model/` | C-01 model loading, C-02 tensor/model metadata | `DucHai27` | WS3 consumer: TBD; Tech Lead scope: `cuongdso` (đề xuất, chờ review) | `M1-WS1-02` |
+| WS1 Model & Architecture | `DONE` — 3/3 task đã merge | `src/fftformer_lab/model/` | C-01 model loading, C-02 tensor/model metadata | `DucHai27` | Tech Lead `cuongdso`: chỉ đạo merge theo xác nhận Owner; WS3 là consumer | `M1-WS1-01/02/03` hoàn thành |
 | WS2 Dataset & Preprocessing | `OPEN` | `src/fftformer_lab/data/`, fixture/test liên quan | C-02 image I/O, C-03 dataset sample | TBD | TBD (WS1/WS3/WS4 consumer + Tech Lead scope) | `M1-WS2-02` |
 | WS3 Inference & Demo | `OPEN` | `src/fftformer_lab/inference/`, `src/fftformer_lab/app/` | C-04 inference result; consumes C-01/C-02 | TBD | TBD (WS1/WS2/WS4 consumer + Tech Lead scope) | `M1-WS3-02` |
 | WS4 Evaluation, Reproducibility & Integration | `RESERVED` — ưu tiên Tech Lead `cuongdso` | `src/fftformer_lab/evaluation/`, `configs/`, `experiments/`, integration tests/CI scope | C-05 evaluation, C-06 config; consumes C-02/C-03/C-04 | `cuongdso` ưu tiên nhận; chưa xác nhận assignment cuối | Tech Lead/consumer review theo task | `M1-WS4-02` |
+
+WS1 đã hoàn thành nội dung được giao và đã tích hợp vào `main` ngày 16/11/2026 qua PR #4 (WS1-01), #5 (WS1-02), #6 (WS1-03). URL PR, merge commit và CI được ghi tại [project status](project-status.md).
 
 ## Quy tắc phối hợp
 
