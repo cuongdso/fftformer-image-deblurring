@@ -1,6 +1,6 @@
 {
   "audit": "M1-WS1-03",
-  "timestamp_utc": "2026-11-16T04:11:02.283818+00:00",
+  "timestamp_utc": "2026-11-16T04:30:25.991131+00:00",
   "evidence_source": "group-measured",
   "test_kind": "cpu-unit-and-checkpoint-integration",
   "environment": {
@@ -14,6 +14,9 @@
   "checkpoint": "third_party/FFTformer/pretrain_model/fftformer_GoPro.pth",
   "checks": {
     "model.test_checkpoint_loader.GoProCheckpointIntegrationTests.test_audited_gopro_load_metadata_and_forward": {
+      "status": "PASS"
+    },
+    "model.test_checkpoint_loader.GoProCheckpointIntegrationTests.test_caller_defaults_do_not_reject_audited_checkpoint": {
       "status": "PASS"
     },
     "model.test_checkpoint_loader.GoProCheckpointIntegrationTests.test_changed_architecture_is_rejected": {
@@ -61,10 +64,19 @@
     "model.test_checkpoint_loader.MockCheckpointLoaderTests.test_wrong_shape_reports_name_actual_and_expected": {
       "status": "PASS"
     },
+    "model.test_model_adapter.ModelAdapterCPUTests.test_combined_caller_defaults_are_preserved": {
+      "status": "PASS"
+    },
+    "model.test_model_adapter.ModelAdapterCPUTests.test_constructor_failure_preserves_caller_defaults": {
+      "status": "PASS"
+    },
     "model.test_model_adapter.ModelAdapterCPUTests.test_constructor_metadata_and_eval_mode": {
       "status": "PASS"
     },
     "model.test_model_adapter.ModelAdapterCPUTests.test_cuda_index_is_validated_before_model_construction": {
+      "status": "PASS"
+    },
+    "model.test_model_adapter.ModelAdapterCPUTests.test_float64_caller_default_still_builds_float32_model": {
       "status": "PASS"
     },
     "model.test_model_adapter.ModelAdapterCPUTests.test_forward_failure_includes_shape_and_device": {
@@ -77,6 +89,9 @@
       "status": "PASS"
     },
     "model.test_model_adapter.ModelAdapterCPUTests.test_invalid_shape_is_rejected_before_upstream": {
+      "status": "PASS"
+    },
+    "model.test_model_adapter.ModelAdapterCPUTests.test_meta_caller_default_still_builds_requested_cpu_model": {
       "status": "PASS"
     },
     "model.test_model_adapter.ModelAdapterCPUTests.test_non_finite_and_out_of_range_inputs_are_rejected": {
@@ -138,11 +153,30 @@
     },
     "unit.test_model_spec.ModelSpecificationTests.test_unknown_architecture_and_fields_are_rejected": {
       "status": "PASS"
+    },
+    "unit.test_ws1_03_verify.EvidenceRecordingTests.test_empty_suite_cannot_claim_pass": {
+      "status": "PASS"
+    },
+    "unit.test_ws1_03_verify.EvidenceRecordingTests.test_multiple_failed_subtests_and_error_are_recorded": {
+      "status": "PASS"
+    },
+    "unit.test_ws1_03_verify.EvidenceRecordingTests.test_regular_failure_and_error_keep_separate_parent_records": {
+      "status": "PASS"
+    },
+    "unit.test_ws1_03_verify.EvidenceRecordingTests.test_skipped_subtest_is_not_overwritten_by_parent_success": {
+      "status": "PASS"
+    },
+    "unit.test_ws1_03_verify.EvidenceRecordingTests.test_successful_subtests_count_only_the_parent": {
+      "status": "PASS"
+    },
+    "unit.test_ws1_03_verify.EvidenceRecordingTests.test_whole_test_skip_is_recorded": {
+      "status": "PASS"
     }
   },
+  "subtests": {},
   "summary": {
-    "total": 42,
-    "passed": 42,
+    "total": 53,
+    "passed": 53,
     "failed": 0,
     "errors": 0,
     "skipped": 0,
@@ -181,12 +215,13 @@
   },
   "file_sha256": {
     "src/fftformer_lab/model/spec.py": "48e3796859cb6dc38ee38b08a6ae5938111a01025b91d292ac634eb035165c3f",
-    "src/fftformer_lab/model/adapter.py": "7dd24397da332f98b5de7e1a98d4b00e5fb0d340ec6cf35d9a34c2f8317136e2",
+    "src/fftformer_lab/model/adapter.py": "1767aa58256405d49b37c75749cbdcb20ea4be925f97e2e20ba690cc1152544f",
     "src/fftformer_lab/model/checkpoint.py": "ce6367f4a295aa7bb796c48a77f622884d4e8749686b235c582b31050097ed82",
     "src/fftformer_lab/model/__init__.py": "c66896a47bb92736305e5fd0b5cfcd7a2a6365e7843abadb9db7939e9bbb88de",
     "tests/unit/test_model_spec.py": "7bd1f0ab6733cd30e779d8799ac85672197389ff5d2b58028c6519b0735b3ecd",
-    "tests/model/test_model_adapter.py": "33497bcc6822d3a4142feee0eb0edd8e4dbb3d5ed660ac943f4ebf5499b555dd",
-    "tests/model/test_checkpoint_loader.py": "1a647d0f1f344c45f6070f71e45dd13aaa3d112009d6bd8d3b8a213cb8ad82fd",
-    "scripts/ws1_03_verify.py": "50120f4b786ef9f9203f93d0e06c5af217ef788b8c77c960d9441e356758b72f"
+    "tests/model/test_model_adapter.py": "5496cff45c9e4019a433dc4a905ba187cc6b00cbc7fff30f7a5511ea388890a7",
+    "tests/model/test_checkpoint_loader.py": "b8034f90ca063d3a4bff989b8a4b272b156c4eb4f7552d02323cc10c21fc2606",
+    "scripts/ws1_03_verify.py": "7096b629163619ac07978d89c7c39a65216c6f5b5265cb76d9061a30944ff5f5",
+    "tests/unit/test_ws1_03_verify.py": "1740d10aaa7b46a9b7e746bb95a11b188a66bfa71e3181603efe108a5630c169"
   }
 }

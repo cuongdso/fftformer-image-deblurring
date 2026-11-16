@@ -146,6 +146,32 @@ class MockCheckpointLoaderTests(unittest.TestCase):
 @unittest.skipUnless(RUN_MODEL_TESTS and GOPRO_CHECKPOINT,
                      "requires model opt-in and FFTFORMER_GOPRO_CHECKPOINT pointing to the audited artifact")
 class GoProCheckpointIntegrationTests(unittest.TestCase):
+    def test_caller_defaults_do_not_reject_audited_checkpoint(self) -> None:
+        previous_dtype = torch.get_default_dtype()
+        previous_device = torch.get_default_device()
+        previous_threads = torch.get_num_threads()
+        try:
+            torch.set_num_threads(2)
+            torch.set_default_dtype(torch.float64)
+            torch.set_default_device("meta")
+            adapter = load_model(ModelSpec(
+                architecture_file=REPO / "third_party/FFTformer/basicsr/models/archs/fftformer_arch.py",
+                checkpoint=Path(GOPRO_CHECKPOINT), device="cpu",
+            ))
+            self.assertTrue(adapter.metadata.checkpoint_loaded)
+            self.assertEqual(adapter.metadata.checkpoint_map_location, "cpu")
+            self.assertEqual({value.dtype for value in adapter.model.state_dict().values()}, {torch.float32})
+            self.assertEqual({str(value.device) for value in adapter.model.state_dict().values()}, {"cpu"})
+            with torch.inference_mode():
+                output = adapter(torch.zeros(1, 3, 32, 32, dtype=torch.float32, device="cpu"))
+            self.assertTrue(bool(torch.isfinite(output).all()))
+            self.assertEqual(torch.get_default_dtype(), torch.float64)
+            self.assertEqual(str(torch.get_default_device()), "meta")
+        finally:
+            torch.set_default_dtype(previous_dtype)
+            torch.set_default_device(previous_device)
+            torch.set_num_threads(previous_threads)
+
     def test_changed_architecture_is_rejected(self) -> None:
         spec = ModelSpec(
             architecture_file=REPO / "third_party/FFTformer/basicsr/models/archs/fftformer_arch.py",

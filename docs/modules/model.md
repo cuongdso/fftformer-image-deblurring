@@ -109,17 +109,20 @@ print(adapter.metadata.to_dict())
 
 ```powershell
 python -B scripts/ws1_03_verify.py --repo . --output docs/research/ws1-03-runtime-evidence.json
-# Summary: 42/42 passed
+# Summary: 53/53 passed
 ```
 
 Kết quả thực tế trên Windows, Python 3.14.10, PyTorch 2.15.0+cpu, einops 0.8.2, 2 CPU threads:
 
-- 26 test của WS1-02/tooling tiếp tục qua.
+- 30 test của WS1-02/tooling tiếp tục qua, gồm 4 test hồi quy bảo vệ default dtype/device của caller.
 - [14 test fixture mới](../../tests/model/test_checkpoint_loader.py) dùng model Conv2d mock và checkpoint cực nhỏ do test tự tạo trong thư mục tạm; không phải checkpoint FFTformer.
-- 2 integration tests dùng checkpoint GoPro thật sẵn có: strict load và forward `32x32`/`64x96` hữu hạn; cấu hình lệch `dim=32` bị từ chối với lỗi tensor shape.
-- Chạy không dependency ngoài standard library: `python -B -S -m unittest discover -s tests -p "test_*.py"` — 14 test qua, 28 test model/checkpoint được skip.
+- 3 integration tests dùng checkpoint GoPro thật sẵn có: strict load và forward `32x32`/`64x96` hữu hạn; cấu hình lệch `dim=32` bị từ chối với lỗi tensor shape; caller mặc định `float64` + `meta` vẫn load/forward được trên CPU float32 và giữ nguyên defaults.
+- [6 test reporter không cần dependency](../../tests/unit/test_ws1_03_verify.py): ghi nhận parent test và subtest lỗi/skip, nhiều lỗi trong một parent, test thường failure/error và suite rỗng. Các failure/error bên trong là tình huống được tạo có chủ đích để kiểm chứng reporter; cả 6 test bên ngoài đã thành công.
+- Chạy không dependency ngoài standard library: `python -B -S -m unittest discover -s tests -p "test_*.py"` — 20 test qua, 33 test model/checkpoint được skip.
 
-Các model/fixture tests được bật bởi `FFTFORMER_RUN_MODEL_TESTS=1`; hai test GoPro còn yêu cầu `FFTFORMER_GOPRO_CHECKPOINT` trỏ đến artifact. Script đặt cả hai marker tường minh; CI mặc định không chạy model/checkpoint tests. Có thể dùng `--checkpoint` trỏ tới bản sao artifact ở ngoài repository và `--output` khác để giữ lần evidence cũ. JSON sử dụng đường dẫn tương đối với repository, thư mục external được ẩn.
+Các model/fixture tests được bật bởi `FFTFORMER_RUN_MODEL_TESTS=1`; ba test GoPro còn yêu cầu `FFTFORMER_GOPRO_CHECKPOINT` trỏ đến artifact. Script đặt cả hai marker tường minh; CI mặc định không chạy model/checkpoint tests. Có thể dùng `--checkpoint` trỏ tới bản sao artifact ở ngoài repository và `--output` khác để giữ lần evidence cũ. JSON sử dụng đường dẫn tương đối với repository, thư mục external được ẩn và xuống dòng LF.
+
+Reporter giữ một mục `checks` cho mỗi parent test; chi tiết subtest lỗi/skip nằm riêng tại `subtests`. `summary.total/passed` đếm parent tests, còn `failed/errors/skipped` là số sự kiện tương ứng của unittest, có thể nhiều hơn số parent khi một test có nhiều subtest lỗi. Suite rỗng, thiếu bản ghi, có lỗi hoặc bị skip đều không được báo audit `PASS`.
 
 Chỉ kết luận tương thích cho GoPro checkpoint SHA-256 `336717b7c4e97b66af112cc7878106cb185b698bd872c2a8247911507540b2a3` với source/config/device đã ghi trong JSON. Không có checkpoint mới được tải hoặc thêm vào Git của nhóm.
 
