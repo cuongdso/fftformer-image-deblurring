@@ -43,6 +43,7 @@
 - **Evidence sau sửa lỗi review:** `python -B scripts/ws1_03_verify.py --repo . --output docs/research/ws1-03-runtime-evidence.json` — 55/55 test thành công trên CPU, gồm hồi quy dtype/device, GoPro thật dưới caller defaults khác và 8 test reporter/subtest, bao gồm subtest trùng nhãn. [JSON](research/ws1-03-runtime-evidence.json) ghi từng test và metadata/hash thực tế. Chạy `python -B -S -m unittest discover -s tests -p "test_*.py"`: 22 test qua, 33 test opt-in được skip.
 - **Artifact:** GoPro checkpoint sẵn có trong upstream submodule, SHA-256 `336717b7c4e97b66af112cc7878106cb185b698bd872c2a8247911507540b2a3`; strict load + forward hai shape qua API nhóm. Fixture khác là Conv2d mock tự tạo, không phải weights FFTformer. Không thêm dataset/checkpoint vào Git nhóm.
 - **Giới hạn:** CUDA forward, RealBlur checkpoint, benchmark chất lượng và training chưa xác minh/chưa chạy. Không thay đổi contracts hoặc upstream source/pin.
+- **Bàn giao:** Owner `DucHai27`; [hồ sơ WS1-01/02/03](research/ws1-handoff.md) có files, API, commands/results, commit, trạng thái PR/reviewer và dependency tiếp theo. Chờ WS3/Tech Lead review và CI của PR.
 
 ## Milestone đề xuất
 

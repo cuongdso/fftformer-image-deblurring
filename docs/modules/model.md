@@ -4,6 +4,8 @@
 
 Dependency và acceptance criteria chuẩn ở [backlog](../backlog.md). `M1-WS1-02` phụ thuộc C-01/C-02 đã `APPROVED`; strict checkpoint loader `M1-WS1-03` phụ thuộc WS1-02. Hướng dẫn nhận task/handoff ở [INSTRUCTION.md](../../INSTRUCTION.md).
 
+[Hồ sơ bàn giao WS1](../research/ws1-handoff.md) tổng hợp ba task, Owner/Reviewer, files, kết quả kiểm chứng, commit và trạng thái PR.
+
 ## Phạm vi WS1-02
 
 Code nhóm tại `src/fftformer_lab/model/` cung cấp đặc tả, khởi tạo và validation để WS3/WS4 sử dụng theo [C-01/C-02](../contracts.md). [Audit WS1-01](../research/fftformer-architecture.md) là bằng chứng cho constructor mặc định và fingerprint source. Adapter không sao chép kiến trúc upstream, không import BasicSR ngầm và không sửa submodule.
