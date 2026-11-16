@@ -2,7 +2,7 @@
 
 Repository học thuật của nhóm cho bài tập lớn môn Xử lý ảnh, tập trung vào việc tìm hiểu và thực nghiệm phương pháp **FFTformer** cho bài toán khử mờ ảnh (*image deblurring*).
 
-> Trạng thái: **M1.0 — Contract baseline approved**. Repository đã có baseline upstream được pin, quy tắc cộng tác, tooling kiểm tra môi trường và contracts v1.0. Chưa triển khai module nhóm, tái hiện benchmark, huấn luyện, hay công bố kết quả thực nghiệm.
+> Trạng thái: **M1 — WS1-02 đang chờ review** trên working branch. Contracts v1.0 đã được chốt; đã có đặc tả/model adapter và validation ban đầu tại [model guide](docs/modules/model.md). Checkpoint loader, pipeline liên module, benchmark và huấn luyện chưa triển khai. Trạng thái chi tiết tại [project status](docs/project-status.md).
 
 ## Bài toán Image Deblurring
 

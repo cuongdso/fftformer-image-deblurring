@@ -23,6 +23,13 @@
 - **Evidence:** [contracts](contracts.md), [M1.0 decision](m1-interface-review.md), [ADR-0002](decisions/0002-m1-contract-baseline.md) và [M1 backlog](backlog.md).
 - **Scope:** chốt ranh giới model/data/inference/evaluation và giải vòng dependency. Không có inference/training/benchmark hoặc implementation nào đã chạy.
 
+## M1 — WS1-02 model specification/adapter
+
+- **Trạng thái:** bản triển khai trên working branch, chờ review; chưa đánh dấu task `DONE`.
+- **Đã có:** `ModelConfig`, `ModelSpec`, `ModelMetadata`, `ModelAdapter`, `build_model` trong `src/fftformer_lab/model/`; khởi tạo upstream tường minh, model `eval()`, validation C-02 và metadata model chưa nạp trọng số.
+- **Evidence ngày 16/11/2026:** `python -B -m unittest discover -s tests -p "test_*.py"` chạy 14 test thành công, skip 12; bật `FFTFORMER_RUN_MODEL_TESTS=1` và chạy cùng lệnh thêm `-v`: toàn bộ 26 test thành công trên CPU. Chi tiết môi trường, scope và test source tại [model guide](modules/model.md#kiểm-thử-đã-chạy).
+- **Giới hạn:** chưa có checkpoint loader WS1-03, chưa chạy checkpoint qua adapter, chưa xác minh CUDA forward hoặc benchmark. Không suy ra baseline reproduction hay pipeline WS2/WS3/WS4 đã hoàn tất.
+
 ## Milestone đề xuất
 
 - `M1` — Official Baseline Reproduction
