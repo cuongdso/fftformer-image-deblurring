@@ -1,6 +1,6 @@
 {
   "audit": "WS1-01",
-  "timestamp_utc": "2026-11-16T03:02:16.335002+00:00",
+  "timestamp_utc": "2026-11-16T04:55:49.470973+00:00",
   "evidence_source": "group-measured",
   "test_kind": "integration-cpu-checkpoint",
   "environment": {
@@ -22,7 +22,7 @@
   "upstream_commit": "01306b5d4072146a011c8c6e9d4927cf4607f1d5",
   "architecture_sha256": "dc0e1775eed3c3358f637084e9e345ec0246b66084487dc4220aad0a5cb66ddf",
   "config_sha256": "36aafac5520d9e1ec90dc02626c5c4045af8fc02378521c8eb65a5fd33583909",
-  "verification_script_sha256": "0312557d50ed0cdc47b4c262479c6283787fed7c3791c252b8f1cd0d51cb5b58",
+  "verification_script_sha256": "246eaf575909b7e79706346468f7e458b46290c1c15765297b71a0196a7a4f3b",
   "checkpoint_sha256": "336717b7c4e97b66af112cc7878106cb185b698bd872c2a8247911507540b2a3",
   "checkpoint_size_bytes": 66441171,
   "checkpoint_tensor_dtypes": [
