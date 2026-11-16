@@ -216,7 +216,7 @@ def main() -> int:
     if args.output is not None:
         destination = args.output.expanduser().resolve()
         destination.parent.mkdir(parents=True, exist_ok=True)
-        destination.write_text(json.dumps(evidence, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        destination.write_text(json.dumps(evidence, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
         print(f"Wrote JSON evidence: {evidence_path(destination, repo)}")
     print(f"Summary: {evidence['summary']['passed']}/{evidence['summary']['total']} passed")
     return 0 if not failures else 1
