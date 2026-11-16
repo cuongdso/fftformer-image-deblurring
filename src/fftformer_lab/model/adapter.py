@@ -23,7 +23,7 @@ class ModelInputError(ValueError):
 
 @dataclass(frozen=True)
 class ModelMetadata:
-    """Construction identity and explicit uninitialized checkpoint state."""
+    """Construction identity and explicit checkpoint loading state."""
 
     architecture_id: str
     implementation_id: str
@@ -38,6 +38,9 @@ class ModelMetadata:
     checkpoint_sha256: str | None = None
     checkpoint_loaded: bool = False
     initialization: str = "random"
+    checkpoint_size_bytes: int | None = None
+    checkpoint_schema: str | None = None
+    checkpoint_map_location: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
         """Return JSON-serializable metadata without exposing mutable config state."""
@@ -51,6 +54,9 @@ class ModelMetadata:
             "parameter_count": self.parameter_count, "state_dict_entry_count": self.state_dict_entry_count,
             "checkpoint_path": self.checkpoint_path, "checkpoint_sha256": self.checkpoint_sha256,
             "checkpoint_loaded": self.checkpoint_loaded, "initialization": self.initialization,
+            "checkpoint_size_bytes": self.checkpoint_size_bytes,
+            "checkpoint_schema": self.checkpoint_schema,
+            "checkpoint_map_location": self.checkpoint_map_location,
         }
 
 

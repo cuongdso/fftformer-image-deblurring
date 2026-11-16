@@ -20,3 +20,14 @@ README upstream còn liên kết một Google Drive folder cho **RealBlur pre-tr
 4. Chỉ sau đó mới ghi mapping checkpoint↔architecture trong tài liệu này và C-01.
 
 Không suy ra hai checkpoint tương đương chỉ từ tên file/dataset.
+
+## Mapping được kiểm chứng trong WS1-03
+
+Trên feature branch WS1-03 ngày 16/11/2026, API nhóm `load_model` đã strict-load artifact
+`pretrain_model/fftformer_GoPro.pth` vào source upstream pin `01306b5...` với `ModelConfig()`
+(GoPro network_g), Python 3.14.10 / PyTorch 2.15.0+cpu trên CPU.
+SHA-256 artifact: `336717b7c4e97b66af112cc7878106cb185b698bd872c2a8247911507540b2a3`.
+Schema quan sát là raw tensor state-dict gồm 535 mục; forward `32x32` và `64x96` giữ shape, hữu hạn.
+Evidence và giới hạn tại [JSON WS1-03](../research/ws1-03-runtime-evidence.json)
+và [model guide](../modules/model.md#ws1-03--strict-checkpoint-loader).
+Đây là kiểm chứng tương thích của artifact cụ thể, chưa phải benchmark hoặc kiểm chứng RealBlur.
