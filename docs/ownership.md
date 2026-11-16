@@ -1,10 +1,10 @@
 # Ownership theo workstream
 
-GitHub usernames và tên thành viên chưa được cung cấp, trừ Tech Lead `cuongdso`. WS1–WS3 được tự nhận sau khi thành viên trao đổi trong nhóm; người nhận cập nhật Owner tại bảng này trước khi tạo feature branch. Reviewer có thể để `TBD` đến khi ghi rõ trong PR. Không có `CODEOWNERS` để tránh bịa danh tính hoặc chặn PR sai. Quy trình nhận task nằm ở [INSTRUCTION.md](../INSTRUCTION.md).
+WS1 do `DucHai27` nhận; Tech Lead là `cuongdso`. WS2–WS3 chưa có username owner được xác nhận. Người nhận workstream cập nhật Owner tại bảng này sau khi trao đổi trong nhóm và trước khi tạo feature branch. Reviewer có thể để `TBD` đến khi ghi rõ trong PR. Không có `CODEOWNERS` để tránh bịa danh tính hoặc chặn PR sai. Quy trình nhận task nằm ở [INSTRUCTION.md](../INSTRUCTION.md).
 
 | Workstream | Trạng thái nhận | Phạm vi sở hữu | Boundary/interface chính | Owner | Reviewer | Entry task |
 | --- | --- | --- | --- | --- | --- | --- |
-| WS1 Model & Architecture | `OPEN` | `src/fftformer_lab/model/` | C-01 model loading, C-02 tensor/model metadata | TBD | TBD (WS3 consumer + Tech Lead scope) | `M1-WS1-02` |
+| WS1 Model & Architecture | `IN_PROGRESS` — chờ PR/review | `src/fftformer_lab/model/` | C-01 model loading, C-02 tensor/model metadata | `DucHai27` | WS3 consumer: TBD; Tech Lead scope: `cuongdso` (đề xuất, chờ review) | `M1-WS1-02` |
 | WS2 Dataset & Preprocessing | `OPEN` | `src/fftformer_lab/data/`, fixture/test liên quan | C-02 image I/O, C-03 dataset sample | TBD | TBD (WS1/WS3/WS4 consumer + Tech Lead scope) | `M1-WS2-02` |
 | WS3 Inference & Demo | `OPEN` | `src/fftformer_lab/inference/`, `src/fftformer_lab/app/` | C-04 inference result; consumes C-01/C-02 | TBD | TBD (WS1/WS2/WS4 consumer + Tech Lead scope) | `M1-WS3-02` |
 | WS4 Evaluation, Reproducibility & Integration | `RESERVED` — ưu tiên Tech Lead `cuongdso` | `src/fftformer_lab/evaluation/`, `configs/`, `experiments/`, integration tests/CI scope | C-05 evaluation, C-06 config; consumes C-02/C-03/C-04 | `cuongdso` ưu tiên nhận; chưa xác nhận assignment cuối | Tech Lead/consumer review theo task | `M1-WS4-02` |
