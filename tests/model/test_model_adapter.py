@@ -43,6 +43,53 @@ class ModelAdapterCPUTests(unittest.TestCase):
         second = build_model(self.spec)
         self.assertEqual(second.metadata.to_dict(), metadata.to_dict())
 
+    def _check_caller_defaults(self, dtype: "torch.dtype", device: str) -> None:
+        previous_dtype = torch.get_default_dtype()
+        previous_device = torch.get_default_device()
+        try:
+            torch.set_default_dtype(dtype)
+            torch.set_default_device(device)
+            adapter = build_model(self.spec)
+            self.assertEqual(torch.get_default_dtype(), dtype)
+            self.assertEqual(str(torch.get_default_device()), device)
+            values = adapter.model.state_dict().values()
+            self.assertEqual({value.dtype for value in values}, {torch.float32})
+            self.assertEqual({str(value.device) for value in values}, {"cpu"})
+            with torch.inference_mode():
+                output = adapter(torch.zeros(1, 3, 32, 32, dtype=torch.float32, device="cpu"))
+            self.assertEqual(tuple(output.shape), (1, 3, 32, 32))
+            self.assertEqual(output.dtype, torch.float32)
+            self.assertTrue(bool(torch.isfinite(output).all()))
+            self.assertEqual(torch.get_default_dtype(), dtype)
+            self.assertEqual(str(torch.get_default_device()), device)
+        finally:
+            torch.set_default_dtype(previous_dtype)
+            torch.set_default_device(previous_device)
+
+    def test_float64_caller_default_still_builds_float32_model(self) -> None:
+        self._check_caller_defaults(torch.float64, "cpu")
+
+    def test_meta_caller_default_still_builds_requested_cpu_model(self) -> None:
+        self._check_caller_defaults(torch.float32, "meta")
+
+    def test_combined_caller_defaults_are_preserved(self) -> None:
+        self._check_caller_defaults(torch.float64, "meta")
+
+    def test_constructor_failure_preserves_caller_defaults(self) -> None:
+        previous_dtype = torch.get_default_dtype()
+        previous_device = torch.get_default_device()
+        try:
+            torch.set_default_dtype(torch.float64)
+            torch.set_default_device("meta")
+            with patch("torch.nn.Conv2d", side_effect=RuntimeError("test construction failure")):
+                with self.assertRaisesRegex(ModelBackendError, "test construction failure"):
+                    build_model(self.spec)
+            self.assertEqual(torch.get_default_dtype(), torch.float64)
+            self.assertEqual(str(torch.get_default_device()), "meta")
+        finally:
+            torch.set_default_dtype(previous_dtype)
+            torch.set_default_device(previous_device)
+
     def test_valid_shapes_including_batch_and_rectangle(self) -> None:
         for shape in ((1, 3, 32, 32), (1, 3, 64, 96), (2, 3, 32, 32)):
             with self.subTest(shape=shape), torch.inference_mode():

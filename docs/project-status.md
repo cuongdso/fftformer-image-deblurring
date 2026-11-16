@@ -27,7 +27,7 @@
 
 - **Trạng thái:** bản triển khai trên working branch, chờ review; chưa đánh dấu task `DONE`.
 - **Đã có:** `ModelConfig`, `ModelSpec`, `ModelMetadata`, `ModelAdapter`, `build_model` trong `src/fftformer_lab/model/`; khởi tạo upstream tường minh, model `eval()`, validation C-02 và metadata model chưa nạp trọng số.
-- **Evidence tại bản WS1-02 ngày 16/11/2026:** `python -B -m unittest discover -s tests -p "test_*.py"` chạy 14 test thành công, skip 12; bật `FFTFORMER_RUN_MODEL_TESTS=1` và chạy cùng lệnh thêm `-v`: toàn bộ 26 test thành công trên CPU. Chi tiết môi trường, scope và test source tại [model guide](modules/model.md#kiểm-thử-ws1-02-trước-khi-bổ-sung-loader).
+- **Evidence tại bản WS1-02 sau sửa lỗi dtype/device ngày 16/11/2026:** `python -B -m unittest discover -s tests -p "test_*.py"` chạy 14 test thành công, skip 16; bật `FFTFORMER_RUN_MODEL_TESTS=1` và chạy cùng lệnh thêm `-v`: toàn bộ 30 test thành công trên CPU, gồm 4 test hồi quy default dtype/device của caller. Chi tiết môi trường, scope và test source tại [model guide](modules/model.md#kiểm-thử-ws1-02-trước-khi-bổ-sung-loader).
 - **Giới hạn bản WS1-02:** chưa có checkpoint loader, chưa chạy checkpoint qua adapter; phần đó được bổ sung riêng trong WS1-03 bên dưới. Không suy ra baseline reproduction hay pipeline WS2/WS3/WS4 đã hoàn tất.
 
 ## M1 — WS1-03 strict checkpoint loader
