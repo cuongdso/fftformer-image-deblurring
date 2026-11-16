@@ -8,6 +8,6 @@ không dùng checkpoint/dataset.
 
 WS1-03 thêm `model/test_checkpoint_loader.py`: 14 test dùng fixture Conv2d mock trong thư mục tạm,
 3 integration tests chỉ chạy thêm khi `FFTFORMER_GOPRO_CHECKPOINT` được đặt.
-`unit/test_ws1_03_verify.py` có 6 test không cần dependency để kiểm chứng reporter,
-gồm subtest lỗi/skip và suite rỗng. CI mặc định hiện chạy 20 test nhẹ, skip 33 model/checkpoint tests.
+`unit/test_ws1_03_verify.py` có 8 test không cần dependency để kiểm chứng reporter,
+gồm subtest lỗi/skip, nhãn trùng và suite rỗng. CI mặc định hiện chạy 22 test nhẹ, skip 33 model/checkpoint tests.
 Lệnh, marker và kết quả thực tế tại [model guide](../docs/modules/model.md#kiểm-thử-ws1-03-và-evidence-hiện-tại).

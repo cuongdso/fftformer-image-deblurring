@@ -69,6 +69,51 @@ class EvidenceRecordingTests(unittest.TestCase):
         self.assertEqual(reporter.summarize_result(result)["passed"], 0)
         self.assertEqual(reporter.summarize_result(result)["status"], "FAIL")
 
+    def test_repeated_subtest_labels_preserve_every_failure_and_error(self) -> None:
+        class Case(unittest.TestCase):
+            def runTest(self) -> None:
+                for number in range(3):
+                    with self.subTest(state_type="dict"):
+                        if number == 1:
+                            raise ValueError("second occurrence error")
+                        self.fail(f"failure occurrence {number}")
+
+        case = Case()
+        result = run_cases(case)
+        events = list(result.subtests.values())
+        self.assertEqual(len(events), 3)
+        self.assertEqual([event["status"] for event in events], ["FAIL", "ERROR", "FAIL"])
+        self.assertEqual([event["message"] for event in events], [
+            "failure occurrence 0", "second occurrence error", "failure occurrence 2",
+        ])
+        self.assertEqual(len({event["id"] for event in events}), 1)
+        self.assertTrue(all(event["parent"] == case.id() for event in events))
+        self.assertEqual(result.records[case.id()]["status"], "ERROR")
+        summary = reporter.summarize_result(result)
+        self.assertEqual((summary["total"], summary["passed"], summary["failed"], summary["errors"]), (1, 0, 2, 1))
+        self.assertEqual(summary["status"], "FAIL")
+
+    def test_repeated_skipped_subtest_labels_preserve_every_reason(self) -> None:
+        class Case(unittest.TestCase):
+            def runTest(self) -> None:
+                for number in range(3):
+                    with self.subTest(state_type="dict"):
+                        self.skipTest(f"unavailable occurrence {number}")
+
+        case = Case()
+        result = run_cases(case)
+        events = list(result.subtests.values())
+        self.assertEqual(len(events), 3)
+        self.assertEqual([event["reason"] for event in events], [
+            "unavailable occurrence 0", "unavailable occurrence 1", "unavailable occurrence 2",
+        ])
+        self.assertEqual(len({event["id"] for event in events}), 1)
+        self.assertTrue(all(event["parent"] == case.id() and event["status"] == "SKIP" for event in events))
+        self.assertEqual(result.records[case.id()]["status"], "SKIP")
+        summary = reporter.summarize_result(result)
+        self.assertEqual((summary["total"], summary["passed"], summary["skipped"]), (1, 0, 3))
+        self.assertEqual(summary["status"], "FAIL")
+
     def test_regular_failure_and_error_keep_separate_parent_records(self) -> None:
         class Failure(unittest.TestCase):
             def runTest(self) -> None:

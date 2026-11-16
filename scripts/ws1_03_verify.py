@@ -33,6 +33,16 @@ class RecordingResult(unittest.TextTestResult):
         if previous is None or priority[status] > priority[previous["status"]]:
             self.records[test.id()] = {"status": status, **details}
 
+    def _record_subtest(self, parent: unittest.TestCase, subtest: unittest.TestCase,
+                        status: str, **details: str) -> None:
+        original_id = subtest.id()
+        key = original_id
+        occurrence = 1
+        while key in self.subtests:
+            occurrence += 1
+            key = f"{original_id} [occurrence {occurrence}]"
+        self.subtests[key] = {"id": original_id, "parent": parent.id(), "status": status, **details}
+
     def addSuccess(self, test: unittest.TestCase) -> None:
         """Record a successful test."""
         super().addSuccess(test)
@@ -44,7 +54,7 @@ class RecordingResult(unittest.TextTestResult):
         parent = getattr(test, "test_case", test)
         self._record(parent, "SKIP", reason=reason)
         if parent is not test:
-            self.subtests[test.id()] = {"parent": parent.id(), "status": "SKIP", "reason": reason}
+            self._record_subtest(parent, test, "SKIP", reason=reason)
 
     def addSubTest(self, test: unittest.TestCase, subtest: unittest.TestCase, err: Any) -> None:
         """Record subtest failures/errors without counting them as additional parent tests."""
@@ -52,7 +62,7 @@ class RecordingResult(unittest.TextTestResult):
         if err is not None:
             status = "FAIL" if issubclass(err[0], test.failureException) else "ERROR"
             self._record(test, status, message=str(err[1]))
-            self.subtests[subtest.id()] = {"parent": test.id(), "status": status, "message": str(err[1])}
+            self._record_subtest(test, subtest, status, message=str(err[1]))
 
     def addFailure(self, test: unittest.TestCase, err: Any) -> None:
         """Record an assertion failure."""
