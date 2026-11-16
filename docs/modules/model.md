@@ -20,6 +20,8 @@ Constructor giữ mặc định `dim=48`, `num_blocks=(6,6,12)`, refinement 4, e
 
 Source được nhận qua `ModelSpec.architecture_file`, kiểm SHA-256 theo audit WS1-01 trước khi thực thi. Fingerprint xác định nội dung source; không phụ thuộc vị trí checkout hoặc cài đặt package `basicsr`. Source phải giữ nguyên byte, kể cả kiểu xuống dòng LF, để khớp fingerprint đã audit. Package `fftformer_lab.model` và validation spec import được chỉ với standard library; chỉ bước build/forward mới cần PyTorch và `einops`.
 
+Khởi tạo model dùng context CPU tường minh, sau đó chuyển sang device đã resolve với dtype `torch.float32` theo C-02. Cách này không phụ thuộc default dtype/device của chương trình gọi và không thay đổi các thiết lập đó, kể cả khi constructor thất bại.
+
 ## Ví dụ khởi tạo cho kiểm tra shape
 
 Từ repository root, thiết lập đường dẫn package và mở Python:
@@ -60,19 +62,19 @@ Ngày 16/11/2026, môi trường Python 3.14.10, PyTorch 2.15.0+cpu, einops 0.8.
 
 ```powershell
 python -B -m unittest discover -s tests -p "test_*.py"
-# Ran 26 tests; OK (skipped=12): 14 chạy thành công, 12 model tests chưa bật.
+# Ran 30 tests; OK (skipped=16): 14 chạy thành công, 16 model tests chưa bật.
 
 $env:FFTFORMER_RUN_MODEL_TESTS = '1'
 python -B -m unittest discover -s tests -p "test_*.py" -v
-# Ran 26 tests; OK: toàn bộ 26 chạy thành công.
+# Ran 30 tests; OK: toàn bộ 30 chạy thành công.
 Remove-Item Env:FFTFORMER_RUN_MODEL_TESTS
 ```
 
 - [13 unit tests mới](../../tests/unit/test_model_spec.py): constructor/config validation, immutable config/metadata, identity/device/strictness, checkpoint request, source thiếu/thay đổi, import không dependency.
-- [12 model tests opt-in](../../tests/model/test_model_adapter.py): constructor metadata/eval, shape `32x32`, `64x96`, batch 2, so sánh đầu ra với model upstream, input không bị sửa, các đầu vào sai và output lỗi. Kiểm tra không clamp và truyền lỗi dùng mock có tên rõ trong test.
+- [16 model tests opt-in](../../tests/model/test_model_adapter.py): constructor metadata/eval, shape `32x32`, `64x96`, batch 2, so sánh đầu ra với model upstream, input không bị sửa, các đầu vào sai và output lỗi. Bốn test hồi quy kiểm tra caller mặc định float64, device meta, kết hợp cả hai và phục hồi defaults khi constructor thất bại. Kiểm tra không clamp và truyền lỗi dùng mock có tên rõ trong test.
 - 1 test tooling có sẵn trong `tests/unit/test_check_env.py`.
 
-Model tests tạo model từ source upstream đã pin bằng trọng số ngẫu nhiên, không đọc checkpoint hoặc dataset. CUDA unavailable/index tests dùng mock; **CUDA forward vẫn `UNVERIFIED`**. CI mặc định chạy 14 test nhẹ và skip 12 model tests; không cần submodule/PyTorch để chạy nhóm nhẹ.
+Model tests tạo model từ source upstream đã pin bằng trọng số ngẫu nhiên, không đọc checkpoint hoặc dataset. CUDA unavailable/index tests dùng mock; **CUDA forward vẫn `UNVERIFIED`**. CI mặc định chạy 14 test nhẹ và skip 16 model tests; không cần submodule/PyTorch để chạy nhóm nhẹ.
 
 ## Phần còn lại
 

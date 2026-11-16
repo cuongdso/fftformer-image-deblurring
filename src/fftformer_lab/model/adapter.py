@@ -135,7 +135,11 @@ def build_model(spec: ModelSpec) -> ModelAdapter:
     module = ModuleType("_fftformer_lab_audited_upstream")
     try:
         exec(compile(source_bytes, str(architecture_file), "exec"), module.__dict__)
-        model = module.fftformer(**spec.config.to_constructor_kwargs()).to(device).eval()
+        # Override an enclosing default-device context without changing caller
+        # defaults. C-02 also requires float32 even when its default dtype differs.
+        with torch.device("cpu"):
+            model = module.fftformer(**spec.config.to_constructor_kwargs())
+        model = model.to(device=device, dtype=torch.float32).eval()
     except (ImportError, RuntimeError, TypeError, ValueError) as exc:
         raise ModelBackendError(f"fftformer construction from {spec.architecture_file}, device {device}: {exc}") from exc
     metadata = ModelMetadata(
