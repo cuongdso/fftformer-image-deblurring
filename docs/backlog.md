@@ -2,11 +2,13 @@
 
 Các task implementation Wave C là `PLANNED` cho đến khi một thành viên nhận workstream sau khi trao đổi trong nhóm và cập nhật Owner tại `docs/ownership.md`. Task ID trong bảng được giữ để người/agent xác định đúng công việc; Owner/Reviewer phải được lặp lại trong từng implementation PR. Hướng dẫn đầy đủ cho người/agent nằm ở `INSTRUCTION.md`.
 
+**WS1:** `DucHai27` đã hoàn thành và merge 3/3 task vào `main` qua PR #4, #5, #6. Evidence triển khai, kiểm chứng và tích hợp tại [project status](project-status.md).
+
 ## Wave A — nghiên cứu/thiết kế song song (evidence cho v1.0)
 
 | ID | Owner role | Reviewer role | Task | Dependency | Acceptance criteria |
 | --- | --- | --- | --- | --- | --- |
-| M1-WS1-01 | WS1 | WS3 | Audit block/config/checkpoint compatibility với upstream pin, đề xuất C-01 | upstream audit | mapping paper↔code + shape/checkpoint test plan |
+| M1-WS1-01 | WS1 / `DucHai27` — `DONE`, đã merge PR #4 | WS3 | Audit block/config/checkpoint compatibility với upstream pin, đề xuất C-01 | upstream audit | mapping paper↔code + shape/checkpoint test plan |
 | M1-WS2-01 | WS2 | WS1, WS3, WS4 | Xác minh nguồn/license, paired layout và preprocessing, đề xuất C-02/C-03 | upstream audit | manifest/layout + fixtures/validation plan; không commit dataset |
 | M1-WS3-01 | WS3 | WS1, WS2, WS4 | Thiết kế wrapper inference/CLI, cung cấp evidence cho C-01/C-02/C-04 | upstream inference audit | CLI/interface proposal + error/device/padding policy, **chưa code shared API** |
 | M1-WS4-01 | WS4 | WS1, WS2, WS3 | Audit RealBlur evaluation protocol, experiment schema, đề xuất C-05/C-06 | upstream evaluation audit | protocol audit + metric/config fixture plan |
@@ -23,8 +25,8 @@ Các task dưới đây không là bằng chứng implementation đã tồn tạ
 
 | ID | Owner role / trạng thái | Reviewer role | Task và file boundary | Dependency không vòng | Acceptance criteria / DoD |
 | --- | --- | --- | --- | --- | --- |
-| M1-WS1-02 | WS1 / `DucHai27`, chờ PR/review | WS3 consumer + Tech Lead scope | ModelSpec/model adapter tối thiểu trong `src/fftformer_lab/model/` | C-01, C-02 `APPROVED` | metadata implementation/config/device rõ; validation error có ngữ cảnh; unit test shape/config; không sửa upstream |
-| M1-WS1-03 | WS1 / `DucHai27`, sau M1-WS1-02 | WS3 consumer + Tech Lead | Strict checkpoint loader và incompatibility tests trong WS1 | M1-WS1-02; fixture/artifact được phép | thiếu file/schema/key/shape mismatch không bị che; strict-load test; checkpoint compatibility chỉ claim phần đã chạy |
+| M1-WS1-02 | WS1 / `DucHai27` — `DONE`, đã merge PR #5 | WS3 consumer + Tech Lead scope | ModelSpec/model adapter tối thiểu trong `src/fftformer_lab/model/` | C-01, C-02 `APPROVED` | metadata implementation/config/device rõ; validation error có ngữ cảnh; unit test shape/config; không sửa upstream |
+| M1-WS1-03 | WS1 / `DucHai27` — `DONE`, đã merge PR #6 | WS3 consumer + Tech Lead | Strict checkpoint loader và incompatibility tests trong WS1 | M1-WS1-02; fixture/artifact được phép | thiếu file/schema/key/shape mismatch không bị che; strict-load test; checkpoint compatibility chỉ claim phần đã chạy |
 | M1-WS2-02 | WS2 / `OPEN` | WS1, WS3 consumer + Tech Lead | Image validation/normalization trong `src/fftformer_lab/data/` | C-02 `APPROVED` | RGB `float32` CHW `[3,H,W]` `[0,1]`; BGR conversion explicit; range/channel/corrupt-image tests |
 | M1-WS2-03 | WS2 / sau M1-WS2-02 | WS4 consumer + Tech Lead | Deterministic paired manifest/loader và non-GT `Sample` | M1-WS2-02; C-03 `APPROVED` | pair/missing/duplicate/size error tests + legal tiny fixtures; `target=None` khi không GT; không commit dataset lớn |
 | M1-WS3-02 | WS3 / `OPEN` | WS1, WS2, WS4 consumer + Tech Lead | Inference request/result, pad/crop, mock pipeline tests trong `src/fftformer_lab/inference/` | C-01, C-02, C-04 `APPROVED` | `InferenceResult` một sample, metadata/crop/error tests; mock được nhận diện rõ; không claim real inference |

@@ -3,7 +3,7 @@
 - Workstream: WS1 — Model & Architecture
 - Reviewer theo backlog: WS3
 - Ngày lập: 16/11/2026
-- Trạng thái: Hoàn thành phần đối chiếu và kiểm tra sơ bộ; chờ review qua Pull Request
+- Trạng thái: `DONE` — báo cáo đã merge tại [PR #4](https://github.com/cuongdso/fftformer-image-deblurring/pull/4); bản cập nhật evidence đã tích hợp qua [PR #5](https://github.com/cuongdso/fftformer-image-deblurring/pull/5), xem [project status](../project-status.md).
 
 ## 1. Mục tiêu và phạm vi
 
@@ -255,6 +255,6 @@ Các giới hạn còn lại cần được giữ rõ trong tài liệu và PR:
 5. `reduce_chan_level2` hiện có tham số nhưng không tham gia `forward()`. Thành phần này vẫn cần được giữ để checkpoint khớp cấu trúc.
 6. Các kết quả được ghi nhận trên cấu hình CPU nêu tại Mục 5, không đại diện cho mọi phiên bản PyTorch hoặc mọi thiết bị.
 
-Đối với `M1-WS1-02`, cần triển khai `ModelSpec` và adapter ở `src/fftformer_lab/model/` theo C-01/C-02, cung cấp architecture/config/device metadata và kiểm tra đầu vào. `M1-WS1-03` tiếp tục triển khai strict checkpoint loader và các trường hợp không tương thích ở Mục 6. Không thay đổi `third_party/FFTformer/` hoặc hợp đồng liên module trong phạm vi hai task này nếu chưa có quy trình phê duyệt tương ứng.
+Kế hoạch bàn giao tại thời điểm WS1-01 là triển khai `ModelSpec`/adapter theo C-01/C-02 trong WS1-02, rồi strict checkpoint loader và các trường hợp không tương thích trong WS1-03. Hai task này hiện đã hoàn thành phần triển khai và kiểm chứng; API/evidence tại [model guide](../modules/model.md), tình trạng tích hợp tại [project status](../project-status.md). Upstream source/pin và hợp đồng liên module được giữ nguyên.
 
-Bản audit đã có mapping, đường dẫn nguồn, bảng shape, thông tin checkpoint và ma trận kiểm thử theo tiêu chí của `M1-WS1-01`. Trạng thái `DONE` của task chỉ được cập nhật sau khi PR hoàn tất review và được phê duyệt theo quy trình nhóm.
+Bản audit hoàn thành tiêu chí `M1-WS1-01`: mapping, đường dẫn nguồn, bảng shape, thông tin checkpoint và ma trận kiểm thử. Báo cáo đã được tích hợp qua PR #4; các cập nhật evidence tiếp theo được truy vết trong [hồ sơ bàn giao WS1](ws1-handoff.md).
