@@ -1,0 +1,167 @@
+{
+  "audit": "M1-WS3-02",
+  "timestamp_utc": "2026-11-17T01:12:23.715062+00:00",
+  "evidence_source": "group-measured",
+  "test_kind": "cpu-unit-and-mock-pipeline",
+  "contract_compliance": [
+    "C-02",
+    "C-04"
+  ],
+  "environment": {
+    "python": "3.11.9",
+    "torch": "2.15.0+cpu",
+    "os": "Windows",
+    "device": "cpu",
+    "torch_num_threads": 2
+  },
+  "checks": {
+    "unit.test_inference_contracts.InferenceContractTests.test_batch_dimension_in_output_is_rejected": {
+      "status": "PASS"
+    },
+    "unit.test_inference_contracts.InferenceContractTests.test_batch_empty_returns_empty_list": {
+      "status": "PASS"
+    },
+    "unit.test_inference_contracts.InferenceContractTests.test_batch_error_reports_failing_index": {
+      "status": "PASS"
+    },
+    "unit.test_inference_contracts.InferenceContractTests.test_batch_mixed_identity_keeps_order_and_ids": {
+      "status": "PASS"
+    },
+    "unit.test_inference_contracts.InferenceContractTests.test_batch_rejects_string_and_stacked_tensor": {
+      "status": "PASS"
+    },
+    "unit.test_inference_contracts.InferenceContractTests.test_device_override_allowed_for_plain_callable": {
+      "status": "PASS"
+    },
+    "unit.test_inference_contracts.InferenceContractTests.test_device_override_conflicting_with_model_device_is_rejected": {
+      "status": "PASS"
+    },
+    "unit.test_inference_contracts.InferenceContractTests.test_fixed_device_metadata_is_used": {
+      "status": "PASS"
+    },
+    "unit.test_inference_contracts.InferenceContractTests.test_invalid_device_string_is_rejected": {
+      "status": "PASS"
+    },
+    "unit.test_inference_contracts.InferenceContractTests.test_invalid_request_type_is_rejected": {
+      "status": "PASS"
+    },
+    "unit.test_inference_contracts.InferenceContractTests.test_invert_values_survive_padding_and_crop": {
+      "status": "PASS"
+    },
+    "unit.test_inference_contracts.InferenceContractTests.test_model_metadata_copy_is_isolated": {
+      "status": "PASS"
+    },
+    "unit.test_inference_contracts.InferenceContractTests.test_non_finite_model_output_is_rejected": {
+      "status": "PASS"
+    },
+    "unit.test_inference_contracts.InferenceContractTests.test_non_tensor_output_is_rejected": {
+      "status": "PASS"
+    },
+    "unit.test_inference_contracts.InferenceContractTests.test_result_has_positive_elapsed_time_and_cpu_device": {
+      "status": "PASS"
+    },
+    "unit.test_inference_contracts.InferenceContractTests.test_result_to_dict_is_json_serializable": {
+      "status": "PASS"
+    },
+    "unit.test_inference_contracts.InferenceContractTests.test_sample_id_fallbacks": {
+      "status": "PASS"
+    },
+    "unit.test_inference_contracts.InferenceContractTests.test_too_small_image_raises_padding_error": {
+      "status": "PASS"
+    },
+    "unit.test_inference_contracts.InferenceContractTests.test_training_mode_module_is_rejected_until_eval": {
+      "status": "PASS"
+    },
+    "unit.test_inference_contracts.InferenceContractTests.test_unpad_rejects_five_dimensional_tensor": {
+      "status": "PASS"
+    },
+    "unit.test_inference_contracts.InferenceContractTests.test_wrong_output_dtype_is_rejected": {
+      "status": "PASS"
+    },
+    "unit.test_inference_contracts.InferenceContractTests.test_wrong_spatial_output_shape_is_rejected": {
+      "status": "PASS"
+    },
+    "unit.test_inference_pipeline.InferencePipelineTests.test_mock_model_modes": {
+      "status": "PASS"
+    },
+    "unit.test_inference_pipeline.InferencePipelineTests.test_mock_model_rejects_non_multiple_of_32": {
+      "status": "PASS"
+    },
+    "unit.test_inference_pipeline.InferencePipelineTests.test_pad_and_unpad_roundtrip": {
+      "status": "PASS"
+    },
+    "unit.test_inference_pipeline.InferencePipelineTests.test_pipeline_propagates_model_execution_error": {
+      "status": "PASS"
+    },
+    "unit.test_inference_pipeline.InferencePipelineTests.test_pipeline_run_batch_deterministic_order": {
+      "status": "PASS"
+    },
+    "unit.test_inference_pipeline.InferencePipelineTests.test_pipeline_run_single_supports_inference_request_and_duck_sample": {
+      "status": "PASS"
+    },
+    "unit.test_inference_pipeline.InferencePipelineTests.test_pipeline_run_single_with_identity_mock": {
+      "status": "PASS"
+    },
+    "unit.test_inference_pipeline.InferencePipelineTests.test_validate_input_tensor_invalid_types_and_shapes": {
+      "status": "PASS"
+    },
+    "unit.test_inference_pipeline.InferencePipelineTests.test_validate_input_tensor_out_of_range_and_non_finite": {
+      "status": "PASS"
+    },
+    "unit.test_inference_pipeline.InferencePipelineTests.test_validate_input_tensor_valid": {
+      "status": "PASS"
+    },
+    "unit.test_inference_pure.InferenceMockValidationTests.test_calculate_reflection_padding_custom_factor": {
+      "status": "PASS"
+    },
+    "unit.test_inference_pure.InferenceMockValidationTests.test_calculate_reflection_padding_rejects_invalid_factor": {
+      "status": "PASS"
+    },
+    "unit.test_inference_pure.InferenceMockValidationTests.test_mock_model_rejects_unknown_mode": {
+      "status": "PASS"
+    },
+    "unit.test_inference_pure.InferencePureTests.test_calculate_reflection_padding_arbitrary_sizes": {
+      "status": "PASS"
+    },
+    "unit.test_inference_pure.InferencePureTests.test_calculate_reflection_padding_invalid_dimensions": {
+      "status": "PASS"
+    },
+    "unit.test_inference_pure.InferencePureTests.test_calculate_reflection_padding_multiples_of_32": {
+      "status": "PASS"
+    },
+    "unit.test_inference_pure.InferencePureTests.test_calculate_reflection_padding_too_small_for_reflection": {
+      "status": "PASS"
+    },
+    "unit.test_inference_pure.InferencePureTests.test_exception_hierarchy": {
+      "status": "PASS"
+    },
+    "unit.test_inference_pure.InferencePureTests.test_inference_result_structure_and_dict": {
+      "status": "PASS"
+    },
+    "unit.test_inference_pure.InferencePureTests.test_padding_metadata_attributes_and_immutability": {
+      "status": "PASS"
+    }
+  },
+  "subtests": {},
+  "summary": {
+    "total": 42,
+    "passed": 42,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "status": "PASS"
+  },
+  "file_sha256": {
+    "src/fftformer_lab/inference/__init__.py": "be205b50eff661b2cf7e04bddb6d16c9df930eae2ca627b7c986104d0f9df4e4",
+    "src/fftformer_lab/inference/types.py": "b18087afa2f6910fb0abafb2238af73d4cc1bf8af9e0c9c6795b69ee4e34eda2",
+    "src/fftformer_lab/inference/padding.py": "090f82f4c7c125d8c886088bcf2bcabd765f84a8262b6f15bcd9485e0c288628",
+    "src/fftformer_lab/inference/mock.py": "e840ff5089fa07cf1d7584fe4660eb68b074b3d68fc689aea11e8197308dae21",
+    "src/fftformer_lab/inference/pipeline.py": "86fe8965865cc49d58c89e791eed62b63f5d5fdab09a862a6b089cb6820d9077",
+    "src/fftformer_lab/inference/README.md": "2419361a29c56ce473e5ab428f4097c34e5e92629e9e2dc8b19237cf49e50cc9",
+    "tests/unit/test_inference_pure.py": "6fd7c2d73dcc15e9231802039344664c9d3bd405943f0ce17722ef07e9e0067b",
+    "tests/unit/test_inference_pipeline.py": "01ef3a244f502d4048439bdb021c854248d6558daeb9d9e4fa859d74aa13bd30",
+    "tests/unit/test_inference_contracts.py": "fb8936f99fa57554273ae443f5bec696b23fe0452d83495f614a5416e5f21294",
+    "scripts/ws3_verify.py": "b34b6524c078d0562ad768cc335fe1f73f1a02b8dfd0d51cce7276c5ac84dc74"
+  },
+  "limitations": "CPU mock pipeline and reflection padding tests only; no GPU forward, no checkpoint weights, no file-based image I/O CLI (reserved for M1-WS3-03)"
+}
