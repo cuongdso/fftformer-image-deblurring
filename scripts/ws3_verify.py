@@ -139,10 +139,14 @@ def main() -> int:
         "src/fftformer_lab/inference/padding.py",
         "src/fftformer_lab/inference/mock.py",
         "src/fftformer_lab/inference/pipeline.py",
+        "src/fftformer_lab/inference/io.py",
+        "src/fftformer_lab/inference/cli.py",
+        "src/fftformer_lab/inference/__main__.py",
         "src/fftformer_lab/inference/README.md",
         "tests/unit/test_inference_pure.py",
         "tests/unit/test_inference_pipeline.py",
         "tests/unit/test_inference_contracts.py",
+        "tests/unit/test_inference_cli.py",
         "scripts/ws3_verify.py",
     ]
     file_hashes = {}
@@ -152,10 +156,10 @@ def main() -> int:
             file_hashes[name] = hashlib.sha256(target.read_bytes()).hexdigest()
 
     evidence: dict[str, Any] = {
-        "audit": "M1-WS3-02",
+        "audit": "M1-WS3-02/03",
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "evidence_source": "group-measured",
-        "test_kind": "cpu-unit-and-mock-pipeline",
+        "test_kind": "cpu-unit-mock-pipeline-and-cli-orchestration",
         "contract_compliance": ["C-02", "C-04"],
         "environment": {
             "python": platform.python_version(),
@@ -169,8 +173,8 @@ def main() -> int:
         "summary": summary,
         "file_sha256": file_hashes,
         "limitations": (
-            "CPU mock pipeline and reflection padding tests only; "
-            "no GPU forward, no checkpoint weights, no file-based image I/O CLI (reserved for M1-WS3-03)"
+            "CPU mock pipeline, image I/O, reflection padding and CLI orchestration tests; "
+            "no GPU forward, no checkpoint weights (requires separate baseline reproduction artifact)"
         ),
     }
 
