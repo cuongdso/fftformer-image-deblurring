@@ -88,6 +88,14 @@ Tại lần kiểm tra ngày 16/11/2026, `origin/main` ở `32d3a2e` và chứa 
   fingerprint source/test/fixture của bản local.
   Lệnh tái lập: `scripts/ws2_verify.py`, tải bốn PNG chỉ khi bật `--download-examples`.
 
+## M1 — WS4-02 Evaluation Engine
+
+- **Trạng thái:** `IMPLEMENTED` trên nhánh `feat/evaluation-metrics`, chờ Tech Lead review; chưa merge vào `main`.
+- **Đã có:** registry protocol bất biến, evaluator theo sample/batch, PSNR/SSIM CPU variant, provenance C-05, validation GT/ID/shape/dtype/range/finiteness và exclusion rõ ràng cho sample không GT.
+- **Protocol:** `upstream-basicsr` cần adapter BasicSR/CUDA tường minh cho `ssim3d=True`; `group-basicsr-cpu` dùng SSIM Gaussian 2D `ssim3d=False` là protocol riêng; `realblur-official` trả unavailable vì chưa có ECC/file workflow.
+- **Kiểm chứng:** unit tests WS4-02 kiểm protocol, conversion RGB→BGR/HWC/uint8, PSNR reference, SSIM golden fixture, aggregate và lỗi input; không phải benchmark dataset hay reproduction.
+- **Giới hạn:** chưa chạy BasicSR CUDA, RealBlur official evaluator, GoPro/RealBlur benchmark, WS4-03 config/CLI hay WS4-04 integration.
+
 ## Milestone đề xuất
 
 - `M1` — Official Baseline Reproduction
