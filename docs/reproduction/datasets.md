@@ -2,6 +2,11 @@
 
 **Trạng thái:** layout bên dưới được audit từ `test.py` và các YAML upstream; nguồn tải, dung lượng và license dataset là **UNVERIFIED** tại M0. Không commit dataset vào Git.
 
+**Cập nhật local WS2 ngày 18/11/2026:** nguồn/terms và mapping layout đã được
+đối chiếu tại [dataset audit](../research/ws2-dataset-audit.md). Loader đã kiểm hai
+cặp ảnh ví dụ tác giả GoPro công bố, không đồng nghĩa validation toàn bộ dataset
+hoặc paper reproduction. Các ghi chú M0 dưới đây giữ bối cảnh của lần audit cũ.
+
 ## Layout chính thức của test script
 
 `third_party/FFTformer/test.py` yêu cầu pair ground truth, không phải CLI inference một ảnh:
