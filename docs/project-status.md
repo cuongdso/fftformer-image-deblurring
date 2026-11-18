@@ -59,6 +59,35 @@ Tại lần kiểm tra ngày 16/11/2026, `origin/main` ở `32d3a2e` và chứa 
 - **Giới hạn:** CUDA forward, RealBlur checkpoint, benchmark chất lượng và training chưa xác minh/chưa chạy. Không thay đổi contracts hoặc upstream source/pin.
 - **Bàn giao:** Owner `DucHai27`; [hồ sơ WS1-01/02/03](research/ws1-handoff.md) có files, API, commands/results, PR/merge commit và CI. API WS1 đã có trong `main` để WS3/WS4 sử dụng theo dependency của từng task.
 
+## M1 — WS2 image boundary và dataset loader (local)
+
+- **Owner:** `phanthek2`, nhận WS2 theo phân công đã xác nhận ngày 18/11/2026.
+- **Trạng thái:** `M1-WS2-02/03` đã triển khai, kiểm chứng **local** và tách commit;
+  báo cáo audit `M1-WS2-01` được bàn giao cùng hồ sơ. Người dùng cho phép commit/push
+  `feat/data-image-validator` ngày 18/11/2026, chờ PR/review. Chưa nghiệm thu/merge.
+- **Commits code:** WS2-02 `a24c62b`, WS2-03 `0c108a6`; account xuất bản GitHub
+  `phanthek2-arch` (owner phân công `phanthek2`). [Handoff](research/ws2-handoff.md)
+  ghi SHA đầy đủ và cách đối chiếu evidence trước publication.
+- **Đã có:** RGB image reader, validation, normalization và explicit BGR conversion;
+  deterministic paired/single manifests, JSON relative paths và lazy C-03 `Sample`
+  loader trong `src/fftformer_lab/data/`. Không đổi contracts, upstream pin hoặc
+  nghiệp vụ WS1/WS3/WS4. Fixtures tự tạo là 3 PNG tổng 224 bytes.
+- **Evidence ngày 18/11/2026:** 40/40 WS2 tests qua; toàn bộ 137/137 repository tests
+  qua trên CPU khi bật model/checkpoint markers, không skip. Chạy standard-library
+  suite: 50 qua, 87 dependency/opt-in tests skip. Compile và whitespace check qua.
+- **Boundary smoke thực:** đọc 3 ảnh synthetic tạm qua WS2 → strict GoPro
+  checkpoint WS1 → pipeline WS3 trên CPU; ID/shape/range/finiteness và bytes nguồn
+  được kiểm tra. Không có đo PSNR/SSIM hoặc benchmark dataset.
+- **Ảnh tác giả đã kiểm:** Flower/Istanbul (hai pair RGB 1280x720) từ repo GoPro
+  chính thức, tổng 5,016,042 bytes; paired/non-GT outputs và source hashes qua.
+  Xem [dataset audit](research/ws2-dataset-audit.md) cho nguồn, terms và layout.
+- **Giới hạn:** chưa kiểm toàn bộ GoPro/RealBlur split, CUDA, LMDB, training hoặc
+  quality benchmark. Không suy đoán split/CRF của các ảnh ví dụ.
+- [Data guide](modules/data.md), [handoff](research/ws2-handoff.md) và
+  [runtime evidence](research/ws2-runtime-evidence.json) ghi API, lệnh, phạm vi và
+  fingerprint source/test/fixture của bản local.
+  Lệnh tái lập: `scripts/ws2_verify.py`, tải bốn PNG chỉ khi bật `--download-examples`.
+
 ## Milestone đề xuất
 
 - `M1` — Official Baseline Reproduction

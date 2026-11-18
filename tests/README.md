@@ -22,3 +22,19 @@ WS3-02 bổ sung 42 tests cho inference pipeline theo Contract C-02/C-04:
 
 Toàn bộ 42 tests WS3 chạy độc lập trên CPU mà không cần GPU hay checkpoint ngoài Git.
 Lệnh và kết quả thực tế tại [inference guide](../docs/modules/inference.md#kiểm-thử-ws3-02-và-evidence-hiện-tại) và [ws3-02-runtime-evidence.json](../docs/research/ws3-02-runtime-evidence.json).
+
+## WS2 tests (local implementation)
+
+`unit/test_data_image.py` kiểm C-02 bằng các màu pixel đã biết, conversion BGR,
+roundtrip uint8, không chia sẻ storage, lỗi file/channel/bit-depth/range/NaN/Inf
+và caller defaults. `unit/test_data_dataset.py` kiểm C-03: deterministic pairing,
+missing/orphan/duplicate, manifest relative paths và relocation, GT flags, lazy
+decode, size/channel errors và một boundary smoke với WS3 `MockModel`.
+
+Fixtures tự tạo có provenance tại [fixtures/ws2](fixtures/ws2/README.md), tổng
+224 bytes PNG; không dùng hoặc phân phối dataset ngoài. Tests manifest/import
+chạy chỉ với standard library. Tests ảnh/tensor skip rõ khi thiếu torch/NumPy/Pillow.
+Các kiểm tra dùng mock không được coi là inference thật hoặc benchmark.
+
+Lệnh và kết quả thực tế tại [data guide](../docs/modules/data.md) và
+[handoff WS2](../docs/research/ws2-handoff.md).
