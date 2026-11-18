@@ -1,6 +1,6 @@
 # Ví dụ cấu hình
 
-`evaluation-precomputed.json` là ví dụ C-06 cho một evaluation job trên prediction và ground truth đã có sẵn. File minh họa schema version, contract version, protocol, experiment ID, provenance và metadata identity tùy chọn. Đường dẫn `predictions/` và `targets/` là placeholder có chủ đích; người dùng cần thay bằng hai thư mục RGB paired hợp lệ trước khi chạy.
+`evaluation-precomputed.json` là ví dụ C-06 cho một evaluation job trên prediction và ground truth đã có sẵn. File minh họa schema version, contract version, protocol, experiment ID, provenance và metadata identity tùy chọn. File hiện tham chiếu `../../tests/fixtures/ws2` cho cả prediction và target để kiểm tra validation đường dẫn; fixture này có ảnh grayscale/RGBA rất nhỏ nên không phải bộ ảnh RGB paired hợp lệ mặc định cho `run`. Người dùng cần thay hai đường dẫn bằng thư mục prediction và target RGB ghép cặp trước khi chạy evaluation thực.
 
 Có thể kiểm tra schema mà không cần dependency computer-vision sau khi cài editable package:
 
