@@ -13,6 +13,8 @@ Module `fftformer_lab.evaluation` nhận `Sample` từ WS2 (C-03) và `Inference
 
 Batch giữ nguyên thứ tự `InferenceResult`; mẫu thiếu GT được loại trừ có lý do `missing-ground-truth`, không bị bỏ qua im lặng. Metadata kết quả lưu profile protocol, representation, conversion và `model_metadata` nếu WS3 cung cấp.
 
+Package protocol/error vẫn import được trong lightweight CI không có dependency computer-vision. Chỉ khi gọi conversion hoặc metric thì engine mới yêu cầu NumPy; `group-basicsr-cpu` SSIM còn cần OpenCV và báo `ProtocolUnavailableError` kèm hướng dẫn cài đặt thay vì lỗi import. Test metric được skip có lý do trong môi trường đó.
+
 ## Protocol
 
 - `upstream-basicsr`: HWC BGR `uint8` sau clamp/round như `tensor2img`; `ssim3d=True` và cần adapter CUDA tường minh. Không có fallback CPU.

@@ -1,10 +1,11 @@
 """Per-sample PSNR/SSIM evaluation engine for contract C-05."""
 
+from __future__ import annotations
+
 from dataclasses import dataclass, field
+import importlib
 import math
 from typing import Any, Protocol, Sequence
-
-import numpy as np
 
 from .errors import EvaluationInputError, MetricExecutionError, ProtocolUnavailableError
 from .protocol import GROUP_BASICSR_CPU, MetricProtocol, REALBLUR_OFFICIAL, UPSTREAM_BASICSR, get_metric_protocol
@@ -13,18 +14,19 @@ from .protocol import GROUP_BASICSR_CPU, MetricProtocol, REALBLUR_OFFICIAL, UPST
 class BasicSRAdapter(Protocol):
     """Explicit adapter for the audited BasicSR metric call boundary."""
 
-    def calculate_psnr(self, image1: np.ndarray, image2: np.ndarray, *, crop_border: int,
+    def calculate_psnr(self, image1: Any, image2: Any, *, crop_border: int,
                        test_y_channel: bool) -> float: ...
 
-    def calculate_ssim(self, image1: np.ndarray, image2: np.ndarray, *, crop_border: int,
+    def calculate_ssim(self, image1: Any, image2: Any, *, crop_border: int,
                        test_y_channel: bool, ssim3d: bool) -> float: ...
 
 
 class CpuBasicSRAdapter:
     """CPU implementation of audited BasicSR PSNR and non-3D SSIM math."""
 
-    def calculate_psnr(self, image1: np.ndarray, image2: np.ndarray, *, crop_border: int,
+    def calculate_psnr(self, image1: Any, image2: Any, *, crop_border: int,
                        test_y_channel: bool) -> float:
+        np = _numpy()
         _validate_metric_arrays(image1, image2, crop_border, test_y_channel)
         first, second = _crop(image1, image2, crop_border)
         if test_y_channel:
@@ -32,7 +34,7 @@ class CpuBasicSRAdapter:
         mse = float(np.mean((first.astype(np.float64) - second.astype(np.float64)) ** 2))
         return math.inf if mse == 0.0 else 20.0 * math.log10(255.0 / math.sqrt(mse))
 
-    def calculate_ssim(self, image1: np.ndarray, image2: np.ndarray, *, crop_border: int,
+    def calculate_ssim(self, image1: Any, image2: Any, *, crop_border: int,
                        test_y_channel: bool, ssim3d: bool) -> float:
         if ssim3d:
             raise ProtocolUnavailableError("CPU adapter implements only ssim3d=False; use upstream-basicsr with a CUDA adapter")
@@ -42,10 +44,14 @@ class CpuBasicSRAdapter:
             first, second = _to_y(first), _to_y(second)
         if first.shape[0] < 11 or first.shape[1] < 11:
             raise MetricExecutionError("SSIM requires post-crop height and width of at least 11 pixels")
+        np = _numpy()
         try:
             import cv2
         except ImportError as exc:
-            raise ProtocolUnavailableError("group-basicsr-cpu SSIM requires OpenCV") from exc
+            raise ProtocolUnavailableError(
+                "group-basicsr-cpu SSIM requires OpenCV; install the evaluation dependencies "
+                "(for example: pip install -e '.[data]' opencv-python)"
+            ) from exc
         kernel = cv2.getGaussianKernel(11, 1.5)
         window = np.outer(kernel, kernel.transpose())
         one, two = first.astype(np.float64), second.astype(np.float64)
@@ -99,11 +105,11 @@ class EvaluationSummary:
 
     @property
     def mean_psnr(self) -> float | None:
-        return None if not self.evaluations else float(np.mean([item.psnr for item in self.evaluations]))
+        return None if not self.evaluations else sum(item.psnr for item in self.evaluations) / len(self.evaluations)
 
     @property
     def mean_ssim(self) -> float | None:
-        return None if not self.evaluations else float(np.mean([item.ssim for item in self.evaluations]))
+        return None if not self.evaluations else sum(item.ssim for item in self.evaluations) / len(self.evaluations)
 
     def to_dict(self) -> dict[str, Any]:
         """Return JSON-ready aggregate without converting a valid infinite PSNR to null."""
@@ -117,8 +123,20 @@ class EvaluationSummary:
         }
 
 
-def _as_chw(value: Any, *, context: str) -> np.ndarray:
+def _numpy() -> Any:
+    """Load NumPy only when metric conversion/execution is requested."""
+    try:
+        return importlib.import_module("numpy")
+    except ImportError as exc:
+        raise ProtocolUnavailableError(
+            "evaluation metrics require NumPy; install the evaluation dependencies "
+            "(for example: pip install -e '.[data]' opencv-python)"
+        ) from exc
+
+
+def _as_chw(value: Any, *, context: str) -> Any:
     """Validate C-02 invariants and return a detached NumPy view/copy."""
+    np = _numpy()
     if hasattr(value, "detach") and hasattr(value, "cpu") and hasattr(value, "numpy"):
         array = value.detach().cpu().numpy()
     elif isinstance(value, np.ndarray):
@@ -134,17 +152,18 @@ def _as_chw(value: Any, *, context: str) -> np.ndarray:
     return array
 
 
-def _to_hwc_bgr(value: Any, *, context: str) -> np.ndarray:
+def _to_hwc_bgr(value: Any, *, context: str) -> Any:
     chw = _as_chw(value, context=context)
     return _chw_to_hwc_bgr_uint8(chw)
 
 
-def _chw_to_hwc_bgr_uint8(chw: np.ndarray) -> np.ndarray:
+def _chw_to_hwc_bgr_uint8(chw: Any) -> Any:
     """Apply the clamp/round conversion used by BasicSR tensor2img."""
+    np = _numpy()
     return np.rint(np.clip(chw, 0.0, 1.0).transpose(1, 2, 0)[..., ::-1] * 255.0).astype(np.uint8)
 
 
-def _crop(one: np.ndarray, two: np.ndarray, border: int) -> tuple[np.ndarray, np.ndarray]:
+def _crop(one: Any, two: Any, border: int) -> tuple[Any, Any]:
     if border == 0:
         return one, two
     if one.shape[0] <= 2 * border or one.shape[1] <= 2 * border:
@@ -152,12 +171,12 @@ def _crop(one: np.ndarray, two: np.ndarray, border: int) -> tuple[np.ndarray, np
     return one[border:-border, border:-border, ...], two[border:-border, border:-border, ...]
 
 
-def _to_y(image: np.ndarray) -> np.ndarray:
+def _to_y(image: Any) -> Any:
     # BasicSR's Y conversion expects BGR arrays in [0,255].
     return (image[..., 2:3] * 65.481 + image[..., 1:2] * 128.553 + image[..., :1] * 24.966) / 255.0 + 16.0
 
 
-def _validate_metric_arrays(one: np.ndarray, two: np.ndarray, border: int, y_channel: bool) -> None:
+def _validate_metric_arrays(one: Any, two: Any, border: int, y_channel: bool) -> None:
     if one.shape != two.shape or one.ndim != 3 or one.shape[2] != 3:
         raise MetricExecutionError("metric arrays must be matched HWC three-channel images")
     if border < 0 or not isinstance(y_channel, bool):

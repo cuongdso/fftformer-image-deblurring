@@ -5,7 +5,7 @@ WS1 do `DucHai27` nhận; WS2 do `phanthek2` nhận theo phân công đã xác n
 | Workstream | Trạng thái nhận | Phạm vi sở hữu | Boundary/interface chính | Owner | Reviewer | Entry task |
 | --- | --- | --- | --- | --- | --- | --- |
 | WS1 Model & Architecture | `DONE` — 3/3 task đã merge | `src/fftformer_lab/model/` | C-01 model loading, C-02 tensor/model metadata | `DucHai27` | Tech Lead `cuongdso`: chỉ đạo merge theo xác nhận Owner; WS3 là consumer | `M1-WS1-01/02/03` hoàn thành |
-| WS2 Dataset & Preprocessing | `READY FOR REVIEW` — hồ sơ và code local | `src/fftformer_lab/data/`, fixture/test liên quan | C-02 image I/O, C-03 dataset sample | `phanthek2` | TBD (WS1/WS3/WS4 consumer + Tech Lead scope) | Audit `M1-WS2-01`, implementation `M1-WS2-02/03` local |
+| WS2 Dataset & Preprocessing | `DONE` — M1-WS2-02/03 đã merge PR #8 | `src/fftformer_lab/data/`, fixture/test liên quan | C-02 image I/O, C-03 dataset sample | `phanthek2` | TBD (WS1/WS3/WS4 consumer + Tech Lead scope) | Audit `M1-WS2-01`, implementation `M1-WS2-02/03` hoàn thành |
 | WS3 Inference & Demo | M1-WS3-02 `DONE`, M1-WS3-03 `OPEN` | `src/fftformer_lab/inference/`, `src/fftformer_lab/app/` | C-04 inference result; consumes C-01/C-02 | `Alex` | TBD (WS1/WS2/WS4 consumer + Tech Lead scope) | `M1-WS3-02` hoàn thành, `M1-WS3-03` |
 | WS4 Evaluation, Reproducibility & Integration | `M1-WS4-02 IMPLEMENTED` — chờ review; WS4-03/04 chưa triển khai | `src/fftformer_lab/evaluation/`, `configs/`, `experiments/`, integration tests/CI scope | C-05 evaluation, C-06 config; consumes C-02/C-03/C-04 | `cuongdso` ưu tiên nhận; chưa xác nhận assignment cuối | Tech Lead/consumer review theo task | `M1-WS4-02` |
 

@@ -59,15 +59,13 @@ Tại lần kiểm tra ngày 16/11/2026, `origin/main` ở `32d3a2e` và chứa 
 - **Giới hạn:** CUDA forward, RealBlur checkpoint, benchmark chất lượng và training chưa xác minh/chưa chạy. Không thay đổi contracts hoặc upstream source/pin.
 - **Bàn giao:** Owner `DucHai27`; [hồ sơ WS1-01/02/03](research/ws1-handoff.md) có files, API, commands/results, PR/merge commit và CI. API WS1 đã có trong `main` để WS3/WS4 sử dụng theo dependency của từng task.
 
-## M1 — WS2 image boundary và dataset loader (local)
+## M1 — WS2 image boundary và dataset loader
 
 - **Owner:** `phanthek2`, nhận WS2 theo phân công đã xác nhận ngày 18/11/2026.
-- **Trạng thái:** `M1-WS2-02/03` đã triển khai, kiểm chứng **local** và tách commit;
-  báo cáo audit `M1-WS2-01` được bàn giao cùng hồ sơ. Người dùng cho phép commit/push
-  `feat/data-image-validator` ngày 18/11/2026, chờ PR/review. Chưa nghiệm thu/merge.
-- **Commits code:** WS2-02 `a24c62b`, WS2-03 `0c108a6`; account xuất bản GitHub
-  `phanthek2-arch` (owner phân công `phanthek2`). [Handoff](research/ws2-handoff.md)
-  ghi SHA đầy đủ và cách đối chiếu evidence trước publication.
+- **Trạng thái:** `M1-WS2-02/03` đã merge vào `main` qua PR #8, merge commit
+  `e482883`; báo cáo audit `M1-WS2-01` được bàn giao cùng hồ sơ.
+- **Commits code:** WS2-02 `a24c62b`, WS2-03 `0c108a6`; [handoff](research/ws2-handoff.md)
+  ghi SHA đầy đủ và evidence kiểm chứng của implementation đã merge.
 - **Đã có:** RGB image reader, validation, normalization và explicit BGR conversion;
   deterministic paired/single manifests, JSON relative paths và lazy C-03 `Sample`
   loader trong `src/fftformer_lab/data/`. Không đổi contracts, upstream pin hoặc

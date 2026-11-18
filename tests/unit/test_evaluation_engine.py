@@ -1,10 +1,20 @@
 """Deterministic correctness and contract tests for the WS4-02 evaluation engine."""
 
+from __future__ import annotations
+
 from dataclasses import dataclass
 import math
 import unittest
 
-import numpy as np
+try:
+    import numpy as np
+except ImportError:
+    np = None  # type: ignore[assignment]
+
+try:
+    import cv2  # noqa: F401
+except ImportError:
+    cv2 = None  # type: ignore[assignment]
 
 from fftformer_lab.evaluation import engine
 from fftformer_lab.evaluation import (
@@ -49,6 +59,10 @@ def _image(value: float = 0.0, *, size: int = 16) -> np.ndarray:
     return np.full((3, size, size), value, dtype=np.float32)
 
 
+@unittest.skipUnless(
+    np is not None and cv2 is not None,
+    "WS4 metric tests require NumPy and OpenCV; lightweight CI intentionally skips them",
+)
 class EvaluationEngineTests(unittest.TestCase):
     def test_identical_images_have_infinite_psnr_and_unit_ssim(self) -> None:
         evaluation = evaluate_sample(_Result(_image(0.25)), _Sample(_image(0.25)), GROUP_BASICSR_CPU)
