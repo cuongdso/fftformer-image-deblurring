@@ -59,15 +59,13 @@ Tại lần kiểm tra ngày 16/11/2026, `origin/main` ở `32d3a2e` và chứa 
 - **Giới hạn:** CUDA forward, RealBlur checkpoint, benchmark chất lượng và training chưa xác minh/chưa chạy. Không thay đổi contracts hoặc upstream source/pin.
 - **Bàn giao:** Owner `DucHai27`; [hồ sơ WS1-01/02/03](research/ws1-handoff.md) có files, API, commands/results, PR/merge commit và CI. API WS1 đã có trong `main` để WS3/WS4 sử dụng theo dependency của từng task.
 
-## M1 — WS2 image boundary và dataset loader (local)
+## M1 — WS2 image boundary và dataset loader
 
 - **Owner:** `phanthek2`, nhận WS2 theo phân công đã xác nhận ngày 18/11/2026.
-- **Trạng thái:** `M1-WS2-02/03` đã triển khai, kiểm chứng **local** và tách commit;
-  báo cáo audit `M1-WS2-01` được bàn giao cùng hồ sơ. Người dùng cho phép commit/push
-  `feat/data-image-validator` ngày 18/11/2026, chờ PR/review. Chưa nghiệm thu/merge.
-- **Commits code:** WS2-02 `a24c62b`, WS2-03 `0c108a6`; account xuất bản GitHub
-  `phanthek2-arch` (owner phân công `phanthek2`). [Handoff](research/ws2-handoff.md)
-  ghi SHA đầy đủ và cách đối chiếu evidence trước publication.
+- **Trạng thái:** `M1-WS2-02/03` đã merge vào `main` qua PR #8, merge commit
+  `e482883`; báo cáo audit `M1-WS2-01` được bàn giao cùng hồ sơ.
+- **Commits code:** WS2-02 `a24c62b`, WS2-03 `0c108a6`; [handoff](research/ws2-handoff.md)
+  ghi SHA đầy đủ và evidence kiểm chứng của implementation đã merge.
 - **Đã có:** RGB image reader, validation, normalization và explicit BGR conversion;
   deterministic paired/single manifests, JSON relative paths và lazy C-03 `Sample`
   loader trong `src/fftformer_lab/data/`. Không đổi contracts, upstream pin hoặc
@@ -88,6 +86,7 @@ Tại lần kiểm tra ngày 16/11/2026, `origin/main` ở `32d3a2e` và chứa 
   fingerprint source/test/fixture của bản local.
   Lệnh tái lập: `scripts/ws2_verify.py`, tải bốn PNG chỉ khi bật `--download-examples`.
 
+<<<<<<< HEAD
 ## M1 — WS3 inference pipeline core và CLI orchestration
 
 - **Owner role:** WS3.
@@ -96,6 +95,28 @@ Tại lần kiểm tra ngày 16/11/2026, `origin/main` ở `32d3a2e` và chứa 
 - **Evidence ngày 18/11/2026:** `python -B scripts/ws3_verify.py --repo . --output docs/research/ws3-02-runtime-evidence.json` — 57/57 tests thành công trên CPU trong 0.23s, gồm 10 pure tests (không cần PyTorch), 10 pipeline integration tests, 22 contract enforcement tests và 15 CLI/IO tests. Toàn bộ mã hash file được lưu tại [JSON](research/ws3-02-runtime-evidence.json). Chạy full test suite toàn repository: 152 tests (119 qua trên CPU, 33 opt-in tests skip).
 - **Giới hạn:** CPU mock pipeline, image I/O, reflection padding và CLI orchestration; chưa chạy CUDA forward, chưa nạp weights thật của FFTformer trên GPU (cần GPU và baseline checkpoint reproduction).
 - **Bàn giao:** [hồ sơ WS3](research/ws3-handoff.md) có đầy đủ API, files, commands và ranh giới cho consumer WS4.
+=======
+## M1 — WS4-02 Evaluation Engine
+
+- **Trạng thái:** `IMPLEMENTED`, đã được Tech Lead review trong chuỗi nhánh WS4; chưa merge vào `main`.
+- **Đã có:** registry protocol bất biến, evaluator theo sample/batch, PSNR/SSIM CPU variant, provenance C-05, validation GT/ID/shape/dtype/range/finiteness và exclusion rõ ràng cho sample không GT.
+- **Protocol:** `upstream-basicsr` cần adapter BasicSR/CUDA tường minh cho `ssim3d=True`; `group-basicsr-cpu` dùng SSIM Gaussian 2D `ssim3d=False` là protocol riêng; `realblur-official` trả unavailable vì chưa có ECC/file workflow.
+- **Kiểm chứng:** unit tests WS4-02 kiểm protocol, conversion RGB→BGR/HWC/uint8, PSNR reference, SSIM golden fixture, aggregate và lỗi input; không phải benchmark dataset hay reproduction.
+- **Giới hạn:** chưa chạy BasicSR CUDA, RealBlur official evaluator hoặc benchmark GoPro/RealBlur. Integration WS4-04 được kiểm bằng `MockModel`, không phải FFTformer thật.
+
+## M1 — WS4-03 Configuration, Metadata & CLI
+
+- **Trạng thái:** `IMPLEMENTED`, đã được Tech Lead review trong chuỗi nhánh WS4; chưa merge vào `main`.
+- **Đã có:** C-06 JSON schema/parser bất biến, metadata JSON strict và CLI validate/run cho paired prediction/GT images có sẵn.
+- **Kiểm chứng:** CLI đã chạy CPU trên hai cặp PNG RGB synthetic với protocol `group-basicsr-cpu`; đây không phải inference FFTformer hay benchmark.
+- **Giới hạn:** không có inference FFTformer, benchmark hay RealBlur official evaluator.
+
+## M1 — WS4-04 Integration
+
+- **Trạng thái:** `IMPLEMENTED` trên nhánh `feat/evaluation-integration`, đã được Tech Lead review; chưa merge vào `main`.
+- **Đã có:** integration CPU dùng public WS2 manifest/dataset, WS3 pipeline/MockModel và WS4 metric engine trên paired synthetic RGB files; kiểm WS3 padding/crop, batch order, exclusions, errors và provenance mock.
+- **Giới hạn:** `MockModel` không phải FFTformer; chưa chạy WS1 checkpoint/model thật qua pipeline trong integration gate, CUDA, benchmark hoặc RealBlur official evaluator.
+>>>>>>> origin/main
 
 ## Milestone đề xuất
 
