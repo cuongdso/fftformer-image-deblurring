@@ -31,6 +31,6 @@ Chi tiết kiến trúc và các giới hạn được giải thích trong [Eval
 
 Integration test chạy public chain `build_paired_manifest`/`ImageDataset` → `InferencePipeline` → `evaluate_sample`/`evaluate_batch`. `MockModel` là test double duy nhất; WS2 decode, WS3 padding/crop và WS4 PSNR/SSIM CPU là implementation thật. Xem [kiến trúc tích hợp](../ws4/integration-architecture.md). Test cần Torch, NumPy, Pillow và OpenCV nên có skip tường minh trong lightweight CI.
 
-## Chưa thuộc WS4-03
+## Trạng thái WS4 và giới hạn
 
-WS4-04 vẫn sở hữu integration gate giữa public adapters. Chưa chạy benchmark GoPro/RealBlur, không có checkpoint/dataset result và chưa xác minh BasicSR SSIM CUDA hay RealBlur official pipeline trong repository này.
+M1-WS4-02 (metric/protocol), M1-WS4-03 (config/metadata/CLI) và M1-WS4-04 (integration gate) đã được triển khai trên các feature branch tương ứng và chờ merge/review; chưa phần nào được suy diễn là đã merge vào `main`. Integration mock kiểm WS2/WS3/WS4 boundary, không phải FFTformer inference. Chưa chạy benchmark GoPro/RealBlur, BasicSR SSIM CUDA hay RealBlur official pipeline.
