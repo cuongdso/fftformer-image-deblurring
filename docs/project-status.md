@@ -98,7 +98,14 @@ Tại lần kiểm tra ngày 16/11/2026, `origin/main` ở `32d3a2e` và chứa 
 
 - **Trạng thái:** `IMPLEMENTED` trên nhánh `feat/evaluation-config-cli`, chờ Tech Lead review; chưa merge vào `main`.
 - **Đã có:** C-06 JSON schema/parser bất biến, metadata JSON strict và CLI validate/run cho paired prediction/GT images có sẵn.
-- **Giới hạn:** môi trường hiện tại chưa có Torch nên chưa chạy CLI evaluation thật với ảnh RGB; không có inference FFTformer, benchmark, WS4-04 integration hay RealBlur official evaluator.
+- **Kiểm chứng:** CLI đã chạy CPU trên hai cặp PNG RGB synthetic với protocol `group-basicsr-cpu`; đây không phải inference FFTformer hay benchmark.
+- **Giới hạn:** không có inference FFTformer, benchmark hay RealBlur official evaluator.
+
+## M1 — WS4-04 Integration
+
+- **Trạng thái:** `IMPLEMENTED` trên nhánh `feat/evaluation-integration`, chờ Tech Lead review; chưa merge vào `main`.
+- **Đã có:** integration CPU dùng public WS2 manifest/dataset, WS3 pipeline/MockModel và WS4 metric engine trên paired synthetic RGB files; kiểm WS3 padding/crop, batch order, exclusions, errors và provenance mock.
+- **Giới hạn:** `MockModel` không phải FFTformer; chưa chạy WS1 checkpoint/model thật qua pipeline trong integration gate, CUDA, benchmark hoặc RealBlur official evaluator.
 
 ## Milestone đề xuất
 

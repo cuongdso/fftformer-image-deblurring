@@ -27,6 +27,10 @@ Chi tiết kiến trúc và các giới hạn được giải thích trong [Eval
 
 `ResolvedEvaluationConfig` đọc JSON schema v1 theo Contract C-06, từ chối key lạ và resolve mọi path tương đối theo thư mục config. `build_experiment_metadata`/`write_experiment_metadata` lưu provenance và C-05 summary bằng JSON strict. CLI `python -m fftformer_lab.evaluation.cli validate-config <config>` không cần dependency CV; `run <config>` chỉ đánh giá prediction images đã có sẵn với GT qua WS2/WS4, không chạy inference hay gán nguồn FFTformer không có evidence.
 
+## WS4-04: integration gate
+
+Integration test chạy public chain `build_paired_manifest`/`ImageDataset` → `InferencePipeline` → `evaluate_sample`/`evaluate_batch`. `MockModel` là test double duy nhất; WS2 decode, WS3 padding/crop và WS4 PSNR/SSIM CPU là implementation thật. Xem [kiến trúc tích hợp](../ws4/integration-architecture.md). Test cần Torch, NumPy, Pillow và OpenCV nên có skip tường minh trong lightweight CI.
+
 ## Chưa thuộc WS4-03
 
 WS4-04 vẫn sở hữu integration gate giữa public adapters. Chưa chạy benchmark GoPro/RealBlur, không có checkpoint/dataset result và chưa xác minh BasicSR SSIM CUDA hay RealBlur official pipeline trong repository này.

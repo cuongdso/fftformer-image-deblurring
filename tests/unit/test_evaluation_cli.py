@@ -10,8 +10,9 @@ try:
     import cv2
     import numpy as np
     from PIL import Image
+    import torch
 except ImportError:
-    cv2 = np = Image = None  # type: ignore[assignment]
+    cv2 = np = Image = torch = None  # type: ignore[assignment]
 
 
 class EvaluationCliTests(unittest.TestCase):
@@ -38,8 +39,8 @@ class EvaluationCliTests(unittest.TestCase):
         self.assertEqual(run_exit.exception.code, 2)
 
     @unittest.skipUnless(
-        cv2 is not None and np is not None and Image is not None,
-        "CLI image smoke test requires NumPy, Pillow, and OpenCV",
+        cv2 is not None and np is not None and Image is not None and torch is not None,
+        "CLI image smoke test requires Torch, NumPy, Pillow, and OpenCV",
     )
     def test_run_evaluates_real_synthetic_png_pairs_and_overwrite(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
