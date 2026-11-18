@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FFTformer Lab Evaluation Config",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "contract_version", "experiment_id", "protocol_id", "dataset", "output_path", "checkpoint", "model", "provenance"],
+  "properties": {
+    "schema_version": {"const": 1}, "contract_version": {"const": "C-06-v1"},
+    "experiment_id": {"type": "string", "minLength": 1}, "protocol_id": {"type": "string", "minLength": 1},
+    "dataset": {"type": "object", "additionalProperties": false, "required": ["prediction_root", "target_root"], "properties": {"prediction_root": {"type": "string", "minLength": 1}, "target_root": {"type": "string", "minLength": 1}, "identity": {"type": ["string", "null"], "minLength": 1}}},
+    "output_path": {"type": "string", "minLength": 1},
+    "checkpoint": {"type": ["object", "null"], "additionalProperties": false, "properties": {"identity": {"type": ["string", "null"]}, "sha256": {"type": ["string", "null"]}}},
+    "model": {"type": ["object", "null"], "additionalProperties": false, "properties": {"identity": {"type": ["string", "null"]}}},
+    "provenance": {"type": ["object", "null"], "additionalProperties": false, "properties": {"group_commit": {"type": ["string", "null"]}}}
+  }
+}

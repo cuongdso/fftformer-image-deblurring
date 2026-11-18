@@ -2,7 +2,7 @@
 
 Repository học thuật của nhóm cho bài tập lớn môn Xử lý ảnh, tập trung vào việc tìm hiểu và thực nghiệm phương pháp **FFTformer** cho bài toán khử mờ ảnh (*image deblurring*).
 
-> Trạng thái: **WS1 hoàn thành — 3/3 task `DONE`, đã merge vào `main`** qua PR #4, #5 và #6; Owner `DucHai27`. Đã có model adapter, validation và strict checkpoint loader tại [model guide](docs/modules/model.md), kiểm chứng GoPro trên CPU; CI sau merge thành công. Pipeline liên module, benchmark và huấn luyện chưa triển khai. Evidence tích hợp tại [project status](docs/project-status.md).
+> Trạng thái hiện tại: WS1 và WS2 đã merge vào `main`; WS3-02 đã hoàn thành pipeline core; WS4-02/03/04 đã được Tech Lead review trên `feat/evaluation-integration` nhưng chưa merge. WS4 có metric/config/CLI đánh giá prediction có sẵn và integration WS2→WS3→WS4 bằng `MockModel`. Đây không phải tái hiện benchmark GoPro/RealBlur hay suy luận FFTformer đầy đủ. Xem [project status](docs/project-status.md).
 
 ## Bài toán Image Deblurring
 
@@ -53,8 +53,8 @@ git submodule update --init --recursive
 ├── .editorconfig
 ├── .github/                   # PR template và CI nhẹ
 ├── third_party/FFTformer/     # official baseline (Git submodule, pinned)
-├── src/fftformer_lab/         # group implementation (chưa có model ở M0)
-├── configs/                   # contract/config examples trong tương lai
+├── src/fftformer_lab/         # group implementation WS1–WS4
+├── configs/                   # schema và ví dụ config evaluation
 ├── scripts/                   # bootstrap và kiểm tra môi trường
 ├── docs/
 │   ├── reproduction/          # tutorial official baseline
@@ -80,3 +80,12 @@ FFTformer là công trình gốc của Lingshun Kong, Jiangxin Dong, Jianjun Ge,
 ## Bắt đầu
 
 Đọc theo thứ tự [AGENTS.md](AGENTS.md), [INSTRUCTION.md](INSTRUCTION.md), [onboarding](docs/onboarding.md), [architecture](docs/architecture.md), [project status](docs/project-status.md), và tài liệu của workstream tương ứng trong `docs/modules/`. Trước khi thử baseline, đọc [upstream audit](docs/upstream-audit.md) và tutorial [reproduction](docs/reproduction/). Các hướng dẫn đó phân biệt nội dung đã audit với nội dung chưa chạy thực nghiệm.
+
+Để dùng package nhóm từ một checkout mới mà không đặt `PYTHONPATH`, cài editable package:
+
+```bash
+python -m pip install --no-deps -e .
+python -m fftformer_lab.evaluation.cli validate-config configs/examples/evaluation-precomputed.json
+```
+
+Lệnh `validate-config` chỉ cần package nhóm. Lệnh `run` để đo các cặp ảnh prediction/ground truth RGB cần PyTorch, NumPy, Pillow và OpenCV; nó không chạy suy luận FFTformer. Cài các dependency đó trong môi trường riêng theo nhu cầu, rồi dùng `python -m fftformer_lab.evaluation.cli run <config>`.

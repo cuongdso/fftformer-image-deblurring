@@ -20,6 +20,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Install group package
+        run: python -m pip install --no-deps -e .
+      - name: Check package import and evaluation CLI
+        run: |
+          python -c "import fftformer_lab"
+          python -c "import fftformer_lab.evaluation"
+          python -m fftformer_lab.evaluation.cli --help
       - name: Check repository whitespace
         shell: bash
         run: |
