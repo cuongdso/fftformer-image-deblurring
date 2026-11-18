@@ -19,11 +19,13 @@ python -m fftformer_lab.evaluation.cli run path/to/job.json
 
 `validate-config` chỉ kiểm C-06 và không cần Torch, NumPy, Pillow hay OpenCV. `run` dùng `build_paired_manifest`/`ImageDataset` của WS2 để ghép prediction và GT, rồi chuyển prediction thành adapter WS4 tối thiểu trước khi gọi Evaluation Engine. Adapter này biểu diễn ảnh prediction đã có sẵn, không phải `InferenceResult` và không tuyên bố ảnh do FFTformer sinh ra.
 
+Để chạy `run`, môi trường cần CPU PyTorch, NumPy, Pillow và OpenCV. Hai thư mục phải chứa PNG/JPEG RGB 8-bit, tên file tương ứng một-một và kích thước ít nhất 11×11 sau crop cho SSIM. Test smoke tự động tạo hai cặp PNG RGB 64×64 với pattern xác định và Gaussian blur trong thư mục tạm; fixture synthetic này chỉ kiểm đường chạy phần mềm, không phải GoPro, RealBlur hay output FFTformer.
+
 ## Schema và quy trình
 
 Schema `configs/evaluation.schema.json` yêu cầu `schema_version`, `contract_version`, `experiment_id`, `protocol_id`, `dataset`, `output_path`, cùng ba vùng provenance tùy chọn (`checkpoint`, `model`, `provenance`). Ví dụ config nằm ở `configs/examples/evaluation-precomputed.json`; trước khi chạy thật, người dùng thay các thư mục bằng paired RGB PNG/JPEG hợp lệ của mình.
 
-Khi chạy, CLI kiểm output chưa tồn tại, ghép tên file prediction/GT theo WS2, đọc ảnh RGB, đánh giá theo protocol đã chọn, rồi ghi một JSON metadata. Sample thiếu hoặc mismatch không được thay bằng mock; lỗi protocol/runtime được trả về rõ ràng. `--overwrite` là lựa chọn tường minh để thay kết quả cũ.
+Khi chạy, CLI kiểm output chưa tồn tại, ghép tên file prediction/GT theo WS2, đọc ảnh RGB, đánh giá theo protocol đã chọn, rồi ghi một JSON metadata. `summary` gồm số mẫu hợp lệ/bị loại, metric mỗi mẫu và trung bình; `evaluation_source` là `precomputed-prediction-images`. Sample thiếu hoặc mismatch không được thay bằng mock; lỗi protocol/runtime được trả về rõ ràng. `--overwrite` là lựa chọn tường minh để thay kết quả cũ.
 
 ## Giới hạn tái lập
 
