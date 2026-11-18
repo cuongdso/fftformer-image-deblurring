@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "contract_version": "C-06-v1",
+  "experiment_id": "example-precomputed-images",
+  "protocol_id": "group-basicsr-cpu",
+  "dataset": {"prediction_root": "../../tests/fixtures/ws2", "target_root": "../../tests/fixtures/ws2", "identity": null},
+  "output_path": "../../experiments/example-precomputed-metadata.json",
+  "checkpoint": null,
+  "model": null,
+  "provenance": {"group_commit": null}
+}

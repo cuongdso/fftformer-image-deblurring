@@ -19,3 +19,7 @@ class ProtocolUnavailableError(EvaluationError):
 
 class MetricExecutionError(EvaluationError):
     """A metric adapter failed after validated inputs were supplied."""
+
+
+class ConfigurationError(EvaluationError, ValueError):
+    """An evaluation configuration violates the C-06 schema or filesystem policy."""

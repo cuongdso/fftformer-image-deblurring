@@ -23,6 +23,10 @@ Package protocol/error vẫn import được trong lightweight CI không có dep
 
 Chi tiết kiến trúc và các giới hạn được giải thích trong [Evaluation Engine](../ws4/evaluation-engine.md) và [Metric protocols](../ws4/metric-protocols.md).
 
-## Chưa thuộc WS4-02
+## WS4-03: config, metadata và CLI
 
-WS4-03 vẫn sở hữu config schema, experiment metadata và CLI; WS4-04 vẫn sở hữu integration gate giữa public adapters. Chưa chạy benchmark GoPro/RealBlur, không có checkpoint/dataset result và chưa xác minh BasicSR SSIM CUDA hay RealBlur official pipeline trong repository này.
+`ResolvedEvaluationConfig` đọc JSON schema v1 theo Contract C-06, từ chối key lạ và resolve mọi path tương đối theo thư mục config. `build_experiment_metadata`/`write_experiment_metadata` lưu provenance và C-05 summary bằng JSON strict. CLI `python -m fftformer_lab.evaluation.cli validate-config <config>` không cần dependency CV; `run <config>` chỉ đánh giá prediction images đã có sẵn với GT qua WS2/WS4, không chạy inference hay gán nguồn FFTformer không có evidence.
+
+## Chưa thuộc WS4-03
+
+WS4-04 vẫn sở hữu integration gate giữa public adapters. Chưa chạy benchmark GoPro/RealBlur, không có checkpoint/dataset result và chưa xác minh BasicSR SSIM CUDA hay RealBlur official pipeline trong repository này.
