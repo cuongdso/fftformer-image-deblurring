@@ -88,22 +88,22 @@ Tại lần kiểm tra ngày 16/11/2026, `origin/main` ở `32d3a2e` và chứa 
 
 ## M1 — WS4-02 Evaluation Engine
 
-- **Trạng thái:** `IMPLEMENTED` trên nhánh `feat/evaluation-metrics`, chờ Tech Lead review; chưa merge vào `main`.
+- **Trạng thái:** `IMPLEMENTED`, đã được Tech Lead review trong chuỗi nhánh WS4; chưa merge vào `main`.
 - **Đã có:** registry protocol bất biến, evaluator theo sample/batch, PSNR/SSIM CPU variant, provenance C-05, validation GT/ID/shape/dtype/range/finiteness và exclusion rõ ràng cho sample không GT.
 - **Protocol:** `upstream-basicsr` cần adapter BasicSR/CUDA tường minh cho `ssim3d=True`; `group-basicsr-cpu` dùng SSIM Gaussian 2D `ssim3d=False` là protocol riêng; `realblur-official` trả unavailable vì chưa có ECC/file workflow.
 - **Kiểm chứng:** unit tests WS4-02 kiểm protocol, conversion RGB→BGR/HWC/uint8, PSNR reference, SSIM golden fixture, aggregate và lỗi input; không phải benchmark dataset hay reproduction.
-- **Giới hạn:** chưa chạy BasicSR CUDA, RealBlur official evaluator, GoPro/RealBlur benchmark hay WS4-04 integration.
+- **Giới hạn:** chưa chạy BasicSR CUDA, RealBlur official evaluator hoặc benchmark GoPro/RealBlur. Integration WS4-04 được kiểm bằng `MockModel`, không phải FFTformer thật.
 
 ## M1 — WS4-03 Configuration, Metadata & CLI
 
-- **Trạng thái:** `IMPLEMENTED` trên nhánh `feat/evaluation-config-cli`, chờ Tech Lead review; chưa merge vào `main`.
+- **Trạng thái:** `IMPLEMENTED`, đã được Tech Lead review trong chuỗi nhánh WS4; chưa merge vào `main`.
 - **Đã có:** C-06 JSON schema/parser bất biến, metadata JSON strict và CLI validate/run cho paired prediction/GT images có sẵn.
 - **Kiểm chứng:** CLI đã chạy CPU trên hai cặp PNG RGB synthetic với protocol `group-basicsr-cpu`; đây không phải inference FFTformer hay benchmark.
 - **Giới hạn:** không có inference FFTformer, benchmark hay RealBlur official evaluator.
 
 ## M1 — WS4-04 Integration
 
-- **Trạng thái:** `IMPLEMENTED` trên nhánh `feat/evaluation-integration`, chờ Tech Lead review; chưa merge vào `main`.
+- **Trạng thái:** `IMPLEMENTED` trên nhánh `feat/evaluation-integration`, đã được Tech Lead review; chưa merge vào `main`.
 - **Đã có:** integration CPU dùng public WS2 manifest/dataset, WS3 pipeline/MockModel và WS4 metric engine trên paired synthetic RGB files; kiểm WS3 padding/crop, batch order, exclusions, errors và provenance mock.
 - **Giới hạn:** `MockModel` không phải FFTformer; chưa chạy WS1 checkpoint/model thật qua pipeline trong integration gate, CUDA, benchmark hoặc RealBlur official evaluator.
 
