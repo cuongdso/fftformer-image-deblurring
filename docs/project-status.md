@@ -88,6 +88,15 @@ Tại lần kiểm tra ngày 16/11/2026, `origin/main` ở `32d3a2e` và chứa 
   fingerprint source/test/fixture của bản local.
   Lệnh tái lập: `scripts/ws2_verify.py`, tải bốn PNG chỉ khi bật `--download-examples`.
 
+## M1 — WS3 inference pipeline core và CLI orchestration
+
+- **Owner role:** WS3.
+- **Trạng thái:** `M1-WS3-02` (inference pipeline core) và `M1-WS3-03` (CLI & orchestration) hoàn thành (`DONE`), tuân thủ Contract C-01/C-02/C-04.
+- **Đã có:** `InferencePipeline`, `InferenceRequest`, `InferenceResult`, `PaddingMetadata`, `MockModel`, `write_image` và CLI runner (`cli.py`, `__main__.py`) trong `src/fftformer_lab/inference/`; reflection padding bội 32 ở cạnh phải/đáy, unpad phục hồi spatial extent gốc $H \times W$, clamp $[0, 1]$, xử lý tuần tự batch bảo toàn sample ID, đo thời gian thực thi (giây); CLI hỗ trợ ảnh đơn lẻ (`--input`), thư mục ảnh (`--input-dir`) và dataset manifest của WS2 (`--manifest`), hỗ trợ lưu metadata JSON (`--save-metadata`).
+- **Evidence ngày 18/11/2026:** `python -B scripts/ws3_verify.py --repo . --output docs/research/ws3-02-runtime-evidence.json` — 57/57 tests thành công trên CPU trong 0.23s, gồm 10 pure tests (không cần PyTorch), 10 pipeline integration tests, 22 contract enforcement tests và 15 CLI/IO tests. Toàn bộ mã hash file được lưu tại [JSON](research/ws3-02-runtime-evidence.json). Chạy full test suite toàn repository: 152 tests (119 qua trên CPU, 33 opt-in tests skip).
+- **Giới hạn:** CPU mock pipeline, image I/O, reflection padding và CLI orchestration; chưa chạy CUDA forward, chưa nạp weights thật của FFTformer trên GPU (cần GPU và baseline checkpoint reproduction).
+- **Bàn giao:** [hồ sơ WS3](research/ws3-handoff.md) có đầy đủ API, files, commands và ranh giới cho consumer WS4.
+
 ## Milestone đề xuất
 
 - `M1` — Official Baseline Reproduction

@@ -23,6 +23,10 @@ class InferenceExecutionError(InferenceError):
     """Underlying model execution or device transfer failed."""
 
 
+class InferenceIOError(InferenceError):
+    """Image read/write or filesystem serialization failed."""
+
+
 @dataclass(frozen=True)
 class PaddingMetadata:
     """Reflection padding metadata conforming to Contract C-02."""
