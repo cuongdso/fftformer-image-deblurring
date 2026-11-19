@@ -12,35 +12,36 @@ scripts/                 Kiểm tra môi trường và script xác minh nhẹ
 tests/                   Unit test và fixture ảnh nhỏ
 ```
 
-## Môi trường và cài đặt
+## Chạy thật với một ảnh bị mờ (Windows PowerShell)
 
-Cần Python 3.10 trở lên. Tạo môi trường ảo riêng, rồi cài package của nhóm và dependency xử lý ảnh:
+Đây là cách chạy chương trình để tạo **một ảnh đã khử mờ**, không phải test và không dùng mock model. Cần một checkpoint FFTformer `.pth` phù hợp; file này không có trong repository vì dung lượng lớn. Tải/copy checkpoint từ nguồn phát hành FFTformer gốc và lưu, ví dụ, ở `D:\models\fftformer_GoPro.pth`.
 
-```bash
+Mở PowerShell tại thư mục repository, rồi chạy lần lượt:
+
+```powershell
+# Chỉ cần làm một lần khi tạo môi trường.
 python -m venv .venv
-# Windows PowerShell: .venv\Scripts\Activate.ps1
-# Linux/macOS: source .venv/bin/activate
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
 python -m pip install -e ".[data]"
+python -m pip install einops
 ```
 
-Mã upstream có dependency riêng tại `third_party/FFTformer/requirements.txt`. Khi cần chạy trực tiếp entrypoint upstream, cài chúng theo hướng dẫn trong `third_party/FFTformer/README.md`. Phiên bản PyTorch/CUDA phải phù hợp với máy và checkpoint đang dùng.
+Đặt ảnh bị mờ bất kỳ (PNG/JPG RGB) vào `input\blur.png`, hoặc thay đường dẫn trong lệnh dưới. Sau đó chạy trên CPU:
 
-## Inference
-
-Lệnh dưới chạy pipeline nhóm với mock model để kiểm tra luồng I/O; đây **không** phải kết quả FFTformer thật:
-
-```bash
-python -m fftformer_lab.inference --input path/to/blur.png --output outputs/restored.png --mock
+```powershell
+New-Item -ItemType Directory -Force .\input, .\outputs | Out-Null
+python -m fftformer_lab.inference `
+  --input ".\input\blur.png" `
+  --output ".\outputs\restored.png" `
+  --checkpoint "D:\models\fftformer_GoPro.pth" `
+  --device cpu
 ```
 
-Để nạp checkpoint FFTformer, chuẩn bị file checkpoint hợp lệ bên ngoài repository và chỉ rõ đường dẫn của nó. CLI strict-load checkpoint và mặc định dùng architecture upstream trong thư mục `third_party/FFTformer/`:
+Ảnh đã khử mờ nằm tại `outputs\restored.png`. Nếu máy có PyTorch CUDA hoạt động, đổi `--device cpu` thành `--device cuda` để dùng GPU. Không thêm `--mock`: tùy chọn đó chỉ kiểm tra luồng I/O và **không** chạy FFTformer thật.
 
-```bash
-python -m fftformer_lab.inference --input path/to/blur.png --output outputs/restored.png --checkpoint path/to/fftformer_checkpoint.pth --device cuda
-```
-
-Checkpoint và dataset không được commit. Hãy tự tải từ nguồn phát hành hợp lệ, kiểm tra điều khoản sử dụng, và lưu ngoài thư mục repository hoặc trong các đường dẫn đã ignore. Máy không có CUDA có thể dùng `--device cpu` cho pipeline nhóm; khả năng tương thích thực tế phụ thuộc checkpoint và môi trường PyTorch.
+Nếu báo lỗi khi nạp checkpoint, checkpoint không đúng kiến trúc FFTformer mặc định hoặc file bị hỏng. CLI cố ý strict-load nên không chạy tiếp với trọng số sai. Checkpoint và dataset không được commit; hãy giữ chúng ngoài repository. Tham khảo checkpoint RealBlur do tác giả công bố trong [README upstream](third_party/FFTformer/README.md).
 
 ## Evaluation
 
