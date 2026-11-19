@@ -14,7 +14,7 @@ tests/                   Unit test và fixture ảnh nhỏ
 
 ## Chạy thật với một ảnh bị mờ (Windows PowerShell)
 
-Đây là cách chạy chương trình để tạo **một ảnh đã khử mờ**, không phải test và không dùng mock model. Cần một checkpoint FFTformer `.pth` phù hợp; file này không có trong repository vì dung lượng lớn. Tải/copy checkpoint từ nguồn phát hành FFTformer gốc và lưu, ví dụ, ở `D:\models\fftformer_GoPro.pth`.
+Đây là cách chạy chương trình để tạo **một ảnh đã khử mờ**, không phải test và không dùng mock model. Checkpoint của nhóm được lưu trên [Google Drive](https://drive.google.com/file/d/1bFuh1IgbZL-YqtBQyG--0cbJXyTlx__V/view?usp=sharing), tách khỏi source code do dung lượng lớn. Tải file đó về và lưu tại `checkpoints\fftformer_checkpoint.pth` trong thư mục project.
 
 Mở PowerShell tại thư mục repository, rồi chạy lần lượt:
 
@@ -28,20 +28,20 @@ python -m pip install -e ".[data]"
 python -m pip install einops
 ```
 
-Đặt ảnh bị mờ bất kỳ (PNG/JPG RGB) vào `input\blur.png`, hoặc thay đường dẫn trong lệnh dưới. Sau đó chạy trên CPU:
+Đặt ảnh bị mờ bất kỳ (PNG/JPG RGB) vào `input\blur.png`, tải checkpoint theo link phía trên, rồi chạy trên CPU:
 
 ```powershell
-New-Item -ItemType Directory -Force .\input, .\outputs | Out-Null
+New-Item -ItemType Directory -Force .\input, .\outputs, .\checkpoints | Out-Null
 python -m fftformer_lab.inference `
   --input ".\input\blur.png" `
   --output ".\outputs\restored.png" `
-  --checkpoint "D:\models\fftformer_GoPro.pth" `
+  --checkpoint ".\checkpoints\fftformer_checkpoint.pth" `
   --device cpu
 ```
 
 Ảnh đã khử mờ nằm tại `outputs\restored.png`. Nếu máy có PyTorch CUDA hoạt động, đổi `--device cpu` thành `--device cuda` để dùng GPU. Không thêm `--mock`: tùy chọn đó chỉ kiểm tra luồng I/O và **không** chạy FFTformer thật.
 
-Nếu báo lỗi khi nạp checkpoint, checkpoint không đúng kiến trúc FFTformer mặc định hoặc file bị hỏng. CLI cố ý strict-load nên không chạy tiếp với trọng số sai. Checkpoint và dataset không được commit; hãy giữ chúng ngoài repository. Tham khảo checkpoint RealBlur do tác giả công bố trong [README upstream](third_party/FFTformer/README.md).
+Nếu báo lỗi khi nạp checkpoint, kiểm tra lại file đã tải xong và đúng đường dẫn `checkpoints\fftformer_checkpoint.pth`. CLI cố ý strict-load nên không chạy tiếp với trọng số sai. Checkpoint và dataset không được commit vào Git; bản nộp Google Drive có thể để checkpoint cạnh source code theo cấu trúc trên.
 
 ## Evaluation
 
