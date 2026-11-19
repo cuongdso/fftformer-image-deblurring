@@ -40,6 +40,10 @@ pretrained/
 *.pt
 *.onnx
 
+# Submission branch: optional upstream checkpoint and README illustration are not distributed.
+third_party/FFTformer/pretrain_model/
+third_party/FFTformer/img/
+
 # Experiment outputs, logs, and intermediates (keep directory documentation tracked)
 logs/
 results/*

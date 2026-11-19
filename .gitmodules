@@ -1,3 +1,0 @@
-[submodule "third_party/FFTformer"]
-	path = third_party/FFTformer
-	url = https://github.com/kkkls/FFTformer.git
