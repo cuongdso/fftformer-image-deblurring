@@ -1,4 +1,4 @@
-# Tooling M0
+# Script kiểm tra và kiểm chứng
 
 - `check_env.py`: kiểm tra thông tin Python, OS, package tùy chọn và CUDA nếu PyTorch đã cài. Không cài dependency hay tải artifact.
 - `bootstrap.sh`: hướng dẫn POSIX tối thiểu tạo virtual environment và chạy checker. `UNVERIFIED` trên mọi OS ở M0.
@@ -15,7 +15,7 @@ WS1 bổ sung các script opt-in cần PyTorch/einops và upstream source/checkp
 WS3 bổ sung script kiểm chứng pipeline suy luận và thu thập bằng chứng runtime evidence:
 
 - `ws3_verify.py`: chạy toàn bộ bộ test WS3 (pure unit tests, mock pipeline và contract enforcement),
-  tự động tính SHA-256 các file mã nguồn và xuất JSON evidence tại `docs/research/ws3-02-runtime-evidence.json` theo [inference guide](../docs/modules/inference.md#kiểm-thử-ws3-02-và-evidence-hiện-tại).
+  tự động tính SHA-256 các file mã nguồn và xuất JSON evidence tại `docs/research/ws3-02-runtime-evidence.json` theo [inference guide](../docs/modules/inference.md#kiểm-thử-ws3-và-bằng-chứng-runtime-evidence).
 
 Các script này không tải artifact, training hoặc benchmark chất lượng và không chạy trong CI mặc định.
 

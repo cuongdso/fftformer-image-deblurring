@@ -4,8 +4,7 @@ Ngày kiểm chứng: 18/11/2026. Owner: `phanthek2`. Branch:
 `feat/data-image-validator`, base `f06de9432052af873aeb8b5ff8c85217d24ed222`.
 Task IDs: `M1-WS2-01` (audit), `M1-WS2-02` (image boundary), `M1-WS2-03` (loader).
 
-**Trạng thái:** đã kiểm chứng local; người dùng đã cho phép commit/push feature
-branch ngày 18/11/2026. Chờ PR/review, chưa merge vào `main`.
+**Trạng thái:** lần kiểm chứng local được ghi ngày 18/11/2026. Hồ sơ và phần triển khai sau đó đã merge qua [PR #8](https://github.com/cuongdso/fftformer-image-deblurring/pull/8), commit `e482883`.
 Tài khoản xuất bản GitHub: `phanthek2-arch`; tên owner trong phân công: `phanthek2`.
 Reviewer: TBD, theo vai trò WS1/WS3/WS4 và Tech Lead tại
 [ownership](../ownership.md). Không coi kiểm chứng local là acceptance/merge của nhóm.
@@ -128,10 +127,7 @@ Không dùng output synthetic để đo hoặc tuyên bố chất lượng khử
 
 ## Giới hạn và bước tiếp theo
 
-- Chờ PR/review C-02/C-03 consumer boundary theo các commit task đã tách; không tự
-  merge `main` hoặc tuyên bố team review đã hoàn tất.
-- Báo cáo WS2-01 đã có local, chờ nhóm review; RealBlur mới được audit nguồn/terms,
-  chưa tải hoặc chạy. Chưa kiểm chứng toàn bộ GoPro/RealBlur split.
+- Audit WS2-01 ghi nguồn và điều khoản của RealBlur. Kiểm chứng toàn bộ split GoPro/RealBlur vẫn `UNVERIFIED`.
 - Reader hiện chỉ hỗ trợ RGB 8-bit PNG/JPEG một frame; không tự convert grayscale,
   alpha, palette, 16-bit, EXIF orientation hoặc profile màu.
 - Không có LMDB, random crop/augmentation/training loader, image writer/CLI,

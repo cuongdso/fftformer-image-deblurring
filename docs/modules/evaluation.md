@@ -1,6 +1,6 @@
 # WS4 — Evaluation, Reproducibility & Integration
 
-**Trạng thái:** M1-WS4-02 (Evaluation Engine), M1-WS4-03 (config/metadata/CLI) và M1-WS4-04 (integration gate) đã `IMPLEMENTED` và được Tech Lead review trên chuỗi feature branch WS4; chúng chưa merge vào `main`. Đây là đo lường cấp nhóm (*group-measured*), không phải tái hiện benchmark hay kết quả báo cáo trong paper.
+`M1-WS4-02/03/04` đã merge vào `main` qua [PR #10](https://github.com/cuongdso/fftformer-image-deblurring/pull/10), commit `dfd1d13`. Kết quả trên fixture được ghi với provenance `group-measured`.
 
 ## Phạm vi hiện có
 
@@ -33,4 +33,4 @@ Integration test chạy public chain `build_paired_manifest`/`ImageDataset` → 
 
 ## Trạng thái WS4 và giới hạn
 
-M1-WS4-02 (metric/protocol), M1-WS4-03 (config/metadata/CLI) và M1-WS4-04 (integration gate) đã được triển khai, Tech Lead review và chờ merge; chưa phần nào được suy diễn là đã merge vào `main`. Integration mock kiểm WS2/WS3/WS4 boundary, không phải FFTformer inference. Chưa chạy benchmark GoPro/RealBlur, BasicSR SSIM CUDA hay RealBlur official pipeline.
+Bộ kiểm thử tích hợp WS2/WS3/WS4 dùng `MockModel` và ảnh tổng hợp. Benchmark GoPro/RealBlur, BasicSR SSIM CUDA và pipeline đánh giá chính thức của RealBlur vẫn `UNVERIFIED`.

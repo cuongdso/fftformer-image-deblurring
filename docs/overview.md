@@ -6,11 +6,11 @@
 
 ## Phạm vi nghiên cứu
 
-Trong giai đoạn M0, phạm vi gồm đọc/audit tài liệu và official source, pin baseline submodule, xây dựng documentation, contracts và tooling collaboration. Chưa có mã mô hình của nhóm, dataset mới, weights mới, huấn luyện, đánh giá benchmark hay ứng dụng minh họa.
+Nhóm đã phân tích kiến trúc FFTformer, pin mã upstream và tích hợp bốn module model, data, inference và evaluation. Phạm vi kiểm chứng gồm checkpoint GoPro trên CPU và các fixture nhỏ. [Trạng thái dự án](project-status.md)
 
-## Đầu vào và đầu ra dự kiến
+## Đầu vào và đầu ra
 
-Ở các giai đoạn sau, đầu vào dự kiến là ảnh bị mờ; đầu ra dự kiến là ảnh đã được khôi phục độ rõ bởi một quy trình được ghi chép. Chất lượng đầu ra và điều kiện dữ liệu chưa được khẳng định ở M0.
+CLI suy luận nhận ảnh RGB, thư mục ảnh hoặc manifest và lưu ảnh đầu ra cùng metadata tùy chọn. CLI đánh giá nhận các cặp prediction/ground truth đã có sẵn và ghi PSNR/SSIM theo protocol đã chọn. [Suy luận](modules/inference.md) · [Đánh giá](modules/evaluation.md)
 
 ## Nội dung đã tìm hiểu
 
@@ -20,9 +20,7 @@ Trong giai đoạn M0, phạm vi gồm đọc/audit tài liệu và official sou
 - Khái niệm Q, K, V trong Self-Attention.
 - Ý tưởng cơ bản của FSAS trong công trình FFTformer.
 
-## Nội dung cần tiếp tục nghiên cứu
+## Tài liệu nghiên cứu
 
-- Kiến trúc FFTformer chi tiết, vị trí và luồng dữ liệu của các khối.
-- Thiết kế, giả định và triển khai DFFN.
-- Thiết lập dữ liệu, giao thức đánh giá và cách tái hiện có trách nhiệm.
-- Các giới hạn, chi phí tính toán và điều kiện áp dụng của phương pháp.
+- Kiến trúc FFTformer, gồm FSAS và DFFN. [Phân tích kiến trúc](research/fftformer-architecture.md)
+- Nguồn dữ liệu, layout và điều kiện đánh giá. [Audit dữ liệu](research/ws2-dataset-audit.md) · [Metric protocols](ws4/metric-protocols.md)

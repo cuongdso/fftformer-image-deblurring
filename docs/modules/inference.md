@@ -1,6 +1,6 @@
 # WS3 — Inference & Demonstration
 
-**Hiện trạng:** WS3 đã hoàn thành cả 2 task Wave C: `M1-WS3-02` (Inference pipeline core) và `M1-WS3-03` (CLI & Orchestration) đạt trạng thái `DONE`. Evidence tích hợp và kết quả kiểm thử tại [project status](../project-status.md), phân công tại [ownership](../ownership.md).
+**Hiện trạng:** WS3 đã hoàn thành cả 2 task Wave C: `M1-WS3-02` (Inference pipeline core) và `M1-WS3-03` (CLI & Orchestration) đạt trạng thái `DONE`. Hai task đã merge qua [PR #9](https://github.com/cuongdso/fftformer-image-deblurring/pull/9), commit `c47d58d`. Evidence tích hợp và kết quả kiểm thử tại [project status](../project-status.md), phân công tại [ownership](../ownership.md).
 
 Dependency và acceptance criteria chuẩn ở [backlog](../backlog.md). `M1-WS3-02` phụ thuộc vào các contract C-01, C-02, C-04 đã `APPROVED`; `M1-WS3-03` tiêu thụ trực tiếp public adapters từ WS1 (`ModelAdapter`, `load_model`) và WS2 (`read_image`, `ImageDataset`, `load_manifest`).
 
@@ -43,23 +43,25 @@ Từ repository root:
 $env:PYTHONPATH = (Resolve-Path src).Path
 ```
 
-### 1. Khử mờ một ảnh đơn lẻ
+### 1. Kiểm tra luồng xử lý một ảnh bằng mock
 ```powershell
 python -m fftformer_lab.inference --input anh_mo.png --output anh_ro.png --mock
 ```
 *Tùy chọn: Thêm cờ `--save-metadata` để lưu file `anh_ro_metadata.json` chứa thông tin chi tiết về kích thước, padding và thời gian chạy.*
 
-### 2. Khử mờ toàn bộ thư mục ảnh
+### 2. Kiểm tra luồng xử lý một thư mục bằng mock
 ```powershell
 python -m fftformer_lab.inference --input-dir data/test_blur/ --output-dir results/deblurred/ --mock
 ```
 
-### 3. Khử mờ theo Dataset Manifest của WS2
+### 3. Kiểm tra luồng xử lý theo manifest WS2 bằng mock
 ```powershell
 python -m fftformer_lab.inference --manifest data/gopro_test_manifest.json --output-dir results/gopro/ --mock
 ```
 
-### 4. Sử dụng Checkpoint mô hình thật
+### 4. Khử mờ bằng checkpoint FFTformer
+
+Cần submodule đã khởi tạo, PyTorch, NumPy, Pillow, einops và checkpoint tương thích. Các lượt chạy mock ở trên mặc định dùng phép biến đổi `identity`.
 ```powershell
 python -m fftformer_lab.inference `
     --input anh_mo.png `

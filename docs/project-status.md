@@ -1,5 +1,16 @@
 # Trạng thái dự án
 
+## Tổng kết triển khai trên `main`
+
+| Workstream | Trạng thái triển khai | Bằng chứng tích hợp |
+| --- | --- | --- |
+| WS1 Model | `DONE` — adapter và strict checkpoint loader | PR #4–#6, xem hồ sơ WS1 bên dưới |
+| WS2 Data | `DONE` — đọc ảnh, manifest và dataset loader | [PR #8](https://github.com/cuongdso/fftformer-image-deblurring/pull/8), `e482883` |
+| WS3 Inference | `DONE` — pipeline và CLI ảnh đơn/thư mục/manifest | [PR #9](https://github.com/cuongdso/fftformer-image-deblurring/pull/9), `c47d58d` |
+| WS4 Evaluation | `DONE` — PSNR/SSIM, cấu hình, CLI và kiểm thử tích hợp | [PR #10](https://github.com/cuongdso/fftformer-image-deblurring/pull/10), `dfd1d13` |
+
+Bằng chứng runtime gồm GoPro strict load/forward trên CPU qua API nhóm, smoke WS2→WS1→WS3 với ảnh tổng hợp và kiểm thử WS2→WS3→WS4 bằng `MockModel`. Tái hiện benchmark đầy đủ GoPro/RealBlur, chạy `test.py` upstream và CUDA forward vẫn `UNVERIFIED`. Training và demo UI nằm ngoài phần triển khai đã merge.
+
 ## M0 — Repository Foundation
 
 | Hạng mục | Trạng thái | Evidence |
@@ -88,15 +99,15 @@ Tại lần kiểm tra ngày 16/11/2026, `origin/main` ở `32d3a2e` và chứa 
 
 ## M1 — WS3 inference pipeline core và CLI orchestration
 
-- **Owner role:** WS3.
-- **Trạng thái:** `M1-WS3-02` (inference pipeline core) và `M1-WS3-03` (CLI & orchestration) hoàn thành (`DONE`), tuân thủ Contract C-01/C-02/C-04.
+- **Owner:** `Alex`.
+- **Trạng thái:** `M1-WS3-02` và `M1-WS3-03` đã merge qua [PR #9](https://github.com/cuongdso/fftformer-image-deblurring/pull/9), commit `c47d58d`.
 - **Đã có:** `InferencePipeline`, `InferenceRequest`, `InferenceResult`, `PaddingMetadata`, `MockModel`, `write_image` và CLI runner (`cli.py`, `__main__.py`) trong `src/fftformer_lab/inference/`; reflection padding bội 32 ở cạnh phải/đáy, unpad phục hồi spatial extent gốc $H \times W$, clamp $[0, 1]$, xử lý tuần tự batch bảo toàn sample ID, đo thời gian thực thi (giây); CLI hỗ trợ ảnh đơn lẻ (`--input`), thư mục ảnh (`--input-dir`) và dataset manifest của WS2 (`--manifest`), hỗ trợ lưu metadata JSON (`--save-metadata`).
 - **Evidence ngày 18/11/2026:** `python -B scripts/ws3_verify.py --repo . --output docs/research/ws3-02-runtime-evidence.json` — 57/57 tests thành công trên CPU trong 0.23s, gồm 10 pure tests (không cần PyTorch), 10 pipeline integration tests, 22 contract enforcement tests và 15 CLI/IO tests. Toàn bộ mã hash file được lưu tại [JSON](research/ws3-02-runtime-evidence.json). Chạy full test suite toàn repository: 152 tests (119 qua trên CPU, 33 opt-in tests skip).
 - **Giới hạn:** CPU mock pipeline, image I/O, reflection padding và CLI orchestration; chưa chạy CUDA forward, chưa nạp weights thật của FFTformer trên GPU (cần GPU và baseline checkpoint reproduction).
 - **Bàn giao:** [hồ sơ WS3](research/ws3-handoff.md) có đầy đủ API, files, commands và ranh giới cho consumer WS4.
 ## M1 — WS4-02 Evaluation Engine
 
-- **Trạng thái:** `IMPLEMENTED`, đã được Tech Lead review trong chuỗi nhánh WS4; chưa merge vào `main`.
+- **Trạng thái:** `DONE`, đã merge qua [PR #10](https://github.com/cuongdso/fftformer-image-deblurring/pull/10), commit `dfd1d13`.
 - **Đã có:** registry protocol bất biến, evaluator theo sample/batch, PSNR/SSIM CPU variant, provenance C-05, validation GT/ID/shape/dtype/range/finiteness và exclusion rõ ràng cho sample không GT.
 - **Protocol:** `upstream-basicsr` cần adapter BasicSR/CUDA tường minh cho `ssim3d=True`; `group-basicsr-cpu` dùng SSIM Gaussian 2D `ssim3d=False` là protocol riêng; `realblur-official` trả unavailable vì chưa có ECC/file workflow.
 - **Kiểm chứng:** unit tests WS4-02 kiểm protocol, conversion RGB→BGR/HWC/uint8, PSNR reference, SSIM golden fixture, aggregate và lỗi input; không phải benchmark dataset hay reproduction.
@@ -104,18 +115,18 @@ Tại lần kiểm tra ngày 16/11/2026, `origin/main` ở `32d3a2e` và chứa 
 
 ## M1 — WS4-03 Configuration, Metadata & CLI
 
-- **Trạng thái:** `IMPLEMENTED`, đã được Tech Lead review trong chuỗi nhánh WS4; chưa merge vào `main`.
+- **Trạng thái:** `DONE`, đã merge qua [PR #10](https://github.com/cuongdso/fftformer-image-deblurring/pull/10), commit `dfd1d13`.
 - **Đã có:** C-06 JSON schema/parser bất biến, metadata JSON strict và CLI validate/run cho paired prediction/GT images có sẵn.
 - **Kiểm chứng:** CLI đã chạy CPU trên hai cặp PNG RGB synthetic với protocol `group-basicsr-cpu`; đây không phải inference FFTformer hay benchmark.
 - **Giới hạn:** không có inference FFTformer, benchmark hay RealBlur official evaluator.
 
 ## M1 — WS4-04 Integration
 
-- **Trạng thái:** `IMPLEMENTED` trên nhánh `feat/evaluation-integration`, đã được Tech Lead review; chưa merge vào `main`.
+- **Trạng thái:** `DONE`, đã merge qua [PR #10](https://github.com/cuongdso/fftformer-image-deblurring/pull/10), commit `dfd1d13`.
 - **Đã có:** integration CPU dùng public WS2 manifest/dataset, WS3 pipeline/MockModel và WS4 metric engine trên paired synthetic RGB files; kiểm WS3 padding/crop, batch order, exclusions, errors và provenance mock.
 - **Giới hạn:** `MockModel` không phải FFTformer; chưa chạy WS1 checkpoint/model thật qua pipeline trong integration gate, CUDA, benchmark hoặc RealBlur official evaluator.
 
-## Milestone đề xuất
+## Milestone đề xuất trong kế hoạch ban đầu
 
 - `M1` — Official Baseline Reproduction
 - `M2` — Dataset & Evaluation Pipeline
@@ -123,4 +134,4 @@ Tại lần kiểm tra ngày 16/11/2026, `origin/main` ở `32d3a2e` và chứa 
 - `M4` — Experiments & Demonstration
 - `M5` — Final Validation & Academic Deliverables
 
-Các milestone trên là `PLANNED`, chưa được đánh dấu hoàn thành.
+Danh sách này ghi lại kế hoạch ban đầu. Trạng thái triển khai và bằng chứng hiện hành nằm trong bảng tổng kết WS1–WS4 ở đầu trang.
