@@ -1,8 +1,7 @@
 # WS2 — Dataset & Preprocessing
 
 **Owner:** `phanthek2`; reviewer: TBD (WS1/WS3/WS4 + Tech Lead theo scope).
-**Hiện trạng:** `M1-WS2-02` và `M1-WS2-03` đã có commit triển khai riêng trên
-feature branch, chờ PR/review; chưa merge. Trạng thái tại [project status](../project-status.md).
+**Hiện trạng:** `M1-WS2-02` và `M1-WS2-03` đã merge vào `main` qua [PR #8](https://github.com/cuongdso/fftformer-image-deblurring/pull/8), commit `e482883`. [Trạng thái và bằng chứng](../project-status.md)
 Audit nguồn/layout WS2-01 và hai cặp ảnh ví dụ được ghi tại
 [dataset audit](../research/ws2-dataset-audit.md).
 

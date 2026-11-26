@@ -39,4 +39,4 @@ Lưu dữ liệu ngoài Git tại location do nhóm chọn; `data/` chỉ chứa
 1. Xác minh quyền download/use/redistribute từ nguồn dataset.
 2. Kiểm tra từng input có target tương ứng khi evaluation cần GT.
 3. Ghi image dimensions, channel order, dtype/range và preprocess policy vào config/metadata.
-4. Chạy validator nhóm sau khi nó được triển khai; M0 chưa có validator dữ liệu.
+4. Dùng manifest và `ImageDataset` của WS2 để kiểm tra dữ liệu khi chạy pipeline nhóm. [Hướng dẫn WS2](../modules/data.md)

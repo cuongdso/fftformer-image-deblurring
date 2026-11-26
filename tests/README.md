@@ -1,6 +1,13 @@
 # Tests
 
-M0 có test cho tooling không cần GPU. Các test model/checkpoint/inference chỉ được thêm khi implementation và fixtures hợp lệ tồn tại; chúng cần marker riêng và không chạy mặc định trên CI.
+`unit/` kiểm tooling, data, inference, evaluation và metadata. `integration/` kiểm chuỗi WS2→WS3→WS4 bằng ảnh tổng hợp và `MockModel`. `model/` chứa các ca opt-in cho adapter và loader checkpoint.
+
+```bash
+python -m pip install --no-deps -e .
+python -m unittest discover -s tests -p "test_*.py"
+```
+
+Các ca cần PyTorch, NumPy, Pillow hoặc OpenCV được bỏ qua nếu thiếu dependency tương ứng. Model tests cần `FFTFORMER_RUN_MODEL_TESTS=1`; ca GoPro cần thêm `FFTFORMER_GOPRO_CHECKPOINT` trỏ tới checkpoint đã audit. [Kiểm thử WS1](../docs/modules/model.md)
 
 WS1-02 bổ sung `unit/test_model_spec.py` (standard library) và `model/test_model_adapter.py`.
 Nhóm `model/` là opt-in qua `FFTFORMER_RUN_MODEL_TESTS=1`, cần PyTorch, einops và source upstream;

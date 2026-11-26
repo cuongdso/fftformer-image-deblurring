@@ -1,3 +1,3 @@
 # WS4 — Evaluation
 
-Chưa có mã M0. Đọc `docs/modules/evaluation.md` và `docs/reproduction/evaluation.md` trước khi thêm code.
+Module cung cấp protocol PSNR/SSIM, evaluation API, xác thực cấu hình C-06 và CLI cho cặp ảnh prediction/ground truth. [Hướng dẫn WS4](../../../docs/modules/evaluation.md)

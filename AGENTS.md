@@ -14,8 +14,8 @@ Repository này hỗ trợ nghiên cứu, tái hiện có kiểm chứng và ph�
 ## Repository map và nguồn sự thật
 
 - `third_party/FFTformer/`: official baseline, Git submodule pin; paper và upstream audit là nguồn sự thật cho hành vi upstream.
-- `src/fftformer_lab/`: code do nhóm sở hữu; docs contracts là nguồn sự thật cho interface trước khi code tồn tại.
-- `configs/`: cấu hình do nhóm sở hữu; chưa có config thực thi ở M0.
+- `src/fftformer_lab/`: code do nhóm sở hữu; `docs/contracts.md` là nguồn chuẩn cho interface liên module.
+- `configs/`: cấu hình do nhóm sở hữu; gồm schema và cấu hình mẫu cho CLI đánh giá.
 - `tests/`: test cho code nhóm. Không thêm test giả định baseline đã chạy.
 - `experiments/`: metadata, không commit dataset, checkpoint hoặc output lớn.
 
@@ -35,7 +35,7 @@ Ownership theo workstream nằm ở `docs/ownership.md`; cách nhận task và h
 
 ## Kiểm tra
 
-M0 có các lệnh không cần GPU/dependency ngoài standard library:
+Bộ kiểm tra nhẹ không cần GPU. Cài package nhóm bằng `python -m pip install --no-deps -e .` hoặc đặt `PYTHONPATH` trỏ tới `src` trước khi chạy:
 
 ```bash
 python scripts/check_env.py

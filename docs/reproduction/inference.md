@@ -31,4 +31,4 @@ Chỉ kiểm tra rằng output được tạo/số filename khớp sau khi comma
 - Checkpoint mismatch: strict `load_state_dict` fail.
 - Invalid image dimensions: reflection padding hoặc model patch/rearrange có thể fail; policy group phải được test trước khi wrapper khác baseline.
 
-Wrapper nhóm là `PLANNED` trong WS3 và phải giải thích mọi khác biệt với script này.
+CLI WS3 nhận ảnh đơn, thư mục hoặc manifest và có tùy chọn CPU. Hồ sơ WS1/WS2 ghi nhận forward CPU qua API nhóm. [CLI của nhóm](../modules/inference.md) · [Bằng chứng kiểm chứng](../project-status.md)

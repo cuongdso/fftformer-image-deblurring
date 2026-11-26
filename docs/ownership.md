@@ -6,8 +6,8 @@ WS1 do `DucHai27` nhận; WS2 do `phanthek2` nhận theo phân công đã xác n
 | --- | --- | --- | --- | --- | --- | --- |
 | WS1 Model & Architecture | `DONE` — 3/3 task đã merge | `src/fftformer_lab/model/` | C-01 model loading, C-02 tensor/model metadata | `DucHai27` | Tech Lead `cuongdso`: chỉ đạo merge theo xác nhận Owner; WS3 là consumer | `M1-WS1-01/02/03` hoàn thành |
 | WS2 Dataset & Preprocessing | DONE — M1-WS2-02/03 đã merge PR #8 | src/fftformer_lab/data/, fixture/test liên quan | C-02 image I/O, C-03 dataset sample | phanthek2 | TBD (WS1/WS3/WS4 consumer + Tech Lead scope) | Audit M1-WS2-01, implementation M1-WS2-02/03 hoàn thành |
-| WS3 Inference & Demo | DONE — M1-WS3-02 và M1-WS3-03 hoàn thành | src/fftformer_lab/inference/, src/fftformer_lab/app/ | C-04 inference result; consumes C-01/C-02 | Alex | TBD (WS1/WS2/WS4 consumer + Tech Lead scope) | M1-WS3-02, M1-WS3-03 hoàn thành |
-| WS4 Evaluation, Reproducibility & Integration | M1-WS4-02/03/04 IMPLEMENTED — Tech Lead đã review, chờ PR/merge | src/fftformer_lab/evaluation/, configs/, experiments/, integration tests/CI scope | C-05 evaluation, C-06 config; consumes C-02/C-03/C-04 | cuongdso ưu tiên nhận; chưa xác nhận assignment cuối | Tech Lead/consumer review theo task | M1-WS4-02/03/04 |
+| WS3 Inference & Demo | `DONE` — M1-WS3-02/03 đã merge PR #9 | src/fftformer_lab/inference/, src/fftformer_lab/app/ | C-04 inference result; consumes C-01/C-02 | Alex | TBD (WS1/WS2/WS4 consumer + Tech Lead scope) | M1-WS3-02, M1-WS3-03 hoàn thành |
+| WS4 Evaluation, Reproducibility & Integration | `DONE` — M1-WS4-02/03/04 đã merge PR #10 | src/fftformer_lab/evaluation/, configs/, experiments/, integration tests/CI scope | C-05 evaluation, C-06 config; consumes C-02/C-03/C-04 | Tech Lead `cuongdso` (triển khai tích hợp) | Tech Lead/consumer review theo task | M1-WS4-02/03/04 |
 
 WS1 đã hoàn thành nội dung được giao và đã tích hợp vào `main` ngày 16/11/2026 qua PR #4 (WS1-01), #5 (WS1-02), #6 (WS1-03). URL PR, merge commit và CI được ghi tại [project status](project-status.md).
 
@@ -15,7 +15,7 @@ WS3 đã hoàn thành 2/2 task Wave C: `M1-WS3-02` (pipeline core, reflection pa
 
 ## Quy tắc phối hợp
 
-- Thành viên tự nhận **một** WS đang `OPEN` qua trao đổi trong nhóm, rồi cập nhật Owner tại bảng này trước khi code; không hai người cùng nhận một WS khi chưa thống nhất. WS4 là ưu tiên của `cuongdso`, không suy diễn đồng thuận của thành viên khác.
+- Với công việc mới, thống nhất owner trong nhóm và cập nhật bảng này trước khi triển khai.
 - Tech Lead là người phê duyệt cuối cùng cho contract chung, dependency liên module và phạm vi task. Mỗi workstream chỉ triển khai task nằm trong scope Tech Lead giao.
 - Chủ module chịu trách nhiệm design, docs và test của code trong phạm vi; reviewer xác minh acceptance criteria.
 - Người tích hợp có thể đề xuất thay đổi interface, không âm thầm sửa nghiệp vụ workstream khác.

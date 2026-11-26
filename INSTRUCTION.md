@@ -6,7 +6,7 @@
 
 `third_party/FFTformer/` là official baseline được pin bằng submodule và chỉ dùng để đối chiếu/reproduce. `src/fftformer_lab/` là group implementation; không phải bản sao hay bản sửa trực tiếp của baseline.
 
-M1.0 đã chốt six interface contracts C-01 đến C-06 ở baseline v1.0, giải vòng phụ thuộc giữa workstream và ghi quyết định tại ADR-0002. Điều đó **không** có nghĩa model adapter, data loader, inference, metric, checkpoint compatibility, CPU/GPU support, benchmark hay reproduction đã được triển khai/chạy. Trạng thái chính thức luôn ở [docs/project-status.md](docs/project-status.md).
+M1.0 chốt sáu interface C-01 đến C-06 ở baseline v1.0 theo ADR-0002. Các task triển khai WS1–WS4 đã merge vào `main`. [Trạng thái dự án](docs/project-status.md) ghi phạm vi đã chạy và bằng chứng theo từng workstream.
 
 ## Repository orientation
 
@@ -36,20 +36,13 @@ Không sao chép C-01..C-06 vào task description hay source code như một ngu
 
 ## Chọn workstream và nhận task
 
-| Workstream | Trạng thái nhận | Entry tasks Wave C | Scope chính |
-| --- | --- | --- | --- |
-| WS1 Model & Architecture | `DONE` — 3/3 task đã merge, `DucHai27` | `M1-WS1-02`, `M1-WS1-03` (hoàn thành) | `src/fftformer_lab/model/` |
-| WS2 Dataset & Preprocessing | `READY FOR REVIEW` — `phanthek2`, code và hồ sơ local | `M1-WS2-02`, `M1-WS2-03` | `src/fftformer_lab/data/`, test fixtures liên quan |
-| WS3 Inference & Demo | `OPEN` | `M1-WS3-02`, `M1-WS3-03` | `src/fftformer_lab/inference/`, `src/fftformer_lab/app/` |
-| WS4 Evaluation & Integration | `RESERVED` — ưu tiên Tech Lead `cuongdso` | `M1-WS4-02` đến `M1-WS4-04` | `src/fftformer_lab/evaluation/`, `configs/`, `experiments/`, integration tests |
-
-`OPEN` không có nghĩa hai người được làm cùng một workstream. Thành viên chưa có phân công trao đổi với nhóm để chọn **một** workstream OPEN; sau khi thống nhất, cập nhật Owner trong [ownership](docs/ownership.md). WS4 là reservation ưu tiên của Tech Lead, không là tuyên bố rằng thành viên khác đã đồng ý hay đã được gán việc.
+Xem owner và phạm vi hiện hành trong [ownership](docs/ownership.md). Với task mới, thống nhất phạm vi và người phụ trách với nhóm trước khi triển khai.
 
 ### Quy trình nhận việc gọn nhẹ
 
-1. Xem bảng `OPEN`/`RESERVED` trong [ownership](docs/ownership.md) và trao đổi trong nhóm để tránh chọn trùng.
+1. Đối chiếu [ownership](docs/ownership.md) và trao đổi trong nhóm để tránh chọn trùng.
 2. Người nhận ghi tên hoặc GitHub username của mình vào cột Owner cho WS đã chọn; nếu chưa biết reviewer, giữ `TBD` và chốt trong PR.
-3. Chọn entry task ID từ [backlog](docs/backlog.md), đọc contract/module guide, rồi tạo feature branch từ `main`.
+3. Đối chiếu task ID với [backlog](docs/backlog.md), đọc contract và module guide, rồi tạo branch từ `main`.
 4. Nếu có dependency chưa xong, làm phần độc lập bằng fixture/mock theo contract hoặc báo blocker cho nhóm/Tech Lead; không tự đổi interface để unblock.
 
 Không cần GitHub Issue để bắt đầu code. Bảng ownership cùng task ID trong backlog là trạng thái phân công tối thiểu; mọi người có trách nhiệm cập nhật bảng này trước khi tạo branch. WS4 chỉ do Tech Lead mở scope hoặc ủy quyền rõ ràng.
@@ -58,7 +51,7 @@ Trước khi code, người nhận phải xác định: task ID; contracts; depe
 
 Handoff tối thiểu gồm: task ID, files/module đã đổi, interface thay đổi (`Không` nếu không có), commands và kết quả test thực tế, limitation/`UNVERIFIED`, commit SHA, PR URL và dependency/next step. Không nghiệm thu chỉ bằng mô tả hoặc README.
 
-## Workstream instructions and Definition of Done
+## Phạm vi và tiêu chí bàn giao M1 theo workstream
 
 ### WS1 — Model & Architecture
 

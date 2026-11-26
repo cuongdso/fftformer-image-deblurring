@@ -1,6 +1,6 @@
 # Evaluation
 
-**Trạng thái:** không có metric group nào đã chạy ở M0; không có PSNR/SSIM của nhóm.
+**Trạng thái:** tài liệu này ghi lại audit giao thức upstream. WS4 đã chạy PSNR/SSIM theo `group-basicsr-cpu` trên fixture tổng hợp. Các điểm benchmark theo giao thức upstream và RealBlur official vẫn `UNVERIFIED`. [Đánh giá của nhóm](../modules/evaluation.md)
 
 ## Điều upstream khai báo
 
