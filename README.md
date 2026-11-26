@@ -2,7 +2,7 @@
 
 Repository học thuật của nhóm cho bài tập lớn môn Xử lý ảnh, tập trung vào việc tìm hiểu và thực nghiệm phương pháp **FFTformer** cho bài toán khử mờ ảnh (*image deblurring*).
 
-> **Trạng thái trên `main`.** Pipeline M1 của nhóm đã tích hợp WS1–WS4: nạp checkpoint, đọc ảnh và manifest, CLI khử mờ, đánh giá PSNR/SSIM và ghi metadata. Forward bằng checkpoint GoPro đã được kiểm chứng qua CLI nhóm trên CPU và CUDA. Lượt kiểm chứng CUDA dùng NVIDIA T1200 Laptop GPU và PyTorch 2.11.0+cu128. Benchmark đầy đủ GoPro/RealBlur vẫn `UNVERIFIED`. [Trạng thái và bằng chứng](docs/project-status.md)
+> **Trạng thái trên `main`.** Pipeline M1 của nhóm đã tích hợp WS1–WS4: nạp checkpoint, đọc ảnh và manifest, CLI khử mờ, đánh giá PSNR/SSIM và ghi metadata. Forward bằng checkpoint GoPro đã được kiểm chứng qua CLI nhóm trên CPU và CUDA. Lượt kiểm chứng CUDA dùng NVIDIA T1200 Laptop GPU và PyTorch 2.11.0+cu128. Benchmark đầy đủ GoPro/RealBlur có thể bổ sung sau và hiện vẫn `UNVERIFIED`. [Trạng thái và bằng chứng](docs/project-status.md)
 
 ## Bài toán Image Deblurring
 
@@ -105,6 +105,12 @@ File ví dụ dùng để kiểm tra cấu hình. Sao chép thành `configs/exam
 ```powershell
 .\.venv\Scripts\python.exe -m fftformer_lab.evaluation.cli run configs/examples/evaluation-local.json
 ```
+
+## Ôn vấn đáp và thuyết trình
+
+1. **Phương pháp.** Giải thích bài toán khử mờ và vai trò của FSAS, DFFN trong kiến trúc FFTformer. [Phân tích kiến trúc mô hình](docs/research/fftformer-architecture.md)
+2. **Luồng chạy.** Theo dõi ảnh RGB qua loader, reflection padding tới bội 32, forward FFTformer, crop về kích thước gốc và lưu ảnh cùng metadata. [Hướng dẫn suy luận](docs/modules/inference.md)
+3. **Kết quả.** Trình bày lượt chạy CUDA với checkpoint GoPro và phạm vi các phép đo PSNR/SSIM trên fixture. Khi có thêm số liệu trên cả tập test, ghi rõ split, checkpoint và giao thức chấm. [Bằng chứng runtime](docs/project-status.md) · [Hướng dẫn đánh giá](docs/reproduction/evaluation.md)
 
 ## Kiểm tra và tài liệu
 

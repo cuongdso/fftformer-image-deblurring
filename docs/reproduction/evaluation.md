@@ -15,7 +15,12 @@ Do hai con đường này có thể khác protocol, không được dùng metric
 3. Dataset split và checkpoint identity được ghi traceable.
 4. Báo cáo ghi rõ source: paper / group-measured / `UNVERIFIED`.
 
-## Template ghi nhận kết quả (PLANNED)
+## Benchmark bổ sung
+
+- **GoPro.** Dùng split test, checkpoint GoPro và cặp prediction/GT cùng tên. Ghi giao thức đã dùng. Kết quả từ CLI nhóm với `group-basicsr-cpu` được báo cáo theo giao thức của nhóm. Khi đối chiếu kết quả upstream, kiểm tra cấu hình BasicSR, cách lượng tử hóa và thiết lập SSIM trước khi so điểm. [Nguồn dữ liệu GoPro](https://seungjunnah.github.io/Datasets/gopro) · [Metric protocols](../ws4/metric-protocols.md)
+- **RealBlur.** Xử lý riêng RealBlur-J và RealBlur-R, xác minh checkpoint cho từng split và chạy evaluator chính thức có căn chỉnh ECC. [RealBlur Evaluation](https://github.com/rimchang/RealBlur#evaluation)
+
+## Mẫu ghi nhận kết quả
 
 ```text
 benchmark + split:

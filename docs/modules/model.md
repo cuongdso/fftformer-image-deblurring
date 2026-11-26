@@ -77,7 +77,7 @@ Remove-Item Env:FFTFORMER_RUN_MODEL_TESTS
 - [16 model tests opt-in](../../tests/model/test_model_adapter.py): constructor metadata/eval, shape `32x32`, `64x96`, batch 2, so sánh đầu ra với model upstream, input không bị sửa, các đầu vào sai và output lỗi. Bốn test hồi quy kiểm tra caller mặc định float64, device meta, kết hợp cả hai và phục hồi defaults khi constructor thất bại. Kiểm tra không clamp và truyền lỗi dùng mock có tên rõ trong test.
 - 1 test tooling có sẵn trong `tests/unit/test_check_env.py`.
 
-Model tests WS1-02 tạo model từ source upstream đã pin bằng trọng số ngẫu nhiên, không đọc checkpoint hoặc dataset. CUDA unavailable/index tests dùng mock; **CUDA forward vẫn `UNVERIFIED`**. Tại bản WS1-02 sau sửa lỗi defaults, CI mặc định chạy 14 test nhẹ và skip 16 model tests; không cần submodule/PyTorch để chạy nhóm nhẹ.
+Model tests WS1-02 tạo model từ source upstream đã pin bằng trọng số ngẫu nhiên, không đọc checkpoint hoặc dataset. Các ca kiểm tra CUDA unavailable/index dùng mock trong đợt WS1-02. Tại bản WS1-02 sau sửa lỗi defaults, CI mặc định chạy 14 test nhẹ và skip 16 model tests; không cần submodule/PyTorch để chạy nhóm nhẹ.
 
 ## WS1-03 — Strict checkpoint loader
 
@@ -130,4 +130,4 @@ Chỉ kết luận tương thích cho GoPro checkpoint SHA-256 `336717b7c4e97b66
 
 ## Phần còn lại
 
-WS3 tiếp tục sở hữu pad/crop, orchestration, CLI và serialize theo C-02/C-04. **CUDA forward, checkpoint RealBlur, benchmark chất lượng và training vẫn `UNVERIFIED`/chưa chạy.** Các kết quả trên chưa phải baseline reproduction. Công việc WS1-02/03 đã `DONE` và API đã có trong `main` để WS3/WS4 sử dụng theo dependency của từng task.
+WS3 sở hữu pad/crop, điều phối CLI và lưu ảnh theo C-02/C-04. Đợt kiểm thử WS1-03 dùng CPU. Lượt kiểm chứng sau đó dùng checkpoint GoPro thật qua CLI WS3 trên CUDA. Checkpoint RealBlur và benchmark đầy đủ GoPro/RealBlur vẫn `UNVERIFIED`. [Trạng thái và bằng chứng CUDA](../project-status.md#m1--ws3-inference-pipeline-core-và-cli-orchestration)

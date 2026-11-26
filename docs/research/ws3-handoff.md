@@ -56,5 +56,5 @@ python -m compileall -q scripts src tests
 
 ## Hạn chế đã công bố
 
-- `UNVERIFIED`: CUDA inference, nạp checkpoint thật trên GPU, benchmark chất lượng PSNR/SSIM, và training.
+- Bằng chứng bàn giao WS3 ghi lại bộ ca CPU. Lượt kiểm chứng sau đó đã chạy CLI với checkpoint GoPro thật trên CUDA. Benchmark PSNR/SSIM toàn tập vẫn `UNVERIFIED`. [Trạng thái dự án](../project-status.md)
 - Mặc định CLI sử dụng `MockModel` khi không truyền đường dẫn checkpoint; khi muốn chạy checkpoint thật cần chỉ định `--checkpoint` và `--architecture-file` hợp lệ.

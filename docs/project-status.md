@@ -90,8 +90,7 @@ Tại lần kiểm tra ngày 16/11/2026, `origin/main` ở `32d3a2e` và chứa 
 - **Ảnh tác giả đã kiểm:** Flower/Istanbul (hai pair RGB 1280x720) từ repo GoPro
   chính thức, tổng 5,016,042 bytes; paired/non-GT outputs và source hashes qua.
   Xem [dataset audit](research/ws2-dataset-audit.md) cho nguồn, terms và layout.
-- **Giới hạn:** chưa kiểm toàn bộ GoPro/RealBlur split, CUDA, LMDB, training hoặc
-  quality benchmark. Không suy đoán split/CRF của các ảnh ví dụ.
+- **Phạm vi kiểm thử WS2 ngày 18/11/2026:** fixture và smoke CPU. Toàn bộ split GoPro/RealBlur, LMDB, training và benchmark chất lượng nằm ngoài lần kiểm thử này. Không suy đoán split/CRF của các ảnh ví dụ.
 - [Data guide](modules/data.md), [handoff](research/ws2-handoff.md) và
   [runtime evidence](research/ws2-runtime-evidence.json) ghi API, lệnh, phạm vi và
   fingerprint source/test/fixture của bản local.

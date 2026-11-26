@@ -68,6 +68,6 @@ WS1-02 đã merge trước WS1-03; `main` tại `32d3a2e` chứa toàn bộ bả
 
 ## Hạn chế đã công bố
 
-- `UNVERIFIED`: CUDA forward, checkpoint RealBlur, benchmark PSNR/SSIM, full baseline reproduction, training và pipeline liên workstream. Các phần này không thuộc acceptance criteria còn thiếu của ba task WS1 hiện tại.
+- Phạm vi bàn giao WS1 gồm các ca CPU. Lượt kiểm chứng CUDA với checkpoint GoPro được bổ sung sau khi tích hợp WS3. Checkpoint RealBlur và benchmark PSNR/SSIM toàn tập vẫn `UNVERIFIED`. [Trạng thái dự án](../project-status.md)
 - Compatibility chỉ được xác nhận cho GoPro artifact/config/device nêu trên. Forward dùng tensor synthetic; không suy ra chất lượng khử mờ trên dataset.
 - Source architecture phải giữ nguyên bytes LF để khớp fingerprint đã audit. Đường dẫn source/checkpoint được consumer cung cấp tường minh.
