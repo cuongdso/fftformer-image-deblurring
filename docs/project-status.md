@@ -9,7 +9,7 @@
 | WS3 Inference | `DONE` — pipeline và CLI ảnh đơn/thư mục/manifest | [PR #9](https://github.com/cuongdso/fftformer-image-deblurring/pull/9), `c47d58d` |
 | WS4 Evaluation | `DONE` — PSNR/SSIM, cấu hình, CLI và kiểm thử tích hợp | [PR #10](https://github.com/cuongdso/fftformer-image-deblurring/pull/10), `dfd1d13` |
 
-Bằng chứng runtime gồm GoPro strict load/forward trên CPU qua API nhóm, smoke WS2→WS1→WS3 với ảnh tổng hợp và kiểm thử WS2→WS3→WS4 bằng `MockModel`. Tái hiện benchmark đầy đủ GoPro/RealBlur, chạy `test.py` upstream và CUDA forward vẫn `UNVERIFIED`. Training và demo UI nằm ngoài phần triển khai đã merge.
+Bằng chứng runtime gồm GoPro strict load/forward trên CPU qua API nhóm, GoPro forward trên CUDA qua CLI nhóm, smoke WS2→WS1→WS3 với ảnh tổng hợp và kiểm thử WS2→WS3→WS4 bằng `MockModel`. Tái hiện benchmark đầy đủ GoPro/RealBlur và chạy `test.py` upstream vẫn `UNVERIFIED`. Training và demo UI nằm ngoài phần triển khai đã merge.
 
 ## M0 — Repository Foundation
 
@@ -67,7 +67,7 @@ Tại lần kiểm tra ngày 16/11/2026, `origin/main` ở `32d3a2e` và chứa 
 - **Đã có:** `load_model` với raw tensor state-dict schema validation, key/shape/dtype checks, `weights_only=True`, `map_location` theo device đã resolve và strict load; checkpoint identity ghi trong metadata của adapter ở `eval()`.
 - **Evidence sau sửa lỗi review:** `python -B scripts/ws1_03_verify.py --repo . --output docs/research/ws1-03-runtime-evidence.json` — 55/55 test thành công trên CPU, gồm hồi quy dtype/device, GoPro thật dưới caller defaults khác và 8 test reporter/subtest, bao gồm subtest trùng nhãn. [JSON](research/ws1-03-runtime-evidence.json) ghi từng test và metadata/hash thực tế. Chạy `python -B -S -m unittest discover -s tests -p "test_*.py"`: 22 test qua, 33 test opt-in được skip.
 - **Artifact:** GoPro checkpoint sẵn có trong upstream submodule, SHA-256 `336717b7c4e97b66af112cc7878106cb185b698bd872c2a8247911507540b2a3`; strict load + forward hai shape qua API nhóm. Fixture khác là Conv2d mock tự tạo, không phải weights FFTformer. Không thêm dataset/checkpoint vào Git nhóm.
-- **Giới hạn:** CUDA forward, RealBlur checkpoint, benchmark chất lượng và training chưa xác minh/chưa chạy. Không thay đổi contracts hoặc upstream source/pin.
+- **Phạm vi lần kiểm chứng WS1-03:** CPU với checkpoint GoPro. Lượt CUDA sau đó được ghi trong mục WS3 bên dưới. Checkpoint RealBlur, benchmark chất lượng và training vẫn chưa được xác minh.
 - **Bàn giao:** Owner `DucHai27`; [hồ sơ WS1-01/02/03](research/ws1-handoff.md) có files, API, commands/results, PR/merge commit và CI. API WS1 đã có trong `main` để WS3/WS4 sử dụng theo dependency của từng task.
 
 ## M1 — WS2 image boundary và dataset loader
@@ -103,7 +103,8 @@ Tại lần kiểm tra ngày 16/11/2026, `origin/main` ở `32d3a2e` và chứa 
 - **Trạng thái:** `M1-WS3-02` và `M1-WS3-03` đã merge qua [PR #9](https://github.com/cuongdso/fftformer-image-deblurring/pull/9), commit `c47d58d`.
 - **Đã có:** `InferencePipeline`, `InferenceRequest`, `InferenceResult`, `PaddingMetadata`, `MockModel`, `write_image` và CLI runner (`cli.py`, `__main__.py`) trong `src/fftformer_lab/inference/`; reflection padding bội 32 ở cạnh phải/đáy, unpad phục hồi spatial extent gốc $H \times W$, clamp $[0, 1]$, xử lý tuần tự batch bảo toàn sample ID, đo thời gian thực thi (giây); CLI hỗ trợ ảnh đơn lẻ (`--input`), thư mục ảnh (`--input-dir`) và dataset manifest của WS2 (`--manifest`), hỗ trợ lưu metadata JSON (`--save-metadata`).
 - **Evidence ngày 18/11/2026:** `python -B scripts/ws3_verify.py --repo . --output docs/research/ws3-02-runtime-evidence.json` — 57/57 tests thành công trên CPU trong 0.23s, gồm 10 pure tests (không cần PyTorch), 10 pipeline integration tests, 22 contract enforcement tests và 15 CLI/IO tests. Toàn bộ mã hash file được lưu tại [JSON](research/ws3-02-runtime-evidence.json). Chạy full test suite toàn repository: 152 tests (119 qua trên CPU, 33 opt-in tests skip).
-- **Giới hạn:** CPU mock pipeline, image I/O, reflection padding và CLI orchestration; chưa chạy CUDA forward, chưa nạp weights thật của FFTformer trên GPU (cần GPU và baseline checkpoint reproduction).
+- **Kiểm chứng CUDA ngày 26/11/2026:** Chạy `python -m fftformer_lab.inference --input data/blur.png --output results/restored.png --checkpoint <đường-dẫn-checkpoint-GoPro> --device cuda --save-metadata` trong thư mục tạm với tệp kiến trúc từ submodule pin `01306b5…` và checkpoint có SHA-256 như mục WS1-03. Với PyTorch `2.11.0+cu128`, CUDA `12.8` và NVIDIA T1200 Laptop GPU, CLI xử lý ảnh RGB tổng hợp 33×35, pad lên 64×64, lưu ảnh RGB 33×35 và ghi `device=cuda:0`, `is_mock=false`.
+- **Phạm vi:** lượt CUDA trên dùng một ảnh tổng hợp. Benchmark chất lượng trên bộ test GoPro/RealBlur vẫn `UNVERIFIED`.
 - **Bàn giao:** [hồ sơ WS3](research/ws3-handoff.md) có đầy đủ API, files, commands và ranh giới cho consumer WS4.
 ## M1 — WS4-02 Evaluation Engine
 
@@ -124,7 +125,7 @@ Tại lần kiểm tra ngày 16/11/2026, `origin/main` ở `32d3a2e` và chứa 
 
 - **Trạng thái:** `DONE`, đã merge qua [PR #10](https://github.com/cuongdso/fftformer-image-deblurring/pull/10), commit `dfd1d13`.
 - **Đã có:** integration CPU dùng public WS2 manifest/dataset, WS3 pipeline/MockModel và WS4 metric engine trên paired synthetic RGB files; kiểm WS3 padding/crop, batch order, exclusions, errors và provenance mock.
-- **Giới hạn:** `MockModel` không phải FFTformer; chưa chạy WS1 checkpoint/model thật qua pipeline trong integration gate, CUDA, benchmark hoặc RealBlur official evaluator.
+- **Giới hạn:** `MockModel` không phải FFTformer; integration gate dùng fixture CPU. Lượt CUDA với checkpoint GoPro được ghi riêng ở mục WS3. Benchmark và RealBlur official evaluator vẫn `UNVERIFIED`.
 
 ## Milestone đề xuất trong kế hoạch ban đầu
 

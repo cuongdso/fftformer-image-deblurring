@@ -2,7 +2,7 @@
 
 Repository học thuật của nhóm cho bài tập lớn môn Xử lý ảnh, tập trung vào việc tìm hiểu và thực nghiệm phương pháp **FFTformer** cho bài toán khử mờ ảnh (*image deblurring*).
 
-> **Trạng thái trên `main`.** Pipeline M1 của nhóm đã tích hợp WS1–WS4: nạp checkpoint, đọc ảnh và manifest, CLI khử mờ, đánh giá PSNR/SSIM và ghi metadata. Hồ sơ hiện có ghi nhận strict load và forward checkpoint GoPro trên CPU, cùng kiểm thử tích hợp bằng `MockModel` trên ảnh tổng hợp. Benchmark đầy đủ GoPro/RealBlur và CUDA forward vẫn `UNVERIFIED`. [Trạng thái và bằng chứng](docs/project-status.md)
+> **Trạng thái trên `main`.** Pipeline M1 của nhóm đã tích hợp WS1–WS4: nạp checkpoint, đọc ảnh và manifest, CLI khử mờ, đánh giá PSNR/SSIM và ghi metadata. Forward bằng checkpoint GoPro đã được kiểm chứng qua CLI nhóm trên CPU và CUDA. Lượt kiểm chứng CUDA dùng NVIDIA T1200 Laptop GPU và PyTorch 2.11.0+cu128. Benchmark đầy đủ GoPro/RealBlur vẫn `UNVERIFIED`. [Trạng thái và bằng chứng](docs/project-status.md)
 
 ## Bài toán Image Deblurring
 
@@ -91,7 +91,7 @@ python -m venv .venv
     --save-metadata
 ```
 
-Thay `data/blur.png` bằng đường dẫn ảnh của bạn. CLI mặc định đọc kiến trúc từ submodule đã khởi tạo. Nếu dùng checkpoint đã lưu riêng, thay đường dẫn `--checkpoint` tương ứng. Kết quả gồm `results/restored.png` và `results/restored_metadata.json`. Khi chạy với `--mock` và bỏ đối số `--checkpoint`, CLI dùng mô hình giả lập để kiểm tra luồng đọc/ghi ảnh. Chế độ thư mục và manifest được mô tả trong [hướng dẫn suy luận](docs/modules/inference.md).
+Thay `data/blur.png` bằng đường dẫn ảnh của bạn. CLI mặc định đọc kiến trúc từ submodule đã khởi tạo. Nếu dùng checkpoint đã lưu riêng, thay đường dẫn `--checkpoint` tương ứng. Kết quả gồm `results/restored.png` và `results/restored_metadata.json`. Khi chạy với `--mock` và bỏ đối số `--checkpoint`, CLI dùng mô hình giả lập để kiểm tra luồng đọc/ghi ảnh. Để chạy trên GPU, đổi `--device cpu` thành `--device cuda` trong môi trường có PyTorch hỗ trợ CUDA. Chế độ thư mục và manifest được mô tả trong [hướng dẫn suy luận](docs/modules/inference.md).
 
 ## Đánh giá ảnh đã khôi phục
 
